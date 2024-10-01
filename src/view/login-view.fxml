@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
-   <children>
-      <Label layoutX="211.0" layoutY="188.0" prefHeight="27.0" prefWidth="93.0" text="Username:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="211.0" layoutY="266.0" prefHeight="27.0" prefWidth="93.0" text="Password:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="sign_in_button" layoutX="520.0" layoutY="313.0" mnemonicParsing="false" onAction="#on_sign_in" prefHeight="25.0" prefWidth="78.0" text="Sign In" />
-      <PasswordField fx:id="password_text_box" layoutX="304.0" layoutY="267.0" prefHeight="25.0" prefWidth="294.0" />
-      <TextField fx:id="username_text_box" layoutX="304.0" layoutY="189.0" prefHeight="25.0" prefWidth="294.0" />
-      <Label layoutX="520.0" layoutY="453.0" prefHeight="33.0" prefWidth="66.0" text="Location:">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <Label fx:id="location_code" layoutX="583.0" layoutY="453.0" prefHeight="33.0" prefWidth="253.0" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-   </children>
-</AnchorPane>
+
+<Scene xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <root>
+      <AnchorPane prefHeight="500.0" prefWidth="840.0">
+         <children>
+            <Label fx:id="username_label" layoutX="211.0" layoutY="188.0" prefHeight="27.0" prefWidth="93.0" text="Username:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="password_label" layoutX="211.0" layoutY="266.0" prefHeight="27.0" prefWidth="93.0" text="Password:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="sign_in_button" layoutX="520.0" layoutY="313.0" mnemonicParsing="false" onAction="#on_sign_in" prefHeight="25.0" prefWidth="78.0" text="Sign In" />
+            <PasswordField fx:id="password_text_box" layoutX="304.0" layoutY="267.0" prefHeight="25.0" prefWidth="294.0" />
+            <TextField fx:id="username_text_box" layoutX="304.0" layoutY="189.0" prefHeight="25.0" prefWidth="294.0" />
+            <Label fx:id="location_label" layoutX="520.0" layoutY="453.0" prefHeight="33.0" prefWidth="66.0" text="Location:">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="location_code" layoutX="583.0" layoutY="453.0" prefHeight="33.0" prefWidth="253.0" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </root>
+</Scene>

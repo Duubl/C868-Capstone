@@ -9,17 +9,19 @@ import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
 
-    public static ZoneId zone;
-    public static Locale locale = Locale.getDefault();
+    private static ZoneId zone;
+    private static final Locale locale = Locale.getDefault();
+    public static ResourceBundle langBundle = ResourceBundle.getBundle("language/lang");
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 840, 500);
-        stage.setTitle("Log In");
+        stage.setTitle(langBundle.getString("LoginTitle"));
         stage.setScene(scene);
         stage.show();
     }

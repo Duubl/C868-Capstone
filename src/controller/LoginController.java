@@ -3,10 +3,16 @@ package controller;
 import helper.Alerts;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import main.Main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -51,7 +57,7 @@ public class LoginController implements Initializable {
      * @param actionEvent on pressing the sign-in button on the login page.
      */
 
-    public boolean on_sign_in(ActionEvent actionEvent) {
+    public boolean on_sign_in(ActionEvent actionEvent) throws IOException {
         if (checkUser()) {
             if (!password_text_box.getText().equals(password)) {
 
@@ -62,6 +68,11 @@ public class LoginController implements Initializable {
 
                 // Successful sign on
                 System.out.println("Sign in for user " + username + " successful.");
+                Parent root = FXMLLoader.load(getClass().getResource("/view/main-view.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
                 return true;
             }
         }

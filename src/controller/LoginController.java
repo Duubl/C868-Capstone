@@ -67,10 +67,11 @@ public class LoginController implements Initializable {
             } else {
 
                 // Successful sign on
-                System.out.println("Sign in for user " + username + " successful.");
+                System.out.println(Main.langBundle.getString("SignInSuccess"));
                 Parent root = FXMLLoader.load(getClass().getResource("/view/main-view.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                stage.setTitle(Main.langBundle.getString("Scheduler"));
                 stage.setScene(scene);
                 stage.show();
                 return true;
@@ -84,9 +85,9 @@ public class LoginController implements Initializable {
         location_code.setText(Main.getZoneID().toString());
 
         // Uses the language bundle to get the language to display.
-        username_label.setText(Main.langBundle.getString("Username"));
-        password_label.setText(Main.langBundle.getString("Password"));
+        username_label.setText(Main.langBundle.getString("Username") + ":");
+        password_label.setText(Main.langBundle.getString("Password") + ":");
         sign_in_button.setText(Main.langBundle.getString("Login"));
-        location_label.setText(Main.langBundle.getString("Location"));
+        location_label.setText(Main.langBundle.getString("Location") + ":");
         }
     }

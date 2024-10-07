@@ -3,27 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <children>
       <TabPane layoutX="1.0" layoutY="1.0" prefHeight="721.0" prefWidth="1281.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Appointments">
+          <Tab fx:id="appts_tab" text="Appointments">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <TableView layoutX="140.0" layoutY="14.0" prefHeight="500.0" prefWidth="1000.0">
                           <columns>
-                            <TableColumn minWidth="100.0" prefWidth="-1.0" text="Appointment ID" />
-                            <TableColumn minWidth="100.0" prefWidth="75.0" text="Title" />
-                              <TableColumn minWidth="100.0" prefWidth="-1.0" text="Description" />
-                              <TableColumn minWidth="100.0" prefWidth="-1.0" text="Location" />
-                              <TableColumn minWidth="100.0" prefWidth="-1.0" text="Contact" />
-                              <TableColumn minWidth="100.0" prefWidth="-1.0" text="Type" />
-                              <TableColumn minWidth="100.0" prefWidth="-1.0" text="Start Date/Time" />
-                              <TableColumn minWidth="100.0" prefWidth="-1.0" text="End Date/Time" />
-                              <TableColumn minWidth="100.0" prefWidth="-1.0" text="Customer ID" />
-                              <TableColumn minWidth="100.0" prefWidth="-1.0" text="User ID" />
+                            <TableColumn fx:id="appt_id_col" minWidth="100.0" prefWidth="-1.0" text="Appointment ID" />
+                            <TableColumn fx:id="appt_title_col" minWidth="100.0" prefWidth="75.0" text="Title" />
+                              <TableColumn fx:id="appt_desc_col" minWidth="100.0" prefWidth="-1.0" text="Description" />
+                              <TableColumn fx:id="appt_loc_col" minWidth="100.0" prefWidth="-1.0" text="Location" />
+                              <TableColumn fx:id="appt_contact_col" minWidth="100.0" prefWidth="-1.0" text="Contact" />
+                              <TableColumn fx:id="appt_type_col" minWidth="100.0" prefWidth="-1.0" text="Type" />
+                              <TableColumn fx:id="appt_start_col" minWidth="100.0" prefWidth="-1.0" text="Start Date/Time" />
+                              <TableColumn fx:id="appt_end_col" minWidth="100.0" prefWidth="-1.0" text="End Date/Time" />
+                              <TableColumn fx:id="appt_cust_id_col" minWidth="100.0" prefWidth="-1.0" text="Customer ID" />
+                              <TableColumn fx:id="appt_user_id_col" minWidth="100.0" prefWidth="-1.0" text="User ID" />
                           </columns>
                         </TableView>
                         <GridPane layoutX="14.0" layoutY="14.0" prefHeight="185.0" prefWidth="111.0">
@@ -36,28 +35,28 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Add" />
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Delete" GridPane.rowIndex="1" />
-                              <Button layoutX="10.0" layoutY="43.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Update" GridPane.rowIndex="2" />
+                              <Button fx:id="add_appt_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Add" />
+                              <Button fx:id="delete_appt_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Delete" GridPane.rowIndex="1" />
+                              <Button fx:id="update_appt_button" layoutX="10.0" layoutY="43.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Update" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Customers">
+          <Tab fx:id="customers_tab" text="Customers">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <TableView layoutX="140.0" layoutY="14.0" prefHeight="500.0" prefWidth="1000.0">
                            <columns>
-                              <TableColumn minWidth="143.0" prefWidth="-1.0" text="Customer ID" />
-                              <TableColumn minWidth="143.0" prefWidth="75.0" text="Customer Name" />
-                              <TableColumn minWidth="143.0" prefWidth="-1.0" text="Phone #" />
-                              <TableColumn minWidth="143.0" prefWidth="-1.0" text="Address" />
-                              <TableColumn minWidth="143.0" prefWidth="-1.0" text="Postal Code" />
-                              <TableColumn minWidth="143.0" prefWidth="-1.0" text="State/Province" />
-                              <TableColumn minWidth="142.0" prefWidth="-1.0" text="Country" />
+                              <TableColumn fx:id="cust_id_col" minWidth="143.0" prefWidth="-1.0" text="Customer ID" />
+                              <TableColumn fx:id="cust_name_col" minWidth="143.0" prefWidth="75.0" text="Customer Name" />
+                              <TableColumn fx:id="cust_phone_col" minWidth="143.0" prefWidth="-1.0" text="Phone #" />
+                              <TableColumn fx:id="cust_address_col" minWidth="143.0" prefWidth="-1.0" text="Address" />
+                              <TableColumn fx:id="cust_postal_col" minWidth="143.0" prefWidth="-1.0" text="Postal Code" />
+                              <TableColumn fx:id="cust_state_prov_col" minWidth="143.0" prefWidth="-1.0" text="State/Province" />
+                              <TableColumn fx:id="cust_country_col" minWidth="142.0" prefWidth="-1.0" text="Country" />
                            </columns>
                         </TableView>
                         <GridPane layoutX="14.0" layoutY="14.0" prefHeight="185.0" prefWidth="111.0">
@@ -70,16 +69,16 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Add" />
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Delete" GridPane.rowIndex="1" />
-                              <Button layoutX="10.0" layoutY="43.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Update" GridPane.rowIndex="2" />
+                              <Button fx:id="add_customer_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Add" />
+                              <Button fx:id="delete_customer_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Delete" GridPane.rowIndex="1" />
+                              <Button fx:id="update_customer_button" layoutX="10.0" layoutY="43.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Update" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Reporting">
+            <Tab fx:id="reporting_tab" text="Reporting">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>

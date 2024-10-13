@@ -57,7 +57,7 @@ public class LoginController implements Initializable {
      * @param actionEvent on pressing the sign-in button on the login page.
      */
 
-    public boolean on_sign_in(ActionEvent actionEvent) throws IOException {
+    public boolean onSignIn(ActionEvent actionEvent) throws IOException {
         if (checkUser()) {
             if (!password_text_box.getText().equals(password)) {
 
@@ -72,6 +72,7 @@ public class LoginController implements Initializable {
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 stage.setTitle(Main.langBundle.getString("Scheduler"));
+                stage.setResizable(false);
                 stage.setScene(scene);
                 stage.show();
                 return true;

@@ -16,7 +16,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="sign_in_button" layoutX="520.0" layoutY="313.0" mnemonicParsing="false" onAction="#on_sign_in" prefHeight="25.0" prefWidth="78.0" text="Sign In" />
+      <Button fx:id="sign_in_button" layoutX="520.0" layoutY="313.0" mnemonicParsing="false" onAction="#onSignIn" prefHeight="25.0" prefWidth="78.0" text="Sign In" />
       <PasswordField fx:id="password_text_box" layoutX="304.0" layoutY="267.0" prefHeight="25.0" prefWidth="294.0" />
       <TextField fx:id="username_text_box" layoutX="304.0" layoutY="189.0" prefHeight="25.0" prefWidth="294.0" />
       <Label fx:id="location_label" layoutX="520.0" layoutY="453.0" prefHeight="33.0" prefWidth="66.0" text="Location:">

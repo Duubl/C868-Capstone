@@ -1,12 +1,19 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
+import javafx.stage.Stage;
 import main.Main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,6 +55,45 @@ public class GUIController implements Initializable {
     // Reporting tab
     @FXML private Tab reporting_tab;
 
+    /**
+     * Opens the add appointment stage on the add button press.
+     * @param actionEvent on pressing the add button.
+     * @throws IOException
+     */
+
+    public void onApptAdd(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/add-appt-view.fxml")));
+        stage.setScene(scene);
+        stage.setTitle(Main.langBundle.getString("AddAppointment"));
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    /**
+     * Modifies the selected appointment on modify button press and appointment is selected.
+     * @param actionEvent on pressing the modify button.
+     * @throws IOException
+     */
+
+    public void onApptModify(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/modify-appt-view.fxml")));
+        stage.setScene(scene);
+        stage.setTitle(Main.langBundle.getString("ModifyAppointment"));
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    /**
+     * Deletes the selected appointment on delete button press.
+     * @param actionEvent on pressing the delete button.
+     */
+
+    public void onApptDelete(ActionEvent actionEvent) {
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Localize appointments menu text
@@ -84,4 +130,5 @@ public class GUIController implements Initializable {
         // Localize reporting menu text
         reporting_tab.setText(Main.langBundle.getString("Reporting"));
     }
+
 }

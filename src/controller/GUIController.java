@@ -55,6 +55,10 @@ public class GUIController implements Initializable {
     // Reporting tab
     @FXML private Tab reporting_tab;
 
+    // Reporting buttons
+
+    // Appointment functions
+
     /**
      * Opens the add appointment stage on the add button press.
      * @param actionEvent on pressing the add button.
@@ -94,6 +98,32 @@ public class GUIController implements Initializable {
 
     }
 
+    // Customer functions
+
+    public void onCustomerAdd(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/add-customer-view.fxml")));
+        stage.setScene(scene);
+        stage.setTitle(Main.langBundle.getString("AddCustomer"));
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    public void onCustomerDelete(ActionEvent actionEvent) {
+
+    }
+
+    public void onCustomerModify(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/modify-customer-view.fxml")));
+        stage.setScene(scene);
+        stage.setTitle(Main.langBundle.getString("ModifyCustomer"));
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    // Reporting functions
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Localize appointments menu text
@@ -130,5 +160,4 @@ public class GUIController implements Initializable {
         // Localize reporting menu text
         reporting_tab.setText(Main.langBundle.getString("Reporting"));
     }
-
 }

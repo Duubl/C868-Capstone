@@ -69,9 +69,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Button fx:id="add_customer_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Add" />
-                              <Button fx:id="delete_customer_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Delete" GridPane.rowIndex="1" />
-                              <Button fx:id="update_customer_button" layoutX="10.0" layoutY="43.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="Update" GridPane.rowIndex="2" />
+                              <Button fx:id="add_customer_button" mnemonicParsing="false" onAction="#onCustomerAdd" prefHeight="25.0" prefWidth="112.0" text="Add" />
+                              <Button fx:id="delete_customer_button" mnemonicParsing="false" onAction="#onCustomerDelete" prefHeight="25.0" prefWidth="112.0" text="Delete" GridPane.rowIndex="1" />
+                              <Button fx:id="update_customer_button" layoutX="10.0" layoutY="43.0" mnemonicParsing="false" onAction="#onCustomerModify" prefHeight="25.0" prefWidth="110.0" text="Update" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children>

@@ -1,6 +1,7 @@
 package controller;
 
 import helper.Alerts;
+import helper.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +37,7 @@ public class LoginController implements Initializable {
      * @return true when a proper username has been entered, false if the username text box is empty or invalid.
      */
 
-    public boolean checkUser() {
+    public boolean checkUser() throws IOException {
         if (username_text_box.getText().isEmpty()) {
 
             // Blank username error
@@ -63,10 +64,12 @@ public class LoginController implements Initializable {
 
                 // Incorrect password
                 Alerts.getError(2);
+                Logger.logLogin(username_text_box.getText(), false);
                 return false;
             } else {
 
                 // Successful sign on
+                Logger.logLogin(username_text_box.getText(), true);
                 System.out.println(Main.langBundle.getString("SignInSuccess"));
                 Parent root = FXMLLoader.load(getClass().getResource("/view/main-view.fxml"));
                 Scene scene = new Scene(root);

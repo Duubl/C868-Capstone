@@ -2,12 +2,9 @@ package helper;
 
 import main.Main;
 
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Logger {

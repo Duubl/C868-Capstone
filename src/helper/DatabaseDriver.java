@@ -1,7 +1,6 @@
 package helper;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 
 public class DatabaseDriver {
@@ -21,7 +20,7 @@ public class DatabaseDriver {
 
     public static void openConnection() {
         try {
-            Class.forName(driver);
+            Class.forName(driver); // Locate driver
             connection = DriverManager.getConnection(jdbc_url, username, password); // Reference connection object
             System.out.println("Connection to " + database_name + " successful!");
         }
@@ -36,7 +35,7 @@ public class DatabaseDriver {
             System.out.println("Connection to " + database_name + " closed!");
         }
         catch (Exception e) {
-            System.out.println("Failure closing connection to " + jdbc_url);
+            System.out.println("Failure closing connection to " + database_name);
         }
     }
 

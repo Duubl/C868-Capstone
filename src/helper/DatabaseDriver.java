@@ -18,6 +18,13 @@ public class DatabaseDriver {
     private static final String username = "sqlUser"; // Username
     private static final String password = "Passw0rd!"; // Password
 
+    // If you can't connect, make sure the database is running.
+    // Run in services.msc look for MySQL80 and start the process.
+
+    /**
+     * Opens a connection to the local client_schedule database.
+     */
+
     public static void openConnection() {
         try {
             Class.forName(driver); // Locate driver
@@ -28,6 +35,10 @@ public class DatabaseDriver {
             System.out.println("Failure connecting to " + database_name);
         }
     }
+
+    /**
+     * Closes the connection to the local client_schedule database.
+     */
 
     public static void closeConnection() {
         try {

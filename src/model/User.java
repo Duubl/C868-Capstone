@@ -11,6 +11,11 @@ public class User {
     private LocalDateTime last_update;
     private String last_updated_by;
 
+    public User(int user_id, String username) {
+        this.user_id = user_id;
+        this.username = username;
+    }
+
     /**
      * Gets the user ID
      * @return user_id the user's ID

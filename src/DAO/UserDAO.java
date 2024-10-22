@@ -6,8 +6,6 @@ import helper.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.User;
-
-import javax.xml.transform.Result;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,8 +44,6 @@ public class UserDAO {
      * @return int of user id returned. -1 when no user is found
      */
 
-    // TODO: Provide error messages for incorrect username, password and for empty fields.
-
     public static int validateUser(String username, String password) throws IOException {
         if (!username.isEmpty()) {
             if (!password.isEmpty()) {
@@ -58,7 +54,7 @@ public class UserDAO {
                     result.next();
                     if (result.getString("User_Name").equals(username)) {
                         if (result.getString("Password").equals(password)) {
-                            // Logs the login success then returns the user id that was just signed into.
+                            // Logs the login success then returns the user id that was just signed in to.
                             Logger.logLogin(username, true);
                             return result.getInt("User_ID");
                         }

@@ -1,20 +1,23 @@
 package controller;
 
+import DAO.CustomerDAO;
+import model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class GUIController implements Initializable {
@@ -39,6 +42,7 @@ public class GUIController implements Initializable {
 
     // Customer tab
     @FXML private Tab customers_tab;
+    @FXML private TableView customer_table;
     @FXML private TableColumn cust_id_col;
     @FXML private TableColumn cust_name_col;
     @FXML private TableColumn cust_phone_col;
@@ -159,5 +163,19 @@ public class GUIController implements Initializable {
 
         // Localize reporting menu text
         reporting_tab.setText(Main.langBundle.getString("Reporting"));
+
+        // Load customer data into table
+        // TODO: Make work
+        try {
+            customer_table.setItems(CustomerDAO.getAllCustomers());
+            cust_id_col.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
+            cust_name_col.setCellValueFactory(new PropertyValueFactory<>("customer_name"));
+            cust_phone_col.setCellValueFactory(new PropertyValueFactory<>("customer_phone"));
+            cust_address_col.setCellValueFactory(new PropertyValueFactory<>("customer_address"));
+            cust_postal_col.setCellValueFactory(new PropertyValueFactory<>("customer_postal_code"));
+        } catch (SQLException e) {
+
+            throw new RuntimeException(e);
+        }
     }
 }

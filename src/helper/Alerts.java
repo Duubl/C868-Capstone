@@ -41,7 +41,7 @@ public class Alerts implements Initializable {
 
             case 4:
                 alert.setTitle(Main.langBundle.getString("Error"));
-                alert.setContentText(Main.langBundle.getString("ConnectFail"));
+                alert.setContentText(Main.langBundle.getString("LoadCustomerFail"));
                 alert.showAndWait();
                 break;
         }

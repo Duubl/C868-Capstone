@@ -3,6 +3,8 @@ package model;
 import java.time.LocalDateTime;
 
 public class Customer {
+
+    private int customer_id;
     private String customer_name;
     private String customer_address;
     private String customer_postal_code;
@@ -12,6 +14,31 @@ public class Customer {
     private LocalDateTime last_updated;
     private String last_updated_by;
     private int customer_division_id;
+
+    public Customer(int customer_id, String customer_name, String customer_address, String customer_postal, String customer_phone, LocalDateTime last_updated, String last_updated_by, int division_id) {
+        this.customer_id = customer_id;
+        this.customer_name = customer_name;
+        this.customer_address = customer_address;
+        this.customer_postal_code = customer_postal;
+        this.customer_phone = customer_phone;
+        this.last_updated = last_updated;
+        this.last_updated_by = last_updated_by;
+        this.customer_division_id = division_id;
+    }
+
+    /**
+     * Gets the customer ID
+     * @return customer_id
+     */
+
+    public int getCustomerID() { return customer_id; }
+
+    /**
+     * Sets the customer ID
+     * @return customer_id
+     */
+
+    public void setCustomerID(int customer_id) { this.customer_id = customer_id; }
 
     /**
      * Gets the customer name

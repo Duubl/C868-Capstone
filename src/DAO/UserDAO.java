@@ -1,11 +1,14 @@
 package DAO;
 
+import helper.Alerts;
 import helper.DatabaseDriver;
+import helper.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.User;
 
 import javax.xml.transform.Result;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,20 +48,35 @@ public class UserDAO {
 
     // TODO: Provide error messages for incorrect username, password and for empty fields.
 
-    public static int validateUser(String username, String password) {
-        try {
-            String query = "SELECT * FROM users WHERE User_Name = '" + username + "' AND Password = '" + password + "'";
-            PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
-            ResultSet result = statement.executeQuery();
-            result.next();
-            if (result.getString("User_Name").equals(username)) {
-                if (result.getString("Password").equals(password)) {
-                    return result.getInt("User_ID");
+    public static int validateUser(String username, String password) throws IOException {
+        if (!username.isEmpty()) {
+            if (!password.isEmpty()) {
+                try {
+                    String query = "SELECT * FROM users WHERE User_Name = '" + username + "' AND Password = '" + password + "'";
+                    PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+                    ResultSet result = statement.executeQuery();
+                    result.next();
+                    if (result.getString("User_Name").equals(username)) {
+                        if (result.getString("Password").equals(password)) {
+                            // Logs the login success then returns the user id that was just signed into.
+                            Logger.logLogin(username, true);
+                            return result.getInt("User_ID");
+                        }
+                    }
+                } catch (SQLException | IOException e) {
+                    // Incorrect login credentials. Gets an error then logs the failed login attempt.
+                    Alerts.getError(1);
+                    Logger.logLogin(username, false);
+                    throw new RuntimeException(e);
                 }
+                return -1;
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            // Blank username error
+            Alerts.getError(3);
+            return -1;
         }
+        // Blank password error
+        Alerts.getError(2);
         return -1;
     }
 }

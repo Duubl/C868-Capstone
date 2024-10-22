@@ -18,31 +18,30 @@ public class Alerts implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         switch(error) {
 
-            // Incorrect username error
+            // Incorrect login credentials
             case 1:
                 alert.setTitle(Main.langBundle.getString("Error"));
-                alert.setContentText(Main.langBundle.getString("WrongUser"));
-                alert.showAndWait();
-                break;
-
-            // Incorrect password for user
-            case 2:
-                alert.setTitle(Main.langBundle.getString("Error"));
-                alert.setContentText(Main.langBundle.getString("WrongPass"));
+                alert.setContentText(Main.langBundle.getString("IncorrectLogin"));
                 alert.showAndWait();
                 break;
 
             // Username is blank
-            case 3:
+            case 2:
                 alert.setTitle(Main.langBundle.getString("Error"));
                 alert.setContentText(Main.langBundle.getString("BlankUser"));
                 alert.showAndWait();
                 break;
 
             // Password is blank
-            case 4:
+            case 3:
                 alert.setTitle(Main.langBundle.getString("Error"));
                 alert.setContentText(Main.langBundle.getString("BlankPassword"));
+                alert.showAndWait();
+                break;
+
+            case 4:
+                alert.setTitle(Main.langBundle.getString("Error"));
+                alert.setContentText(Main.langBundle.getString("ConnectFail"));
                 alert.showAndWait();
                 break;
         }

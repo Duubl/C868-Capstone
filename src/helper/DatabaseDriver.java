@@ -32,6 +32,8 @@ public class DatabaseDriver {
             System.out.println("Connection to " + database_name + " successful!");
         }
         catch (Exception e) {
+            // Displays an error when connection fails
+            Alerts.getError(4);
             System.out.println("Failure connecting to " + database_name);
         }
     }

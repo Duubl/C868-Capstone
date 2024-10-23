@@ -1,6 +1,0 @@
-Attempted sign in with username: [test] result: [true] on [10-22-2024 06:05:32]
-Attempted sign in with username: [test] result: [true] on [10-22-2024 06:41:52]
-Attempted sign in with username: [test] result: [true] on [10-22-2024 06:47:38]
-Attempted sign in with username: [test] result: [true] on [10-22-2024 06:51:26]
-Attempted sign in with username: [test] result: [true] on [10-22-2024 06:53:58]
-Attempted sign in with username: [test] result: [true] on [10-22-2024 06:56:18]

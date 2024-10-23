@@ -14,8 +14,10 @@ public class Customer {
     private LocalDateTime last_updated;
     private String last_updated_by;
     private int customer_division_id;
+    private String division;
+    private String country;
 
-    public Customer(int customer_id, String customer_name, String customer_address, String customer_postal, String customer_phone, LocalDateTime last_updated, String last_updated_by, int division_id) {
+    public Customer(int customer_id, String customer_name, String customer_address, String customer_postal, String customer_phone, LocalDateTime last_updated, String last_updated_by, int division_id, String division, String country) {
         this.customer_id = customer_id;
         this.customer_name = customer_name;
         this.customer_address = customer_address;
@@ -24,6 +26,8 @@ public class Customer {
         this.last_updated = last_updated;
         this.last_updated_by = last_updated_by;
         this.customer_division_id = division_id;
+        this.division = division;
+        this.country = country;
     }
 
     /**
@@ -200,5 +204,41 @@ public class Customer {
 
     public void setCustomerDivisionID(int customer_division_id) {
         this.customer_division_id = customer_division_id;
+    }
+
+    /**
+     * Gets the customer's division
+     * @return division the division for the customer
+     */
+
+    public String getDivision() {
+        return division;
+    }
+
+    /**
+     * Sets the customer's division
+     * @param division the division for the customer
+     */
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
+
+    /**
+     * Gets the customer's country
+     * @return country the customer's country
+     */
+
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * Sets the customer's country
+     * @param country the country for the customer
+     */
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

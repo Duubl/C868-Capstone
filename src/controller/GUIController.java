@@ -164,17 +164,17 @@ public class GUIController implements Initializable {
         // Localize reporting menu text
         reporting_tab.setText(Main.langBundle.getString("Reporting"));
 
-        // Load customer data into table
-        // TODO: Make work
+        // Load customer data into customer table
         try {
             customer_table.setItems(CustomerDAO.getAllCustomers());
-            cust_id_col.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
-            cust_name_col.setCellValueFactory(new PropertyValueFactory<>("customer_name"));
-            cust_phone_col.setCellValueFactory(new PropertyValueFactory<>("customer_phone"));
-            cust_address_col.setCellValueFactory(new PropertyValueFactory<>("customer_address"));
-            cust_postal_col.setCellValueFactory(new PropertyValueFactory<>("customer_postal_code"));
+            cust_id_col.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+            cust_name_col.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+            cust_phone_col.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+            cust_address_col.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+            cust_postal_col.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+            cust_state_prov_col.setCellValueFactory(new PropertyValueFactory<>("division"));
+            cust_country_col.setCellValueFactory(new PropertyValueFactory<>("country"));
         } catch (SQLException e) {
-
             throw new RuntimeException(e);
         }
     }

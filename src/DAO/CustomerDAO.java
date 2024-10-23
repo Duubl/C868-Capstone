@@ -8,7 +8,6 @@ import model.Customer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class CustomerDAO {
@@ -20,7 +19,7 @@ public class CustomerDAO {
      */
 
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
-        String query = "SELECT * FROM customers";
+        String query = "SELECT * FROM customers INNER JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID INNER JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID";
         PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
         ResultSet result = statement.executeQuery();
 
@@ -35,7 +34,9 @@ public class CustomerDAO {
             LocalDateTime last_update = result.getTimestamp("Last_Update").toLocalDateTime();
             String last_updated_by = result.getString("Last_Updated_By");
             int division_id = result.getInt("Division_ID");
-            Customer customer = new Customer(customer_id, customer_name, customer_address, customer_postal, customer_phone, last_update, last_updated_by, division_id);
+            String division = result.getString("Division");
+            String country = result.getString("Country");
+            Customer customer = new Customer(customer_id, customer_name, customer_address, customer_postal, customer_phone, last_update, last_updated_by, division_id, division, country);
             customer_list.add(customer);
         }
         return customer_list;

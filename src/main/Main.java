@@ -17,6 +17,7 @@ public class Main extends Application {
     private static ZoneId zone;
     private static final Locale locale = Locale.getDefault();
     public static ResourceBundle langBundle = ResourceBundle.getBundle("language/lang");
+    private static int user_id;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -42,8 +43,27 @@ public class Main extends Application {
      * Gets the current user's language setting.
      * @return locale.
      */
+
     public static Locale getLocale() {
         return locale;
+    }
+
+    /**
+     * Gets the current user's user ID.
+     * @return user_id the current user's user ID.
+     */
+
+    public static int getUserID() {
+        return user_id;
+    }
+
+    /**
+     * Sets the current user's user ID.
+     * @param id the user id to be set.
+     */
+
+    public static void setUserID(int id) {
+        user_id = id;
     }
 
     public static void main(String[] args) {

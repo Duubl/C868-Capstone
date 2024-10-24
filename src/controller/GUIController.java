@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.AppointmentDAO;
 import DAO.CustomerDAO;
 import model.Customer;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ public class GUIController implements Initializable {
 
     // Appointments tab
     @FXML private Tab appts_tab;
+    @FXML private TableView appointment_table;
     @FXML private TableColumn appt_id_col;
     @FXML private TableColumn appt_title_col;
     @FXML private TableColumn appt_desc_col;
@@ -174,6 +176,23 @@ public class GUIController implements Initializable {
             cust_postal_col.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
             cust_state_prov_col.setCellValueFactory(new PropertyValueFactory<>("division"));
             cust_country_col.setCellValueFactory(new PropertyValueFactory<>("country"));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Load all appointment data for the user into the appointment table
+        try {
+            appointment_table.setItems(AppointmentDAO.getUserAppointments(Main.getUserID()));
+            appt_id_col.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+            appt_title_col.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+            appt_desc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));
+            appt_loc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
+            appt_contact_col.setCellValueFactory(new PropertyValueFactory<>("ContactID"));
+            appt_type_col.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
+            appt_start_col.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+            appt_end_col.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+            appt_cust_id_col.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+            appt_user_id_col.setCellValueFactory(new PropertyValueFactory<>("userID"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

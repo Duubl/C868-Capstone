@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Appointment {
@@ -10,9 +11,28 @@ public class Appointment {
     private String appointment_type;
     private LocalDateTime start_date_time;
     private LocalDateTime end_date_time;
+    private String created_by;
+    private LocalDateTime last_update;
+    private String last_updated_by;
     private int customer_id;
-    private int username;
+    private int user_id;
     private int contact_id;
+
+    public Appointment(int appointment_id, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, String created_by, LocalDateTime last_update, String last_updated_by, int customer_id, int user_id, int contact_id) {
+        this.appointment_id = appointment_id;
+        this.appointment_title = title;
+        this.appointment_description = description;
+        this.appointment_location = location;
+        this.appointment_type = type;
+        this.start_date_time = start;
+        this.end_date_time = end;
+        this.created_by = created_by;
+        this.last_update = last_update;
+        this.last_updated_by = last_updated_by;
+        this.customer_id = customer_id;
+        this.user_id = user_id;
+        this.contact_id = contact_id;
+    }
 
     /**
      * Gets the appointment ID
@@ -159,21 +179,21 @@ public class Appointment {
     }
 
     /**
-     * Gets the username
-     * @return username the username
+     * Gets the user id
+     * @return user_id the user id
      */
 
-    public int getUsername() {
-        return username;
+    public int getUserID() {
+        return user_id;
     }
 
     /**
-     * Sets the username
-     * @param username the username
+     * Sets the user id
+     * @param user_id the user id
      */
 
-    public void setUsername(int username) {
-        this.username = username;
+    public void setUserID(int user_id) {
+        this.user_id = user_id;
     }
 
     /**
@@ -192,5 +212,59 @@ public class Appointment {
 
     public void setContactID(int contact_id) {
         this.contact_id = contact_id;
+    }
+
+    /**
+     * Gets the name of the person who created the appointment
+     * @return created_by the name of the person who created the appointment
+     */
+
+    public String getCreatedBy() {
+        return created_by;
+    }
+
+    /**
+     * Sets the name of the person who created the appointment
+     * @param created_by the name of the person who created the appointment
+     */
+
+    public void setCreatedBy(String created_by) {
+        this.created_by = created_by;
+    }
+
+    /**
+     * Gets date and time of the person who last updated the appointment
+     * @return last_update the date and time when the appointment was last updated
+     */
+
+    public LocalDateTime getLastUpdate() {
+        return last_update;
+    }
+
+    /**
+     * Sets date and time of the person who last updated the appointment
+     * @param last_update the date and time when the appointment was last updated
+     */
+
+    public LocalDateTime setLastUpdate(LocalDateTime last_update) {
+        return this.last_update = last_update;
+    }
+
+    /**
+     * Gets the name of the person who last updated the appointment
+     * @return last_updated_by the name of the person who last updated the appointment
+     */
+
+    public String getLastUpdatedBy() {
+        return last_updated_by;
+    }
+
+    /**
+     * Sets the name of the person who last updated the appointment
+     * @param last_updated_by the name of the person who last updated the appointment
+     */
+
+    public void setLastUpdatedBy(String last_updated_by) {
+        this.last_updated_by = last_updated_by;
     }
 }

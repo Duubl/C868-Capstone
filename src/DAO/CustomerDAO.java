@@ -57,7 +57,6 @@ public class CustomerDAO {
      */
 
     // TODO: Get current user's username and input it as the last_updated_by value. Get current timestamp and update it as the last_update value.
-
     public static void updateCustomer(int customer_id, String name, String address, String postal, String phone, String last_updated_by, LocalDateTime last_update, int division_id) throws SQLException {
         String query = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Updated_By = ?, Last_Update = ?, Division_ID = ? WHERE Customer_ID = ?";
         PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);

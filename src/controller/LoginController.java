@@ -35,7 +35,6 @@ public class LoginController implements Initializable {
 
     public boolean onSignIn(ActionEvent actionEvent) throws IOException {
         if (UserDAO.validateUser(username_text_box.getText(), password_text_box.getText()) != -1) {
-
             System.out.println(Main.langBundle.getString("SignInSuccess"));
             Parent root = FXMLLoader.load(getClass().getResource("/view/main-view.fxml"));
             Scene scene = new Scene(root);

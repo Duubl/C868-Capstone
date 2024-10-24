@@ -5,6 +5,7 @@ import helper.DatabaseDriver;
 import helper.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import main.Main;
 import model.User;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -54,8 +55,12 @@ public class UserDAO {
                     result.next();
                     if (result.getString("User_Name").equals(username)) {
                         if (result.getString("Password").equals(password)) {
+
                             // Logs the login success then returns the user id that was just signed in to.
                             Logger.logLogin(username, true);
+
+                            // Sets the currently logged-in user's ID.
+                            Main.setUserID(result.getInt("User_ID"));
                             return result.getInt("User_ID");
                         }
                     }

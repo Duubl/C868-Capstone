@@ -8,9 +8,11 @@ import javafx.collections.ObservableList;
 import main.Main;
 import model.User;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class UserDAO {
 
@@ -28,8 +30,13 @@ public class UserDAO {
             while (result.next()) {
                 int user_id = result.getInt("User_ID");
                 String username = result.getString("User_Name");
+                String password = result.getString("Password");
+                Date create_date = result.getDate("Create_Date");
+                String created_by = result.getString("Created_By");
+                LocalDateTime last_update = result.getTimestamp("Last_Update").toLocalDateTime();
+                String last_updated_by = result.getString("Last_Updated_By");
 
-                User user = new User(user_id, username);
+                User user = new User(user_id, username, password, create_date, created_by, last_update, last_updated_by);
                 user_list.add(user);
             }
         } catch (SQLException e) {
@@ -59,8 +66,6 @@ public class UserDAO {
                             // Logs the login success then returns the user id that was just signed in to.
                             Logger.logLogin(username, true);
 
-                            // Sets the currently logged-in user's ID.
-                            Main.setUserID(result.getInt("User_ID"));
                             return result.getInt("User_ID");
                         }
                     }

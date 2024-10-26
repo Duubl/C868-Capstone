@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.User;
 
 import java.io.IOException;
 import java.time.ZoneId;
@@ -16,14 +17,14 @@ public class Main extends Application {
 
     private static ZoneId zone;
     private static final Locale locale = Locale.getDefault();
-    public static ResourceBundle langBundle = ResourceBundle.getBundle("language/lang");
-    private static int user_id;
+    public static ResourceBundle lang_bundle = ResourceBundle.getBundle("language/lang");
+    private static User current_user;
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 840, 500);
-        stage.setTitle(langBundle.getString("LoginTitle"));
+        stage.setTitle(lang_bundle.getString("LoginTitle"));
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
@@ -48,24 +49,13 @@ public class Main extends Application {
         return locale;
     }
 
-    /**
-     * Gets the current user's user ID.
-     * @return user_id the current user's user ID.
-     */
-
-    public static int getUserID() {
-        return user_id;
+    public static User getCurrentUser() {
+        return current_user;
     }
 
-    /**
-     * Sets the current user's user ID.
-     * @param id the user id to be set.
-     */
-
-    public static void setUserID(int id) {
-        user_id = id;
+    public static void setCurrentUser(User user) {
+        current_user = user;
     }
-
     public static void main(String[] args) {
         DatabaseDriver.openConnection();
         launch();

@@ -1,19 +1,25 @@
 package model;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class User {
     private int user_id;
     private String username;
     private String password;
-    private LocalDateTime create_date;
+    private Date create_date;
     private String created_by;
     private LocalDateTime last_update;
     private String last_updated_by;
 
-    public User(int user_id, String username) {
+    public User(int user_id, String username, String password, Date create_date, String created_by, LocalDateTime last_update, String last_updated_by) {
         this.user_id = user_id;
         this.username = username;
+        this.password = password;
+        this.create_date = create_date;
+        this.created_by = created_by;
+        this.last_update = last_update;
+        this.last_updated_by = last_updated_by;
     }
 
     /**
@@ -75,7 +81,7 @@ public class User {
      * @return create_date the date the user was created
      */
 
-    public LocalDateTime getCreateDate() {
+    public Date getCreateDate() {
         return create_date;
     }
 
@@ -84,7 +90,7 @@ public class User {
      * @param create_date the date the user was created
      */
 
-    public void setCreateDate(LocalDateTime create_date) {
+    public void setCreateDate(Date create_date) {
         this.create_date = create_date;
     }
 

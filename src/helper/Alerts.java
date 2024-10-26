@@ -20,28 +20,28 @@ public class Alerts implements Initializable {
 
             // Incorrect login credentials
             case 1:
-                alert.setTitle(Main.langBundle.getString("Error"));
-                alert.setContentText(Main.langBundle.getString("IncorrectLogin"));
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("IncorrectLogin"));
                 alert.showAndWait();
                 break;
 
             // Username is blank
             case 2:
-                alert.setTitle(Main.langBundle.getString("Error"));
-                alert.setContentText(Main.langBundle.getString("BlankUser"));
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("BlankUser"));
                 alert.showAndWait();
                 break;
 
             // Password is blank
             case 3:
-                alert.setTitle(Main.langBundle.getString("Error"));
-                alert.setContentText(Main.langBundle.getString("BlankPassword"));
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("BlankPassword"));
                 alert.showAndWait();
                 break;
 
             case 4:
-                alert.setTitle(Main.langBundle.getString("Error"));
-                alert.setContentText(Main.langBundle.getString("LoadCustomerFail"));
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("LoadCustomerFail"));
                 alert.showAndWait();
                 break;
         }

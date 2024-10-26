@@ -49,14 +49,14 @@ public class AddCustomerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        add_cust_label.setText(Main.langBundle.getString("AddCustomer"));
-        cust_name_label.setText(Main.langBundle.getString("CustName") + ":");
-        phone_label.setText(Main.langBundle.getString("Phone") + ":");
-        address_label.setText(Main.langBundle.getString("Address") + ":");
-        postal_label.setText(Main.langBundle.getString("Postal") + ":");
-        state_prov_label.setText(Main.langBundle.getString("StateProv") + ":");
-        country_label.setText(Main.langBundle.getString("Country") + ":");
-        close_button.setText(Main.langBundle.getString("Close"));
-        save_button.setText(Main.langBundle.getString("Save"));
+        add_cust_label.setText(Main.lang_bundle.getString("AddCustomer"));
+        cust_name_label.setText(Main.lang_bundle.getString("CustName") + ":");
+        phone_label.setText(Main.lang_bundle.getString("Phone") + ":");
+        address_label.setText(Main.lang_bundle.getString("Address") + ":");
+        postal_label.setText(Main.lang_bundle.getString("Postal") + ":");
+        state_prov_label.setText(Main.lang_bundle.getString("StateProv") + ":");
+        country_label.setText(Main.lang_bundle.getString("Country") + ":");
+        close_button.setText(Main.lang_bundle.getString("Close"));
+        save_button.setText(Main.lang_bundle.getString("Save"));
     }
 }

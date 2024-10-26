@@ -75,7 +75,7 @@ public class GUIController implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/add-appt-view.fxml")));
         stage.setScene(scene);
-        stage.setTitle(Main.langBundle.getString("AddAppointment"));
+        stage.setTitle(Main.lang_bundle.getString("AddAppointment"));
         stage.setResizable(false);
         stage.show();
     }
@@ -90,7 +90,7 @@ public class GUIController implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/modify-appt-view.fxml")));
         stage.setScene(scene);
-        stage.setTitle(Main.langBundle.getString("ModifyAppointment"));
+        stage.setTitle(Main.lang_bundle.getString("ModifyAppointment"));
         stage.setResizable(false);
         stage.show();
     }
@@ -110,7 +110,7 @@ public class GUIController implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/add-customer-view.fxml")));
         stage.setScene(scene);
-        stage.setTitle(Main.langBundle.getString("AddCustomer"));
+        stage.setTitle(Main.lang_bundle.getString("AddCustomer"));
         stage.setResizable(false);
         stage.show();
     }
@@ -123,7 +123,7 @@ public class GUIController implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/modify-customer-view.fxml")));
         stage.setScene(scene);
-        stage.setTitle(Main.langBundle.getString("ModifyCustomer"));
+        stage.setTitle(Main.lang_bundle.getString("ModifyCustomer"));
         stage.setResizable(false);
         stage.show();
     }
@@ -133,38 +133,38 @@ public class GUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Localize appointments menu text
-        appts_tab.setText(Main.langBundle.getString("Appointments"));
-        appt_id_col.setText(Main.langBundle.getString("ApptID"));
-        appt_title_col.setText(Main.langBundle.getString("Title"));
-        appt_desc_col.setText(Main.langBundle.getString("Desc"));
-        appt_loc_col.setText(Main.langBundle.getString("Location"));
-        appt_contact_col.setText(Main.langBundle.getString("Contact"));
-        appt_type_col.setText(Main.langBundle.getString("Type"));
-        appt_start_col.setText(Main.langBundle.getString("Start"));
-        appt_end_col.setText(Main.langBundle.getString("End"));
-        appt_cust_id_col.setText(Main.langBundle.getString("CustID"));
-        appt_user_id_col.setText(Main.langBundle.getString("UserID"));
+        appts_tab.setText(Main.lang_bundle.getString("Appointments"));
+        appt_id_col.setText(Main.lang_bundle.getString("ApptID"));
+        appt_title_col.setText(Main.lang_bundle.getString("Title"));
+        appt_desc_col.setText(Main.lang_bundle.getString("Desc"));
+        appt_loc_col.setText(Main.lang_bundle.getString("Location"));
+        appt_contact_col.setText(Main.lang_bundle.getString("Contact"));
+        appt_type_col.setText(Main.lang_bundle.getString("Type"));
+        appt_start_col.setText(Main.lang_bundle.getString("Start"));
+        appt_end_col.setText(Main.lang_bundle.getString("End"));
+        appt_cust_id_col.setText(Main.lang_bundle.getString("CustID"));
+        appt_user_id_col.setText(Main.lang_bundle.getString("UserID"));
 
-        add_appt_button.setText(Main.langBundle.getString("Add"));
-        delete_appt_button.setText(Main.langBundle.getString("Delete"));
-        update_appt_button.setText(Main.langBundle.getString("Update"));
+        add_appt_button.setText(Main.lang_bundle.getString("Add"));
+        delete_appt_button.setText(Main.lang_bundle.getString("Delete"));
+        update_appt_button.setText(Main.lang_bundle.getString("Update"));
 
         // Localize customers menu text
-        customers_tab.setText(Main.langBundle.getString("Customers"));
-        cust_id_col.setText(Main.langBundle.getString("CustID"));
-        cust_name_col.setText(Main.langBundle.getString("CustName"));
-        cust_phone_col.setText(Main.langBundle.getString("Phone"));
-        cust_address_col.setText(Main.langBundle.getString("Address"));
-        cust_postal_col.setText(Main.langBundle.getString("Postal"));
-        cust_state_prov_col.setText(Main.langBundle.getString("StateProv"));
-        cust_country_col.setText(Main.langBundle.getString("Country"));
+        customers_tab.setText(Main.lang_bundle.getString("Customers"));
+        cust_id_col.setText(Main.lang_bundle.getString("CustID"));
+        cust_name_col.setText(Main.lang_bundle.getString("CustName"));
+        cust_phone_col.setText(Main.lang_bundle.getString("Phone"));
+        cust_address_col.setText(Main.lang_bundle.getString("Address"));
+        cust_postal_col.setText(Main.lang_bundle.getString("Postal"));
+        cust_state_prov_col.setText(Main.lang_bundle.getString("StateProv"));
+        cust_country_col.setText(Main.lang_bundle.getString("Country"));
 
-        add_customer_button.setText(Main.langBundle.getString("Add"));
-        delete_customer_button.setText(Main.langBundle.getString("Delete"));
-        update_customer_button.setText(Main.langBundle.getString("Update"));
+        add_customer_button.setText(Main.lang_bundle.getString("Add"));
+        delete_customer_button.setText(Main.lang_bundle.getString("Delete"));
+        update_customer_button.setText(Main.lang_bundle.getString("Update"));
 
         // Localize reporting menu text
-        reporting_tab.setText(Main.langBundle.getString("Reporting"));
+        reporting_tab.setText(Main.lang_bundle.getString("Reporting"));
 
         // Load customer data into customer table
         try {
@@ -182,7 +182,7 @@ public class GUIController implements Initializable {
 
         // Load all appointment data for the user into the appointment table
         try {
-            appointment_table.setItems(AppointmentDAO.getUserAppointments(Main.getUserID()));
+            appointment_table.setItems(AppointmentDAO.getUserAppointments(Main.getCurrentUser().getUserID()));
             appt_id_col.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
             appt_title_col.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
             appt_desc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));

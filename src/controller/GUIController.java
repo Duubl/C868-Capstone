@@ -2,6 +2,7 @@ package controller;
 
 import DAO.AppointmentDAO;
 import DAO.CustomerDAO;
+import DAO.UserDAO;
 import model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -182,7 +183,7 @@ public class GUIController implements Initializable {
 
         // Load all appointment data for the user into the appointment table
         try {
-            appointment_table.setItems(AppointmentDAO.getUserAppointments(Main.getCurrentUser().getUserID()));
+            appointment_table.setItems(AppointmentDAO.getUserAppointments(UserDAO.getCurrentUser().getUserID()));
             appt_id_col.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
             appt_title_col.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
             appt_desc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));

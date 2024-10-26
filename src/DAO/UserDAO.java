@@ -16,6 +16,26 @@ import java.time.LocalDateTime;
 
 public class UserDAO {
 
+    private static User current_user;
+
+    /**
+     * Gets the current signed-in user
+     * @return current_user the currently signed in user
+     */
+
+    public static User getCurrentUser() {
+        return current_user;
+    }
+
+    /**
+     * Sets the currently signed in user
+     * @param user the user to be signed in
+     */
+
+    public static void setCurrentUser(User user) {
+        current_user = user;
+    }
+
     /**
      * Prepares a statement to get all users from the local database.
      * @return user_list a list of all users.

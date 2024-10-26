@@ -43,7 +43,7 @@ public class LoginController implements Initializable {
             ObservableList<User> user_list = UserDAO.getUserList();
             for (User user : user_list) {
                 if (user.getUserID() == user_id) {
-                    Main.setCurrentUser(user);
+                    UserDAO.setCurrentUser(user);
                 }
             }
             System.out.println(Main.lang_bundle.getString("SignInSuccess"));

@@ -18,7 +18,6 @@ public class Main extends Application {
     private static ZoneId zone;
     private static final Locale locale = Locale.getDefault();
     public static ResourceBundle lang_bundle = ResourceBundle.getBundle("language/lang");
-    private static User current_user;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -49,13 +48,6 @@ public class Main extends Application {
         return locale;
     }
 
-    public static User getCurrentUser() {
-        return current_user;
-    }
-
-    public static void setCurrentUser(User user) {
-        current_user = user;
-    }
     public static void main(String[] args) {
         DatabaseDriver.openConnection();
         launch();

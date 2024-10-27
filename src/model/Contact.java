@@ -5,6 +5,12 @@ public class Contact {
     private String contact_name;
     private String contact_email;
 
+    public Contact(int contact_id, String contact_name, String email) {
+        this.contact_id = contact_id;
+        this.contact_name = contact_name;
+        this.contact_email = email;
+    }
+
     /**
      * Gets the contact ID
      * @return contact_id the contact's ID

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class CustomerDAO {
 
@@ -50,22 +51,19 @@ public class CustomerDAO {
      * @param address the new address to be updated
      * @param postal the new postal to be updated
      * @param phone the new phone to be updated
-     * @param last_updated_by the last person who updated the contact
-     * @param last_update the new date of last update
      * @param division_id the new division id
      * @throws SQLException
      */
 
-    // TODO: Get current user's username and input it as the last_updated_by value. Get current timestamp and update it as the last_update value.
-    public static void updateCustomer(int customer_id, String name, String address, String postal, String phone, String last_updated_by, LocalDateTime last_update, int division_id) throws SQLException {
+    public static void updateCustomer(int customer_id, String name, String address, String postal, String phone, int division_id) throws SQLException {
         String query = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Updated_By = ?, Last_Update = ?, Division_ID = ? WHERE Customer_ID = ?";
         PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
         statement.setString(1, name);
         statement.setString(2, address);
         statement.setString(3, postal);
         statement.setString(4, phone);
-        statement.setString(5, last_updated_by);
-        statement.setTimestamp(6, Timestamp.valueOf(last_update));
+        statement.setString(5, UserDAO.getCurrentUser().getUsername());
+        statement.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
         statement.setInt(7, division_id);
         statement.setInt(8, customer_id);
         statement.executeUpdate();

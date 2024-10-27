@@ -4,14 +4,17 @@ import helper.DatabaseDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
-import model.FirstLevelDivision;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class CountryDAO {
+
+    /**
+     * Prepares a statement to get all countries from the local database.
+     * @return country_list a list of all countries.
+     */
 
     public static ObservableList<Country> getCountryList() {
         ObservableList<Country> country_list = FXCollections.observableArrayList();

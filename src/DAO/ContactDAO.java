@@ -4,14 +4,17 @@ import helper.DatabaseDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Contact;
-import model.Country;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 public class ContactDAO {
+
+    /**
+     * Prepares a statement to get all contacts from the local database.
+     * @return contact_list a list of all contacts.
+     */
+
     public static ObservableList<Contact> getCountryList() {
         ObservableList<Contact> contact_list = FXCollections.observableArrayList();
         try {

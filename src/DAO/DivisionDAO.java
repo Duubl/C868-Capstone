@@ -13,6 +13,11 @@ import java.time.LocalDateTime;
 
 public class DivisionDAO {
 
+    /**
+     * Prepares a statement to get all first level divisions from the database
+     * @return division_list a list of all first level divisions
+     */
+
     public static ObservableList<FirstLevelDivision> getDivisionList() {
         ObservableList<FirstLevelDivision> divisions_list = FXCollections.observableArrayList();
         try {

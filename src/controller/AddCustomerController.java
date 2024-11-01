@@ -64,14 +64,13 @@ public class AddCustomerController implements Initializable {
         try {
             state_prov_combo.setItems(DivisionDAO.getAllCountryDivisions(country));
             state_prov_combo.getSelectionModel().select(0);
+
             // Converter to show country name rather than object name.
             // Implementation found here: https://stackoverflow.com/questions/73084380/javafx-combobox-show-attribute-of-element
-
-            //TODO: Also automatically load divisions on first startup.
             state_prov_combo.setConverter(new StringConverter<FirstLevelDivision>() {
                 @Override
                 public String toString(FirstLevelDivision division) {
-                    return (division != null ) ? division.getDivisionName() : "";
+                    return (division != null) ? division.getDivisionName() : "";
                 }
 
                 @Override
@@ -103,7 +102,7 @@ public class AddCustomerController implements Initializable {
         country_combo.setConverter(new StringConverter<Country>() {
             @Override
             public String toString(Country country) {
-                return country.getCountryName();
+                return (country != null) ? country.getCountryName() : "";
             }
 
             @Override
@@ -111,6 +110,5 @@ public class AddCustomerController implements Initializable {
                 return null;
             }
         });
-        country_combo.getSelectionModel().select(0);
     }
 }

@@ -1,11 +1,18 @@
 package controller;
 
+import DAO.CountryDAO;
+import DAO.DivisionDAO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import main.Main;
+import model.Country;
+import model.FirstLevelDivision;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,6 +54,36 @@ public class AddCustomerController implements Initializable {
         stage.close();
     }
 
+    /**
+     * Loads all associated divisions with a given country.
+     * @param actionEvent event to load division combo with associated divisions of selected country.
+     */
+
+    public void loadDivisions(ActionEvent actionEvent) {
+        Country country = (Country) country_combo.getValue();
+        try {
+            state_prov_combo.setItems(DivisionDAO.getAllCountryDivisions(country));
+            state_prov_combo.getSelectionModel().select(0);
+            // Converter to show country name rather than object name.
+            // Implementation found here: https://stackoverflow.com/questions/73084380/javafx-combobox-show-attribute-of-element
+
+            //TODO: Fix RuntimeException thrown when selecting a country and loading divisions. Also automatically load divisions on first startup.
+            state_prov_combo.setConverter(new StringConverter<FirstLevelDivision>() {
+                @Override
+                public String toString(FirstLevelDivision division) {
+                    return division.getDivisionName();
+                }
+
+                @Override
+                public FirstLevelDivision fromString(String s) {
+                    return null;
+                }
+            });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         add_cust_label.setText(Main.lang_bundle.getString("AddCustomer"));
@@ -58,5 +95,22 @@ public class AddCustomerController implements Initializable {
         country_label.setText(Main.lang_bundle.getString("Country") + ":");
         close_button.setText(Main.lang_bundle.getString("Close"));
         save_button.setText(Main.lang_bundle.getString("Save"));
+
+        country_combo.setItems(CountryDAO.getCountryList());
+
+        // Converter to show country name rather than object name.
+        // Implementation found here: https://stackoverflow.com/questions/73084380/javafx-combobox-show-attribute-of-element
+        country_combo.setConverter(new StringConverter<Country>() {
+            @Override
+            public String toString(Country country) {
+                return country.getCountryName();
+            }
+
+            @Override
+            public Country fromString(String s) {
+                return null;
+            }
+        });
+        country_combo.getSelectionModel().select(0);
     }
 }

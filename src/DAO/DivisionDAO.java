@@ -4,6 +4,7 @@ import helper.DatabaseDriver;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Country;
 import model.FirstLevelDivision;
 
 import java.sql.PreparedStatement;
@@ -33,12 +34,29 @@ public class DivisionDAO {
                 String last_updated_by = result.getString("Last_Updated_By");
                 int country_id = result.getInt("Country_ID");
 
-                FirstLevelDivision divisions = new FirstLevelDivision(division_id, division, created_date, created_by, last_update, last_updated_by);
+                FirstLevelDivision divisions = new FirstLevelDivision(division_id, division, created_date, created_by, last_update, last_updated_by, country_id);
                 divisions_list.add(divisions);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return divisions_list;
+    }
+
+    /**
+     * Gets all the associated divisions from a country
+     * @param country the given country to search for divisions
+     * @return country_division_list a list of all divisions in a country
+     */
+
+    public static ObservableList<FirstLevelDivision> getAllCountryDivisions(Country country) {
+        ObservableList<FirstLevelDivision> all_divisions = getDivisionList();
+        ObservableList<FirstLevelDivision> country_division_list = FXCollections.observableArrayList();
+        for (FirstLevelDivision division : all_divisions) {
+            if (division.getCountryID() == country.getCountryID()) {
+                country_division_list.add(division);
+            }
+        }
+        return country_division_list;
     }
 }

@@ -67,11 +67,11 @@ public class AddCustomerController implements Initializable {
             // Converter to show country name rather than object name.
             // Implementation found here: https://stackoverflow.com/questions/73084380/javafx-combobox-show-attribute-of-element
 
-            //TODO: Fix RuntimeException thrown when selecting a country and loading divisions. Also automatically load divisions on first startup.
+            //TODO: Also automatically load divisions on first startup.
             state_prov_combo.setConverter(new StringConverter<FirstLevelDivision>() {
                 @Override
                 public String toString(FirstLevelDivision division) {
-                    return division.getDivisionName();
+                    return (division != null ) ? division.getDivisionName() : "";
                 }
 
                 @Override

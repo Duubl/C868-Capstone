@@ -55,6 +55,7 @@ public class DivisionDAO {
         for (FirstLevelDivision division : all_divisions) {
             if (division.getCountryID() == country.getCountryID()) {
                 country_division_list.add(division);
+                //System.out.println(country.getCountryName() + " division: " + division.getDivisionName());
             }
         }
         return country_division_list;

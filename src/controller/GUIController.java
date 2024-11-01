@@ -3,6 +3,8 @@ package controller;
 import DAO.AppointmentDAO;
 import DAO.CustomerDAO;
 import DAO.UserDAO;
+import helper.Alerts;
+import model.Appointment;
 import model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -66,6 +68,10 @@ public class GUIController implements Initializable {
 
     // Appointment functions
 
+    // Customer and appointment to modify
+    private static Customer customer_to_modify;
+    private static Appointment appointment_to_modify;
+
     /**
      * Opens the add appointment stage on the add button press.
      * @param actionEvent on pressing the add button.
@@ -116,20 +122,61 @@ public class GUIController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Confirms customer delete & checks for assigned appointments
+     * @param actionEvent onCustomerDelete button
+     **/
+
     public void onCustomerDelete(ActionEvent actionEvent) {
 
     }
 
-    public void onCustomerModify(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/modify-customer-view.fxml")));
-        stage.setScene(scene);
-        stage.setTitle(Main.lang_bundle.getString("ModifyCustomer"));
-        stage.setResizable(false);
-        stage.show();
+    /**
+     * Loads the modify customer screen
+     * @param actionEvent onCustomerModify button
+     **/
+
+    public void onCustomerModify(ActionEvent actionEvent) {
+        try {
+            Customer selected = (Customer) customer_table.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                throw new Exception();
+            } else {
+                customer_to_modify = selected;
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/modify-customer-view.fxml")));
+                stage.setScene(scene);
+                stage.setTitle(Main.lang_bundle.getString("ModifyCustomer"));
+                stage.setResizable(false);
+                stage.show();
+            }
+        } catch (Exception e) {
+            // No customer selected error
+            Alerts.getError(5);
+        }
     }
 
     // Reporting functions
+
+    // Other miscellaneous functions
+
+    /**
+     * Gets a customer to be modified
+     * @return customer_to_modify the customer being modified
+     */
+
+    public static Customer getCustomerToModify() {
+        return customer_to_modify;
+    }
+
+    /**
+     * Gets an appointment to be modified
+     * @return appointment_to_modify the customer being modified
+     */
+
+    public static Appointment getAppointmentToModify() {
+        return appointment_to_modify;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

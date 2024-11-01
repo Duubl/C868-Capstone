@@ -39,12 +39,33 @@ public class Alerts implements Initializable {
                 alert.showAndWait();
                 break;
 
+            // Fail loading customers
             case 4:
                 alert.setTitle(Main.lang_bundle.getString("Error"));
                 alert.setContentText(Main.lang_bundle.getString("LoadCustomerFail"));
                 alert.showAndWait();
                 break;
+
+            // No customer selected
+            case 5:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("NoCustomerSelected"));
+                alert.showAndWait();
+                break;
         }
+    }
+
+    // Change later
+    public static void getConfirm(int c) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        switch (c) {
+            case 1:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("IncorrectLogin"));
+                alert.showAndWait();
+                break;
+        }
+
     }
 
     @Override

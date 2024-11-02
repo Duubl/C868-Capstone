@@ -29,7 +29,6 @@ public class CountryDAO {
                 String created_by = result.getString("Created_By");
                 LocalDateTime last_update = result.getTimestamp("Last_Update").toLocalDateTime();
                 String last_updated_by = result.getString("Last_Updated_By");
-
                 Country countries = new Country(country_id, country, created_date, created_by, last_update, last_updated_by);
                 country_list.add(countries);
             }

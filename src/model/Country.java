@@ -25,9 +25,7 @@ public class Country {
      * @return country_id the country id
      */
 
-    public int getCountryID() {
-        return country_id;
-    }
+    public int getCountryID() { return country_id; }
 
     /**
      * Sets the country ID

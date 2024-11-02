@@ -139,7 +139,6 @@ public class GUIController implements Initializable {
     public void onCustomerModify(ActionEvent actionEvent) {
         try {
             Customer selected = (Customer) customer_table.getSelectionModel().getSelectedItem();
-            System.out.println(selected.getCustomerName());
             if (selected == null) {
                 throw new Exception();
             } else {
@@ -154,6 +153,7 @@ public class GUIController implements Initializable {
         } catch (Exception e) {
             // No customer selected error
             Alerts.getError(5);
+            throw new RuntimeException(e);
         }
     }
 

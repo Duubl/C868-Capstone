@@ -24,24 +24,6 @@ public class ModifyCustomerController extends AddCustomerController implements I
     // Labels
     @FXML protected Label modify_cust_label;
 
-    // Customer to be modified
-    private Customer selected;
-
-    /**
-     * Gets the index in the list of countries.
-     * @param customer the customer's country to find the index for.
-     * @return an integer value indicating the countries index.
-     */
-
-    public int getCustomerCountryIndex(Customer customer) {
-        return switch (customer.getCountry().getCountryName()) {
-            case "UK" -> 1;
-            case "Canada" -> 2;
-            case "U.S" -> 3;
-            default -> 0;
-        };
-    }
-
     /**
      * Gets the index in the list of divisions.
      * @param customer the customer to find the division index for.
@@ -63,7 +45,8 @@ public class ModifyCustomerController extends AddCustomerController implements I
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        selected = GUIController.getCustomerToModify();
+        // Customer to be modified
+        Customer selected = GUIController.getCustomerToModify();
 
         cust_name_box.setText(selected.getCustomerName());
         phone_box.setText(selected.getCustomerPhone());
@@ -86,7 +69,7 @@ public class ModifyCustomerController extends AddCustomerController implements I
         });
 
         // Automatically select the country & division the customer is a part of.
-        country_combo.getSelectionModel().select(getCustomerCountryIndex(selected));
+        country_combo.getSelectionModel().select(selected.getCountry().getCountryID() - 1);
         loadDivisions();
         state_prov_combo.getSelectionModel().select(getCustomerDivisionIndex(selected));
     }

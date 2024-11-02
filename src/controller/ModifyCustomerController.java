@@ -65,6 +65,10 @@ public class ModifyCustomerController extends AddCustomerController implements I
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selected = GUIController.getCustomerToModify();
 
+        cust_name_box.setText(selected.getCustomerName());
+        phone_box.setText(selected.getCustomerPhone());
+        address_box.setText(selected.getCustomerAddress());
+        postal_box.setText(selected.getCustomerPostalCode());
         country_combo.setItems(CountryDAO.getCountryList());
 
         // Converter to show country name rather than object name.
@@ -80,6 +84,7 @@ public class ModifyCustomerController extends AddCustomerController implements I
                 return null;
             }
         });
+
         // Automatically select the country & division the customer is a part of.
         country_combo.getSelectionModel().select(getCustomerCountryIndex(selected));
         loadDivisions();

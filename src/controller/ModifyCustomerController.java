@@ -42,6 +42,25 @@ public class ModifyCustomerController extends AddCustomerController implements I
         };
     }
 
+    /**
+     * Gets the index in the list of divisions.
+     * @param customer the customer to find the division index for.
+     * @return an integer value indicating the divisions index.
+     */
+
+    public int getCustomerDivisionIndex(Customer customer) {
+        String division_name = customer.getCustomerDivisionName();
+        int i = 0;
+        for (FirstLevelDivision d : DivisionDAO.getAllCountryDivisions(customer.getCountry())) {
+            if (d.getDivisionName().equals(division_name)) {
+                return i;
+            } else {
+                i++;
+            }
+        }
+        return -1;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selected = GUIController.getCustomerToModify();
@@ -64,5 +83,6 @@ public class ModifyCustomerController extends AddCustomerController implements I
         // Automatically select the country & division the customer is a part of.
         country_combo.getSelectionModel().select(getCustomerCountryIndex(selected));
         loadDivisions();
+        state_prov_combo.getSelectionModel().select(getCustomerDivisionIndex(selected));
     }
 }

@@ -59,4 +59,19 @@ public class DivisionDAO {
         }
         return country_division_list;
     }
+
+    /**
+     * Gets a division by name.
+     * @param name the name of the division to be searched for.
+     * @return the division with the given name.
+     */
+
+    public static FirstLevelDivision getDivision(String name) {
+        for (FirstLevelDivision division : getDivisionList()) {
+            if (name.equals(division.getDivisionName())) {
+                return division;
+            }
+        }
+        return null;
+    }
 }

@@ -38,4 +38,19 @@ public class CountryDAO {
         }
         return country_list;
     }
+
+    /**
+     * Gets a country by name.
+     * @param name the name of the country to be searched for.
+     * @return the country with the given name.
+     */
+
+    public static Country getCountry(String name) {
+        for (Country country : getCountryList()) {
+            if (name.equals(country.getCountryName())) {
+                return country;
+            }
+        }
+        return null;
+    }
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.CountryDAO;
+import DAO.DivisionDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.util.StringConverter;
 import main.Main;
 import model.Country;
 import model.Customer;
+import model.FirstLevelDivision;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,14 +27,24 @@ public class ModifyCustomerController extends AddCustomerController implements I
     // Customer to be modified
     private Customer selected;
 
+    /**
+     * Gets the index in the list of countries.
+     * @param customer the customer's country to find the index for.
+     * @return an integer value indicating the countries index.
+     */
+
+    public int getCustomerCountryIndex(Customer customer) {
+        return switch (customer.getCountry().getCountryName()) {
+            case "UK" -> 1;
+            case "Canada" -> 2;
+            case "U.S" -> 3;
+            default -> 0;
+        };
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selected = GUIController.getCustomerToModify();
-
-        cust_name_box.setText(selected.getCustomerName());
-        phone_box.setText(selected.getCustomerPhone());
-        address_box.setText(selected.getCustomerAddress());
-        postal_box.setText(selected.getCustomerPostalCode());
 
         country_combo.setItems(CountryDAO.getCountryList());
 
@@ -49,17 +61,8 @@ public class ModifyCustomerController extends AddCustomerController implements I
                 return null;
             }
         });
-        // Automatically select the country the customer is a part of.
-        country_combo.getSelectionModel().select(0);
-
-        add_cust_label.setText(Main.lang_bundle.getString("ModifyCustomer"));
-        cust_name_label.setText(Main.lang_bundle.getString("CustName") + ":");
-        phone_label.setText(Main.lang_bundle.getString("Phone") + ":");
-        address_label.setText(Main.lang_bundle.getString("Address") + ":");
-        postal_label.setText(Main.lang_bundle.getString("Postal") + ":");
-        state_prov_label.setText(Main.lang_bundle.getString("StateProv") + ":");
-        country_label.setText(Main.lang_bundle.getString("Country") + ":");
-        close_button.setText(Main.lang_bundle.getString("Close"));
-        save_button.setText(Main.lang_bundle.getString("Save"));
+        // Automatically select the country & division the customer is a part of.
+        country_combo.getSelectionModel().select(getCustomerCountryIndex(selected));
+        loadDivisions();
     }
 }

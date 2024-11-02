@@ -57,17 +57,5 @@ public class AddAppointmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        add_appt_label.setText(Main.lang_bundle.getString("AddAppointment"));
-        title_label.setText(Main.lang_bundle.getString("Title") + ":");
-        desc_label.setText(Main.lang_bundle.getString("Desc") + ":");
-        location_label.setText(Main.lang_bundle.getString("Location") + ":");
-        type_label.setText(Main.lang_bundle.getString("Type") + ":");
-        contact_label.setText(Main.lang_bundle.getString("Contact") + ":");
-        start_label.setText(Main.lang_bundle.getString("Start") + ":");
-        end_label.setText(Main.lang_bundle.getString("End") + ":");
-        user_id_label.setText(Main.lang_bundle.getString("UserID") + ":");
-        customer_id_label.setText(Main.lang_bundle.getString("CustID") + ":");
-        close_button.setText(Main.lang_bundle.getString("Close"));
-        save_button.setText(Main.lang_bundle.getString("Save"));
     }
 }

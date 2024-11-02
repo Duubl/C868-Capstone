@@ -14,10 +14,10 @@ public class Customer {
     private LocalDateTime last_updated;
     private String last_updated_by;
     private int customer_division_id;
-    private String division;
-    private String country;
+    private FirstLevelDivision division;
+    private Country country;
 
-    public Customer(int customer_id, String customer_name, String customer_address, String customer_postal, String customer_phone, LocalDateTime last_updated, String last_updated_by, int division_id, String division, String country) {
+    public Customer(int customer_id, String customer_name, String customer_address, String customer_postal, String customer_phone, LocalDateTime last_updated, String last_updated_by, int division_id, FirstLevelDivision division, Country country) {
         this.customer_id = customer_id;
         this.customer_name = customer_name;
         this.customer_address = customer_address;
@@ -211,7 +211,7 @@ public class Customer {
      * @return division the division for the customer
      */
 
-    public String getDivision() {
+    public FirstLevelDivision getDivision() {
         return division;
     }
 
@@ -220,7 +220,7 @@ public class Customer {
      * @param division the division for the customer
      */
 
-    public void setDivision(String division) {
+    public void setDivision(FirstLevelDivision division) {
         this.division = division;
     }
 
@@ -229,7 +229,7 @@ public class Customer {
      * @return country the customer's country
      */
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
@@ -238,7 +238,25 @@ public class Customer {
      * @param country the country for the customer
      */
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
+    }
+
+    /**
+     * Gets the customer's country name
+     * @return the countries name
+     */
+
+    public String getCustomerCountryName() {
+        return this.country.getCountryName();
+    }
+
+    /**
+     * Gets the customer's division
+     * @return the division name
+     */
+
+    public String getCustomerDivisionName() {
+        return this.division.getDivisionName();
     }
 }

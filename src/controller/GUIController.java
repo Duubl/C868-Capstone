@@ -180,40 +180,6 @@ public class GUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Localize appointments menu text
-        appts_tab.setText(Main.lang_bundle.getString("Appointments"));
-        appt_id_col.setText(Main.lang_bundle.getString("ApptID"));
-        appt_title_col.setText(Main.lang_bundle.getString("Title"));
-        appt_desc_col.setText(Main.lang_bundle.getString("Desc"));
-        appt_loc_col.setText(Main.lang_bundle.getString("Location"));
-        appt_contact_col.setText(Main.lang_bundle.getString("Contact"));
-        appt_type_col.setText(Main.lang_bundle.getString("Type"));
-        appt_start_col.setText(Main.lang_bundle.getString("Start"));
-        appt_end_col.setText(Main.lang_bundle.getString("End"));
-        appt_cust_id_col.setText(Main.lang_bundle.getString("CustID"));
-        appt_user_id_col.setText(Main.lang_bundle.getString("UserID"));
-
-        add_appt_button.setText(Main.lang_bundle.getString("Add"));
-        delete_appt_button.setText(Main.lang_bundle.getString("Delete"));
-        update_appt_button.setText(Main.lang_bundle.getString("Update"));
-
-        // Localize customers menu text
-        customers_tab.setText(Main.lang_bundle.getString("Customers"));
-        cust_id_col.setText(Main.lang_bundle.getString("CustID"));
-        cust_name_col.setText(Main.lang_bundle.getString("CustName"));
-        cust_phone_col.setText(Main.lang_bundle.getString("Phone"));
-        cust_address_col.setText(Main.lang_bundle.getString("Address"));
-        cust_postal_col.setText(Main.lang_bundle.getString("Postal"));
-        cust_state_prov_col.setText(Main.lang_bundle.getString("StateProv"));
-        cust_country_col.setText(Main.lang_bundle.getString("Country"));
-
-        add_customer_button.setText(Main.lang_bundle.getString("Add"));
-        delete_customer_button.setText(Main.lang_bundle.getString("Delete"));
-        update_customer_button.setText(Main.lang_bundle.getString("Update"));
-
-        // Localize reporting menu text
-        reporting_tab.setText(Main.lang_bundle.getString("Reporting"));
-
         // Load customer data into customer table
         try {
             customer_table.setItems(CustomerDAO.getAllCustomers());
@@ -222,8 +188,8 @@ public class GUIController implements Initializable {
             cust_phone_col.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
             cust_address_col.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
             cust_postal_col.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
-            cust_state_prov_col.setCellValueFactory(new PropertyValueFactory<>("division"));
-            cust_country_col.setCellValueFactory(new PropertyValueFactory<>("country"));
+            cust_state_prov_col.setCellValueFactory(new PropertyValueFactory<>("customerDivisionName"));
+            cust_country_col.setCellValueFactory(new PropertyValueFactory<>("customerCountryName"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

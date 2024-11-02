@@ -69,9 +69,33 @@ public class AddCustomerController implements Initializable {
             // Implementation found here: https://stackoverflow.com/questions/73084380/javafx-combobox-show-attribute-of-element
             state_prov_combo.setConverter(new StringConverter<FirstLevelDivision>() {
                 @Override
-                public String toString(FirstLevelDivision division) {
-                    return (division != null) ? division.getDivisionName() : "";
+                public String toString(FirstLevelDivision division) { return (division != null) ? division.getDivisionName() : ""; }
+
+                @Override
+                public FirstLevelDivision fromString(String s) {
+                    return null;
                 }
+            });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Loads all associated divisions with a given country.
+     */
+
+    public void loadDivisions() {
+        Country country = (Country) country_combo.getValue();
+        try {
+            state_prov_combo.setItems(DivisionDAO.getAllCountryDivisions(country));
+            state_prov_combo.getSelectionModel().select(0);
+
+            // Converter to show country name rather than object name.
+            // Implementation found here: https://stackoverflow.com/questions/73084380/javafx-combobox-show-attribute-of-element
+            state_prov_combo.setConverter(new StringConverter<FirstLevelDivision>() {
+                @Override
+                public String toString(FirstLevelDivision division) { return (division != null) ? division.getDivisionName() : ""; }
 
                 @Override
                 public FirstLevelDivision fromString(String s) {
@@ -85,16 +109,6 @@ public class AddCustomerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        add_cust_label.setText(Main.lang_bundle.getString("AddCustomer"));
-        cust_name_label.setText(Main.lang_bundle.getString("CustName") + ":");
-        phone_label.setText(Main.lang_bundle.getString("Phone") + ":");
-        address_label.setText(Main.lang_bundle.getString("Address") + ":");
-        postal_label.setText(Main.lang_bundle.getString("Postal") + ":");
-        state_prov_label.setText(Main.lang_bundle.getString("StateProv") + ":");
-        country_label.setText(Main.lang_bundle.getString("Country") + ":");
-        close_button.setText(Main.lang_bundle.getString("Close"));
-        save_button.setText(Main.lang_bundle.getString("Save"));
-
         country_combo.setItems(CountryDAO.getCountryList());
 
         // Converter to show country name rather than object name.

@@ -3,7 +3,9 @@ package DAO;
 import helper.DatabaseDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Country;
 import model.Customer;
+import model.FirstLevelDivision;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,8 +38,8 @@ public class CustomerDAO {
             LocalDateTime last_update = result.getTimestamp("Last_Update").toLocalDateTime();
             String last_updated_by = result.getString("Last_Updated_By");
             int division_id = result.getInt("Division_ID");
-            String division = result.getString("Division");
-            String country = result.getString("Country");
+            FirstLevelDivision division = DivisionDAO.getDivision(result.getString("Division"));
+            Country country = CountryDAO.getCountry(result.getString("Country"));
             Customer customer = new Customer(customer_id, customer_name, customer_address, customer_postal, customer_phone, last_update, last_updated_by, division_id, division, country);
             customer_list.add(customer);
         }

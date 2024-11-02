@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.CountryDAO;
+import DAO.CustomerDAO;
 import DAO.DivisionDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,12 +18,14 @@ import model.Customer;
 import model.FirstLevelDivision;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ModifyCustomerController extends AddCustomerController implements Initializable {
 
     // Labels
     @FXML protected Label modify_cust_label;
+    private static Customer selected;
 
     /**
      * Gets the index in the list of divisions.
@@ -44,9 +47,19 @@ public class ModifyCustomerController extends AddCustomerController implements I
     }
 
     @Override
+    public void onCustSave(ActionEvent actionEvent) throws SQLException {
+        CustomerDAO.updateCustomer(selected.getCustomerID(),
+                cust_name_box.getText(),
+                phone_box.getText(),
+                address_box.getText(),
+                postal_box.getText(),
+                ((Country) state_prov_combo.getValue()).getCountryID());
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Customer to be modified
-        Customer selected = GUIController.getCustomerToModify();
+        selected = GUIController.getCustomerToModify();
 
         cust_name_box.setText(selected.getCustomerName());
         phone_box.setText(selected.getCustomerPhone());

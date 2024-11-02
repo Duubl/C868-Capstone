@@ -15,6 +15,7 @@ import model.Country;
 import model.FirstLevelDivision;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AddCustomerController implements Initializable {
@@ -40,7 +41,7 @@ public class AddCustomerController implements Initializable {
     @FXML protected Button close_button;
     @FXML protected Button save_button;
 
-    public void onCustSave(ActionEvent actionEvent) {
+    public void onCustSave(ActionEvent actionEvent) throws SQLException {
 
     }
 

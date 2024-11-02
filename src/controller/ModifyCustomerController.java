@@ -46,15 +46,23 @@ public class ModifyCustomerController extends AddCustomerController implements I
         return -1;
     }
 
-    @Override
-    public void onCustSave(ActionEvent actionEvent) throws SQLException {
-        CustomerDAO.updateCustomer(selected.getCustomerID(),
-                cust_name_box.getText(),
-                phone_box.getText(),
-                address_box.getText(),
-                postal_box.getText(),
-                ((Country) state_prov_combo.getValue()).getCountryID());
-    }
+    //TODO: Add customer update functionality
+
+//    @Override
+//    public void onCustSave(ActionEvent actionEvent) throws SQLException {
+//        if (checkEmpty()) {
+//            try {
+//                CustomerDAO.updateCustomer(selected.getCustomerID(),
+//                        cust_name_box.getText(),
+//                        phone_box.getText(),
+//                        address_box.getText(),
+//                        postal_box.getText(),
+//                        ((Country) state_prov_combo.getValue()).getCountryID());
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

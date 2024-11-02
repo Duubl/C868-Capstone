@@ -2,21 +2,21 @@ package controller;
 
 import DAO.CountryDAO;
 import DAO.DivisionDAO;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import helper.Alerts;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import main.Main;
 import model.Country;
 import model.FirstLevelDivision;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class AddCustomerController implements Initializable {
 
@@ -53,6 +53,17 @@ public class AddCustomerController implements Initializable {
     public void onClose(ActionEvent actionEvent) {
         Stage stage = (Stage) close_button.getScene().getWindow();
         stage.close();
+    }
+
+    public boolean checkEmpty() {
+        TextField[] fields = {cust_name_box, phone_box, address_box, postal_box};
+        for (TextField field : fields) {
+            if (field.getText().isEmpty()) {
+                Alerts.getError(6);
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

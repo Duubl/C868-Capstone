@@ -52,6 +52,13 @@ public class Alerts implements Initializable {
                 alert.setContentText(Main.lang_bundle.getString("NoCustomerSelected"));
                 alert.showAndWait();
                 break;
+
+            // One or more empty fields
+            case 6:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("EmptyFields"));
+                alert.showAndWait();
+                break;
         }
     }
 

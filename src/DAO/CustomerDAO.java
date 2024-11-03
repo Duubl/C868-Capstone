@@ -85,7 +85,6 @@ public class CustomerDAO {
         statement.setString(5, last_updated_by);
         statement.setTimestamp(6, Timestamp.valueOf(last_update));
         statement.setInt(7, division_id);
-        statement.setString(8, )
         statement.executeUpdate();
     }
 }

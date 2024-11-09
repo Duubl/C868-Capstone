@@ -112,12 +112,24 @@ public class GUIController implements Initializable {
 
     // Customer functions
 
+    /**
+     * Opens the add customer dialog. 
+     * @param actionEvent on pressing the add customer button.
+     */
+
     public void onCustomerAdd(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/add-customer-view.fxml")));
         stage.setScene(scene);
         stage.setTitle(Main.lang_bundle.getString("AddCustomer"));
         stage.setResizable(false);
+        stage.setOnHidden(e -> {
+            try {
+                refreshCustomerTable();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         stage.show();
     }
 
@@ -164,16 +176,16 @@ public class GUIController implements Initializable {
      * Refreshes the table customer table
      */
 
-    public void refreshCustomerTable() {
-        customer_table.refresh();
+    public void refreshCustomerTable() throws SQLException {
+        customer_table.setItems(CustomerDAO.getAllCustomers());
     }
 
     /**
      * Refreshes the table appointment table
      */
 
-    public void refreshAppointmentTable() {
-        appointment_table.refresh();
+    public void refreshAppointmentTable() throws SQLException {
+        appointment_table.setItems(AppointmentDAO.getUserAppointments(UserDAO.getCurrentUser().getUserID()));
     }
 
     /**

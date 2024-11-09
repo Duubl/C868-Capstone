@@ -53,11 +53,12 @@ public class CustomerDAO {
      * @param address the new address to be updated
      * @param postal the new postal to be updated
      * @param phone the new phone to be updated
-     * @param division_id the new division id
+     * @param division the new division
      * @throws SQLException
      */
 
-    public static void updateCustomer(int customer_id, String name, String address, String postal, String phone, int division_id) throws SQLException {
+    public static void updateCustomer(int customer_id, String name, String address, String postal, String phone, FirstLevelDivision division) throws SQLException {
+        int division_id = division.getDivisionID();
         String query = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Updated_By = ?, Last_Update = ?, Division_ID = ? WHERE Customer_ID = ?";
         PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
         statement.setString(1, name);
@@ -71,7 +72,18 @@ public class CustomerDAO {
         statement.executeUpdate();
     }
 
-    public static void createCustomer(int customer_id, String customer_name, String customer_address, String customer_postal, String customer_phone, FirstLevelDivision division, Country country) throws SQLException {
+    /**
+     * Creates a customer with the information provided in the database
+     * @param customer_id the customer id to be updated
+     * @param customer_name the new name to be updated
+     * @param customer_address the new address to be updated
+     * @param customer_postal the new postal to be updated
+     * @param customer_phone the new phone to be updated
+     * @param division the new division
+     * @throws SQLException
+     */
+
+    public static void createCustomer(int customer_id, String customer_name, String customer_address, String customer_postal, String customer_phone, FirstLevelDivision division) throws SQLException {
         LocalDateTime last_update = LocalDateTime.now();
         String last_updated_by = UserDAO.getCurrentUser().getUsername();
         int division_id = division.getDivisionID();

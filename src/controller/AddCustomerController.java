@@ -51,10 +51,9 @@ public class AddCustomerController implements Initializable {
         String address = address_box.getText();
         String postal = postal_box.getText();
         FirstLevelDivision division = (FirstLevelDivision) state_prov_combo.getValue();
-        Country country = (Country) country_combo.getValue();
         if (checkEmpty()) {
             try {
-                CustomerDAO.createCustomer(5, name, phone, address, postal, division, country);
+                CustomerDAO.createCustomer(5, name, phone, address, postal, division);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

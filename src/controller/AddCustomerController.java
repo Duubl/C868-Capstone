@@ -1,13 +1,17 @@
 package controller;
 
 import DAO.CountryDAO;
+import DAO.CustomerDAO;
 import DAO.DivisionDAO;
 import helper.Alerts;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 import model.Country;
 import model.FirstLevelDivision;
@@ -42,7 +46,20 @@ public class AddCustomerController implements Initializable {
     @FXML protected Button save_button;
 
     public void onCustSave(ActionEvent actionEvent) throws SQLException {
-
+        String name = cust_name_box.getText();
+        String phone = phone_box.getText();
+        String address = address_box.getText();
+        String postal = postal_box.getText();
+        FirstLevelDivision division = (FirstLevelDivision) state_prov_combo.getValue();
+        Country country = (Country) country_combo.getValue();
+        if (checkEmpty()) {
+            try {
+                CustomerDAO.createCustomer(5, name, phone, address, postal, division, country);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        onClose(actionEvent);
     }
 
     /**

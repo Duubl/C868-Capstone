@@ -71,20 +71,23 @@ public class CustomerDAO {
         statement.executeUpdate();
     }
 
-    public static void createCustomer(int customer_id, String customer_name, String customer_address, String customer_postal, String customer_phone, int division_id, FirstLevelDivision division, Country country) throws SQLException {
+    public static void createCustomer(int customer_id, String customer_name, String customer_address, String customer_postal, String customer_phone, FirstLevelDivision division, Country country) throws SQLException {
         LocalDateTime last_update = LocalDateTime.now();
         String last_updated_by = UserDAO.getCurrentUser().getUsername();
-        Customer customer = new Customer(customer_id, customer_name, customer_address, customer_postal, customer_phone, last_update, last_updated_by, division_id, division, country);
+        int division_id = division.getDivisionID();
 
-        String query = "INSERT INTO customers VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+        String query = "INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
         statement.setInt(1, customer_id);
         statement.setString(2, customer_name);
-        statement.setString(3, customer_postal);
-        statement.setString(4, customer_phone);
-        statement.setString(5, last_updated_by);
+        statement.setString(3, customer_address);
+        statement.setString(4, customer_postal);
+        statement.setString(5, customer_phone);
         statement.setTimestamp(6, Timestamp.valueOf(last_update));
-        statement.setInt(7, division_id);
+        statement.setString(7, last_updated_by);
+        statement.setTimestamp(8, Timestamp.valueOf(last_update));
+        statement.setString(9, last_updated_by);
+        statement.setInt(10, division_id);
         statement.executeUpdate();
     }
 }

@@ -64,14 +64,13 @@ public class GUIController implements Initializable {
     // Reporting tab
     @FXML private Tab reporting_tab;
 
-    // Reporting buttons
-
-    // Appointment functions
-
     // Customer and appointment to modify
     private static Customer customer_to_modify;
     private static Appointment appointment_to_modify;
 
+    // Reporting buttons
+
+    // Appointment functions
     /**
      * Opens the add appointment stage on the add button press.
      * @param actionEvent on pressing the add button.
@@ -160,6 +159,22 @@ public class GUIController implements Initializable {
     // Reporting functions
 
     // Other miscellaneous functions
+
+    /**
+     * Refreshes the table customer table
+     */
+
+    public void refreshCustomerTable() {
+        customer_table.refresh();
+    }
+
+    /**
+     * Refreshes the table appointment table
+     */
+
+    public void refreshAppointmentTable() {
+        appointment_table.refresh();
+    }
 
     /**
      * Gets a customer to be modified

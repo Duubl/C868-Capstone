@@ -125,8 +125,6 @@ public class CustomerDAO {
      * @throws SQLException
      */
 
-    // TODO: Not returning unique value.
-
     public static int getUniqueCustomerID() throws SQLException {
         ObservableList<Customer> customer_list = getAllCustomers();
         Set<Integer> existing_ids = customer_list.stream().map(Customer::getCustomerID).collect(Collectors.toSet());

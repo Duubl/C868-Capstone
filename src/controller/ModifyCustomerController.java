@@ -46,7 +46,11 @@ public class ModifyCustomerController extends AddCustomerController implements I
         return -1;
     }
 
-    //TODO: Add customer update functionality
+    /**
+     * Updates selected customer on pressing the save button.
+     * @param actionEvent the pressing of the save button.
+     * @throws SQLException
+     */
 
     @Override
     public void onCustSave(ActionEvent actionEvent) throws SQLException {
@@ -57,7 +61,7 @@ public class ModifyCustomerController extends AddCustomerController implements I
         FirstLevelDivision division = (FirstLevelDivision) state_prov_combo.getValue();
         if (checkEmpty()) {
             try {
-                CustomerDAO.updateCustomer(5, name, address, postal, phone, division);
+                CustomerDAO.updateCustomer(selected.getCustomerID(), name, address, postal, phone, division);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

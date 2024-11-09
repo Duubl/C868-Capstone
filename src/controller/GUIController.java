@@ -113,7 +113,7 @@ public class GUIController implements Initializable {
     // Customer functions
 
     /**
-     * Opens the add customer dialog. 
+     * Opens the add customer dialog.
      * @param actionEvent on pressing the add customer button.
      */
 
@@ -159,6 +159,13 @@ public class GUIController implements Initializable {
                 stage.setScene(scene);
                 stage.setTitle(Main.lang_bundle.getString("ModifyCustomer"));
                 stage.setResizable(false);
+                stage.setOnHidden(e -> {
+                    try {
+                        refreshCustomerTable();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
                 stage.show();
             }
         } catch (Exception e) {

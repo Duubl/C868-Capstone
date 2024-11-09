@@ -138,8 +138,22 @@ public class GUIController implements Initializable {
      * @param actionEvent onCustomerDelete button
      **/
 
-    public void onCustomerDelete(ActionEvent actionEvent) {
+    // TODO: Check for appointments assigned to customer. Prevent deleting until other appointments are deleted.
 
+    public void onCustomerDelete(ActionEvent actionEvent) {
+        try {
+            Customer selected = (Customer) customer_table.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                throw new Exception();
+            } else {
+                CustomerDAO.deleteCustomer(selected);
+                refreshCustomerTable();
+            }
+        } catch (Exception e) {
+            // No customer selected error
+            Alerts.getError(5);
+            throw new RuntimeException(e);
+        }
     }
 
     /**

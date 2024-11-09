@@ -45,6 +45,12 @@ public class AddCustomerController implements Initializable {
     @FXML protected Button close_button;
     @FXML protected Button save_button;
 
+    /**
+     * Creates a new customer on pressing the save button while adding a new customer.
+     * @param actionEvent on save button press.
+     * @throws SQLException
+     */
+
     public void onCustSave(ActionEvent actionEvent) throws SQLException {
         String name = cust_name_box.getText();
         String phone = phone_box.getText();
@@ -53,7 +59,7 @@ public class AddCustomerController implements Initializable {
         FirstLevelDivision division = (FirstLevelDivision) state_prov_combo.getValue();
         if (checkEmpty()) {
             try {
-                CustomerDAO.createCustomer(5, name, phone, address, postal, division);
+                CustomerDAO.createCustomer(CustomerDAO.getUniqueCustomerID(), name, phone, address, postal, division);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -70,6 +76,11 @@ public class AddCustomerController implements Initializable {
         Stage stage = (Stage) close_button.getScene().getWindow();
         stage.close();
     }
+
+    /**
+     * Checks if any of the fields are empty.
+     * @return true when all fields have values, false otherwise.
+     */
 
     public boolean checkEmpty() {
         TextField[] fields = {cust_name_box, phone_box, address_box, postal_box};

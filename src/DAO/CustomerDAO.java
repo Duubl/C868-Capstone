@@ -102,4 +102,39 @@ public class CustomerDAO {
         statement.setInt(10, division_id);
         statement.executeUpdate();
     }
+
+    /**
+     * Deletes the given customer.
+     * @param customer the customer to be deleted.
+     * @throws SQLException
+     */
+
+    public static void deleteCustomer(Customer customer) throws SQLException {
+        int customer_id = customer.getCustomerID();
+        String query = "DELETE FROM customers WHERE Customer_ID = ?";
+        PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+        statement.setInt(1, customer_id);
+        statement.executeUpdate();
+    }
+
+    /**
+     * Gets a unique customer ID based on the customers in the database.
+     * @return id the new unqiue ID.
+     * @throws SQLException
+     */
+
+    // TODO: Not returning unique value.
+
+    public static int getUniqueCustomerID() throws SQLException {
+        ObservableList<Customer> customer_list = getAllCustomers();
+        int id = 1;
+        for (Customer customer : customer_list) {
+            if (customer.getCustomerID() == id) {
+                id++;
+            } else if (customer.getCustomerID() > id) {
+                break;
+            }
+        }
+        return id;
+    }
 }

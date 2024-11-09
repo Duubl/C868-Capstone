@@ -59,12 +59,12 @@ public class AddCustomerController implements Initializable {
         FirstLevelDivision division = (FirstLevelDivision) state_prov_combo.getValue();
         if (checkEmpty()) {
             try {
-                CustomerDAO.createCustomer(CustomerDAO.getUniqueCustomerID(), name, phone, address, postal, division);
+                CustomerDAO.createCustomer(CustomerDAO.getUniqueCustomerID(), name, address, postal, phone, division);
+                onClose(actionEvent);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-        onClose(actionEvent);
     }
 
     /**

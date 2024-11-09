@@ -62,11 +62,11 @@ public class ModifyCustomerController extends AddCustomerController implements I
         if (checkEmpty()) {
             try {
                 CustomerDAO.updateCustomer(selected.getCustomerID(), name, address, postal, phone, division);
+                onClose(actionEvent);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-        onClose(actionEvent);
     }
 
     @Override

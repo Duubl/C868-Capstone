@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CustomerDAO {
 
@@ -127,13 +129,10 @@ public class CustomerDAO {
 
     public static int getUniqueCustomerID() throws SQLException {
         ObservableList<Customer> customer_list = getAllCustomers();
+        Set<Integer> existing_ids = customer_list.stream().map(Customer::getCustomerID).collect(Collectors.toSet());
         int id = 1;
-        for (Customer customer : customer_list) {
-            if (customer.getCustomerID() == id) {
-                id++;
-            } else if (customer.getCustomerID() > id) {
-                break;
-            }
+        while (existing_ids.contains(id)) {
+            id++;
         }
         return id;
     }

@@ -77,6 +77,8 @@ public class AddAppointmentController implements Initializable {
      * @return true when meeting is within business hours, start date is before end date and there are no overlapping meetings.
      */
 
+    // TODO: Finish
+    
     public boolean checkValidHours() {
         if (start_date_combo.getValue().isAfter(end_date_combo.getValue())) {
             return false;

@@ -64,12 +64,12 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="user_id_label" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="31.0" text="User ID:" GridPane.rowIndex="7">
+            <Label fx:id="user_id_label" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="31.0" text="User:" GridPane.rowIndex="7">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="customer_id_label" layoutX="10.0" layoutY="457.0" text="Customer ID:" GridPane.rowIndex="8">
+            <Label fx:id="customer_id_label" layoutX="10.0" layoutY="457.0" text="Customer:" GridPane.rowIndex="8">
                <font>
                   <Font size="14.0" />
                </font>
@@ -79,8 +79,8 @@
             <ComboBox fx:id="start_time_combo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <ComboBox fx:id="end_time_combo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <ComboBox fx:id="contact_combo" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox fx:id="user_id_combo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <ComboBox fx:id="cust_id_combo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ComboBox fx:id="user_combo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ComboBox fx:id="cust_combo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField fx:id="appt_title_box" GridPane.columnIndex="1" />
             <TextField fx:id="appt_desc_box" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="appt_loc_box" GridPane.columnIndex="1" GridPane.rowIndex="2" />

@@ -4,11 +4,18 @@ import helper.DatabaseDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
+import model.Contact;
+import model.Customer;
+import model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AppointmentDAO {
 
@@ -46,20 +53,90 @@ public class AppointmentDAO {
     }
 
     /**
-     * Creates a list of all the appointments assigned to a user with the given id.
-     * @return user_appointments all the appointments assigned to a user with the given id
-     * @param id the user id to be searched for
+     * Creates an appointment with the information provided in the database
+     * @param appointment_id the id for the appointment
+     * @param title the title of the appointment
+     * @param desc the description for the appointment
+     * @param location the location of the appointment
+     * @param type the type of appointment
+     * @param contact the contact assigned to the appointment
+     * @param start the start time & date of the appointment
+     * @param end the end time & date of the appointment
+     * @param customer the customer assigned to the appointment
      * @throws SQLException
      */
 
-    public static ObservableList<Appointment> getUserAppointments(int id) throws SQLException {
+    public static void createAppointment(int appointment_id, String title, String desc, String location, String type, Contact contact, LocalDateTime start, LocalDateTime end, User user, Customer customer) throws SQLException {
+        LocalDateTime last_update = LocalDateTime.now();
+        String last_updated_by = UserDAO.getCurrentUser().getUsername();
+        int user_id = user.getUserID();
+        int contact_id = contact.getContactID();
+        int customer_id = customer.getCustomerID();
+
+        String query = "INSERT INTO appointments VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+        statement.setInt(1, appointment_id);
+        statement.setString(2, title);
+        statement.setString(3, desc);
+        statement.setString(4, location);
+        statement.setString(5, type);
+        statement.setTimestamp(6, Timestamp.valueOf(start));
+        statement.setTimestamp(7, Timestamp.valueOf(end));
+        statement.setTimestamp(8, Timestamp.valueOf(last_update));
+        statement.setString(9, last_updated_by);
+        statement.setTimestamp(10, Timestamp.valueOf(last_update));
+        statement.setString(11, last_updated_by);
+        statement.setInt(12, customer_id);
+        statement.setInt(13, user_id);
+        statement.setInt(14, contact_id);
+        statement.executeUpdate();
+    }
+
+    /**
+     * Creates a list of all the appointments assigned to a user.
+     * @return user_appointments all the appointments assigned to a user.
+     * @param user the user to be searched for.
+     * @throws SQLException
+     */
+
+    public static ObservableList<Appointment> getUserAppointments(User user) throws SQLException {
         ObservableList<Appointment> appointment_list = getAppointmentList();
         ObservableList<Appointment> user_appointments = FXCollections.observableArrayList();
         for (Appointment appointment : appointment_list) {
-            if (appointment.getUserID() == id) {
+            if (appointment.getUserID() == user.getUserID()) {
                 user_appointments.add(appointment);
             }
         }
         return user_appointments;
+    }
+
+    /**
+     * Deletes the given appointment.
+     * @param appointment the appointment to be deleted.
+     * @throws SQLException
+     */
+
+    public static void deleteAppointment(Appointment appointment) throws SQLException {
+        int appointment_id = appointment.getAppointmentID();
+        String query = "DELETE FROM appointments WHERE Appointment_ID = ?";
+        PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+        statement.setInt(1, appointment_id);
+        statement.executeUpdate();
+    }
+
+    /**
+     * Gets a unique appointment ID based on the appointments in the database.
+     * @return id the new unqiue ID.
+     * @throws SQLException
+     */
+
+    public static int getUniqueAppointmentID() throws SQLException {
+        ObservableList<Appointment> appointment_list = getAppointmentList();
+        Set<Integer> existing_ids = appointment_list.stream().map(Appointment::getAppointmentID).collect(Collectors.toSet());
+        int id = 1;
+        while (existing_ids.contains(id)) {
+            id++;
+        }
+        return id;
     }
 }

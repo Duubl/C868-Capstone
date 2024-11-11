@@ -48,10 +48,9 @@ public class AddCustomerController implements Initializable {
     /**
      * Creates a new customer on pressing the save button while adding a new customer.
      * @param actionEvent on save button press.
-     * @throws SQLException
      */
 
-    public void onCustSave(ActionEvent actionEvent) throws SQLException {
+    public void onCustSave(ActionEvent actionEvent) {
         String name = cust_name_box.getText();
         String phone = phone_box.getText();
         String address = address_box.getText();

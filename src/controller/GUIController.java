@@ -107,7 +107,19 @@ public class GUIController implements Initializable {
      */
 
     public void onApptDelete(ActionEvent actionEvent) {
-
+        try {
+            Appointment selected = (Appointment) appointment_table.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                throw new Exception();
+            } else {
+                AppointmentDAO.deleteAppointment(selected);
+                refreshAppointmentTable();
+            }
+        } catch (Exception e) {
+            // No appointment selected error
+            Alerts.getError(7);
+            throw new RuntimeException(e);
+        }
     }
 
     // Customer functions
@@ -206,7 +218,7 @@ public class GUIController implements Initializable {
      */
 
     public void refreshAppointmentTable() throws SQLException {
-        appointment_table.setItems(AppointmentDAO.getUserAppointments(UserDAO.getCurrentUser().getUserID()));
+        appointment_table.setItems(AppointmentDAO.getUserAppointments(UserDAO.getCurrentUser()));
     }
 
     /**
@@ -245,7 +257,7 @@ public class GUIController implements Initializable {
 
         // Load all appointment data for the user into the appointment table
         try {
-            appointment_table.setItems(AppointmentDAO.getUserAppointments(UserDAO.getCurrentUser().getUserID()));
+            appointment_table.setItems(AppointmentDAO.getUserAppointments(UserDAO.getCurrentUser()));
             appt_id_col.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
             appt_title_col.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
             appt_desc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));

@@ -49,11 +49,10 @@ public class ModifyCustomerController extends AddCustomerController implements I
     /**
      * Updates selected customer on pressing the save button.
      * @param actionEvent the pressing of the save button.
-     * @throws SQLException
      */
 
     @Override
-    public void onCustSave(ActionEvent actionEvent) throws SQLException {
+    public void onCustSave(ActionEvent actionEvent) {
         String name = cust_name_box.getText();
         String phone = phone_box.getText();
         String address = address_box.getText();

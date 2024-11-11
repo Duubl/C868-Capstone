@@ -15,7 +15,7 @@ public class ContactDAO {
      * @return contact_list a list of all contacts.
      */
 
-    public static ObservableList<Contact> getCountryList() {
+    public static ObservableList<Contact> getContactList() {
         ObservableList<Contact> contact_list = FXCollections.observableArrayList();
         try {
             String query = "SELECT * FROM contacts";

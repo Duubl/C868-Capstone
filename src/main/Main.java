@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Locale;
@@ -35,6 +37,14 @@ public class Main extends Application {
     public static ZoneId getZoneID() {
         zone = ZonedDateTime.now().getZone();
         return zone;
+    }
+
+    public static OffsetDateTime convertToUTC(LocalDateTime local_date_time) {
+        ZoneId utcZoneId = ZoneId.of("UTC");
+        ZonedDateTime zonedDateTime = local_date_time.atZone(ZoneId.systemDefault());
+        ZonedDateTime utcDateTime = zonedDateTime.withZoneSameInstant(utcZoneId);
+
+        return utcDateTime.toOffsetDateTime();
     }
 
     /**

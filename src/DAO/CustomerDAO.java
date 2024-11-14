@@ -3,6 +3,7 @@ package DAO;
 import helper.DatabaseDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import main.Main;
 import model.Country;
 import model.Customer;
 import model.FirstLevelDivision;
@@ -11,8 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -68,7 +68,7 @@ public class CustomerDAO {
         statement.setString(3, postal);
         statement.setString(4, phone);
         statement.setString(5, UserDAO.getCurrentUser().getUsername());
-        statement.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+        statement.setTimestamp(6, Timestamp.valueOf(LocalDateTime.ofInstant(OffsetDateTime.now().toInstant(), ZoneOffset.UTC)));
         statement.setInt(7, division_id);
         statement.setInt(8, customer_id);
         statement.executeUpdate();
@@ -86,7 +86,6 @@ public class CustomerDAO {
      */
 
     public static void createCustomer(int customer_id, String customer_name, String customer_address, String customer_postal, String customer_phone, FirstLevelDivision division) throws SQLException {
-        LocalDateTime last_update = LocalDateTime.now();
         String last_updated_by = UserDAO.getCurrentUser().getUsername();
         int division_id = division.getDivisionID();
 
@@ -97,9 +96,9 @@ public class CustomerDAO {
         statement.setString(3, customer_address);
         statement.setString(4, customer_postal);
         statement.setString(5, customer_phone);
-        statement.setTimestamp(6, Timestamp.valueOf(last_update));
+        statement.setTimestamp(6, Timestamp.valueOf(LocalDateTime.ofInstant(OffsetDateTime.now().toInstant(), ZoneOffset.UTC)));
         statement.setString(7, last_updated_by);
-        statement.setTimestamp(8, Timestamp.valueOf(last_update));
+        statement.setTimestamp(8, Timestamp.valueOf(LocalDateTime.ofInstant(OffsetDateTime.now().toInstant(), ZoneOffset.UTC)));
         statement.setString(9, last_updated_by);
         statement.setInt(10, division_id);
         statement.executeUpdate();

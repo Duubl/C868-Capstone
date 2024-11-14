@@ -19,10 +19,7 @@ import model.User;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.ResourceBundle;
 
 public class AddAppointmentController implements Initializable {
@@ -78,12 +75,22 @@ public class AddAppointmentController implements Initializable {
      */
 
     // TODO: Finish
-    
+
     public boolean checkValidHours() {
+        LocalDateTime current_date_time = LocalDateTime.now();
+        ZoneId est_zone = ZoneId.of("America/New_York");
+        ZonedDateTime est_date_time = current_date_time.atZone(ZoneId.systemDefault()).withZoneSameInstant(est_zone);
+
+        int hour = est_date_time.getHour();
+
         if (start_date_combo.getValue().isAfter(end_date_combo.getValue())) {
+            // Invalid start & end dates.
+            Alerts.getError(9);
             return false;
         }
-        return true;
+        // Scheduling outside business hour error.
+        Alerts.getError(8);
+        return hour >= 8 && hour < 22;
     }
 
     /**
@@ -106,11 +113,13 @@ public class AddAppointmentController implements Initializable {
         User user = (User) user_combo.getValue();
         Customer customer = (Customer) cust_combo.getValue();
         if (checkEmpty()) {
-            try {
-                AppointmentDAO.createAppointment(AppointmentDAO.getUniqueAppointmentID(), title, desc, location, type, contact, start_date_time, end_date_time, user, customer);
-                onClose(actionEvent);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            if (checkValidHours()) {
+                try {
+                    AppointmentDAO.createAppointment(AppointmentDAO.getUniqueAppointmentID(), title, desc, location, type, contact, start_date_time, end_date_time, user, customer);
+                    onClose(actionEvent);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

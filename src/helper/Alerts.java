@@ -66,6 +66,20 @@ public class Alerts implements Initializable {
                 alert.setContentText(Main.lang_bundle.getString("NoAppointmentSelected"));
                 alert.showAndWait();
                 break;
+
+            // Scheduling outside of business hours
+            case 8:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("OutsideBusinessHours"));
+                alert.showAndWait();
+                break;
+
+            // Start date after end date
+            case 9:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("InvalidTime"));
+                alert.showAndWait();
+                break;
         }
     }
 

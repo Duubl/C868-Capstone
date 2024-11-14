@@ -3,6 +3,7 @@ package DAO;
 import helper.DatabaseDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import main.Main;
 import model.Appointment;
 import model.Contact;
 import model.Customer;
@@ -14,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -67,7 +70,6 @@ public class AppointmentDAO {
      */
 
     public static void createAppointment(int appointment_id, String title, String desc, String location, String type, Contact contact, LocalDateTime start, LocalDateTime end, User user, Customer customer) throws SQLException {
-        LocalDateTime last_update = LocalDateTime.now();
         String last_updated_by = UserDAO.getCurrentUser().getUsername();
         int user_id = user.getUserID();
         int contact_id = contact.getContactID();
@@ -82,9 +84,9 @@ public class AppointmentDAO {
         statement.setString(5, type);
         statement.setTimestamp(6, Timestamp.valueOf(start));
         statement.setTimestamp(7, Timestamp.valueOf(end));
-        statement.setTimestamp(8, Timestamp.valueOf(last_update));
+        statement.setTimestamp(8, Timestamp.valueOf(LocalDateTime.ofInstant(OffsetDateTime.now().toInstant(), ZoneOffset.UTC)));
         statement.setString(9, last_updated_by);
-        statement.setTimestamp(10, Timestamp.valueOf(last_update));
+        statement.setTimestamp(10, Timestamp.valueOf(LocalDateTime.ofInstant(OffsetDateTime.now().toInstant(), ZoneOffset.UTC)));
         statement.setString(11, last_updated_by);
         statement.setInt(12, customer_id);
         statement.setInt(13, user_id);

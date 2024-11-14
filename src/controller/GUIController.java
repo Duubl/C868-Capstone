@@ -83,6 +83,13 @@ public class GUIController implements Initializable {
         stage.setScene(scene);
         stage.setTitle(Main.lang_bundle.getString("AddAppointment"));
         stage.setResizable(false);
+        stage.setOnHidden(e -> {
+            try {
+                refreshAppointmentTable();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         stage.show();
     }
 
@@ -98,6 +105,13 @@ public class GUIController implements Initializable {
         stage.setScene(scene);
         stage.setTitle(Main.lang_bundle.getString("ModifyAppointment"));
         stage.setResizable(false);
+        stage.setOnHidden(e -> {
+            try {
+                refreshAppointmentTable();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         stage.show();
     }
 

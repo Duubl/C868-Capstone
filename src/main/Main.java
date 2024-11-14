@@ -39,14 +39,6 @@ public class Main extends Application {
         return zone;
     }
 
-    public static OffsetDateTime convertToUTC(LocalDateTime local_date_time) {
-        ZoneId utcZoneId = ZoneId.of("UTC");
-        ZonedDateTime zonedDateTime = local_date_time.atZone(ZoneId.systemDefault());
-        ZonedDateTime utcDateTime = zonedDateTime.withZoneSameInstant(utcZoneId);
-
-        return utcDateTime.toOffsetDateTime();
-    }
-
     /**
      * Gets the current user's language setting.
      * @return locale.

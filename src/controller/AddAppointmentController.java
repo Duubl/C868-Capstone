@@ -5,6 +5,8 @@ import DAO.ContactDAO;
 import DAO.CustomerDAO;
 import DAO.UserDAO;
 import helper.Alerts;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -74,7 +76,7 @@ public class AddAppointmentController implements Initializable {
      * @return true when meeting is within business hours, start date is before end date and there are no overlapping meetings.
      */
 
-    // TODO: Finish
+    // TODO: Check for overlapping appointments & start times after end times.
 
     public boolean checkValidHours() {
         LocalDateTime current_date_time = LocalDateTime.now();
@@ -88,9 +90,13 @@ public class AddAppointmentController implements Initializable {
             Alerts.getError(9);
             return false;
         }
-        // Scheduling outside business hour error.
-        Alerts.getError(8);
-        return hour >= 8 && hour < 22;
+        if (hour >= 8 && hour < 22) {
+            return true;
+        } else {
+            // Scheduling outside business hour error.
+            Alerts.getError(8);
+            return false;
+        }
     }
 
     /**
@@ -104,18 +110,19 @@ public class AddAppointmentController implements Initializable {
         String location = appt_loc_box.getText();
         String type = appt_type_box.getText();
         Contact contact = (Contact) contact_combo.getValue();
-        LocalDate start_date = start_date_combo.getValue();
-        LocalTime start_time = (LocalTime) start_time_combo.getValue();
-        LocalDateTime start_date_time = LocalDateTime.of(start_date, start_time);
-        LocalDate end_date = end_date_combo.getValue();
-        LocalTime end_time = (LocalTime) end_time_combo.getValue();
-        LocalDateTime end_date_time = LocalDateTime.of(end_date, end_time);
         User user = (User) user_combo.getValue();
         Customer customer = (Customer) cust_combo.getValue();
+
+        ZonedDateTime zoned_start_time = ZonedDateTime.of(LocalDate.now(), (LocalTime) start_time_combo.getValue(), Main.getZoneID());
+        ZonedDateTime zoned_end_time = ZonedDateTime.of(LocalDate.now(), (LocalTime) end_time_combo.getValue(), Main.getZoneID());
+
+        ZonedDateTime utc_start_time = zoned_start_time.withZoneSameInstant(ZoneId.of("UTC"));
+        ZonedDateTime utc_end_time = zoned_end_time.withZoneSameInstant(ZoneId.of("UTC"));
+
         if (checkEmpty()) {
             if (checkValidHours()) {
                 try {
-                    AppointmentDAO.createAppointment(AppointmentDAO.getUniqueAppointmentID(), title, desc, location, type, contact, start_date_time, end_date_time, user, customer);
+                    AppointmentDAO.createAppointment(AppointmentDAO.getUniqueAppointmentID(), title, desc, location, type, contact, utc_start_time.toLocalDateTime(), utc_end_time.toLocalDateTime(), user, customer);
                     onClose(actionEvent);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -132,6 +139,26 @@ public class AddAppointmentController implements Initializable {
     public void onClose(ActionEvent actionEvent) {
         Stage stage = (Stage) close_button.getScene().getWindow();
         stage.close();
+    }
+
+    /**
+     * Generates a list of times spanning from 8 to 22 in increments of 15 minutes.
+     * @return a list of times spanning from 8 to 22 in increments of 15 minutes.
+     */
+
+    public static ObservableList<LocalTime> generateTimeList() {
+        ObservableList<LocalTime> time_list = FXCollections.observableArrayList();
+
+        LocalTime start_time = LocalTime.of(8, 0);
+        LocalTime end_time = LocalTime.of(22, 0);
+
+        LocalTime current_time = start_time;
+        while (!current_time.isAfter(end_time)) {
+            time_list.add(current_time);
+            current_time = current_time.plusMinutes(15);
+        }
+
+        return time_list;
     }
 
     @Override
@@ -175,6 +202,9 @@ public class AddAppointmentController implements Initializable {
                 return null;
             }
         });
+
+        start_time_combo.setItems(generateTimeList());
+        end_time_combo.setItems(generateTimeList());
     } catch (SQLException e) {
             throw new RuntimeException(e);
         }

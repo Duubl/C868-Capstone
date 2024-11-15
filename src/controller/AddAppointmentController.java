@@ -76,27 +76,22 @@ public class AddAppointmentController implements Initializable {
      * @return true when meeting is within business hours, start date is before end date and there are no overlapping meetings.
      */
 
-    // TODO: Check for overlapping appointments & start times after end times.
+    // TODO: Check for overlapping appointments.
 
     public boolean checkValidHours() {
-        LocalDateTime current_date_time = LocalDateTime.now();
-        ZoneId est_zone = ZoneId.of("America/New_York");
-        ZonedDateTime est_date_time = current_date_time.atZone(ZoneId.systemDefault()).withZoneSameInstant(est_zone);
-
-        int hour = est_date_time.getHour();
-
+        LocalTime start_time = (LocalTime) start_time_combo.getValue();
+        LocalTime end_time = (LocalTime) end_time_combo.getValue();
         if (start_date_combo.getValue().isAfter(end_date_combo.getValue())) {
             // Invalid start & end dates.
             Alerts.getError(9);
             return false;
         }
-        if (hour >= 8 && hour < 22) {
-            return true;
-        } else {
-            // Scheduling outside business hour error.
-            Alerts.getError(8);
+        if (start_time.isAfter(end_time)) {
+            // Invalid start & end times.
+            Alerts.getError(10);
             return false;
         }
+        return true;
     }
 
     /**
@@ -149,13 +144,19 @@ public class AddAppointmentController implements Initializable {
     public static ObservableList<LocalTime> generateTimeList() {
         ObservableList<LocalTime> time_list = FXCollections.observableArrayList();
 
+        ZoneId est_zone_id = ZoneId.of("America/New_York");
+
         LocalTime start_time = LocalTime.of(8, 0);
         LocalTime end_time = LocalTime.of(22, 0);
 
-        LocalTime current_time = start_time;
-        while (!current_time.isAfter(end_time)) {
-            time_list.add(current_time);
-            current_time = current_time.plusMinutes(15);
+        ZonedDateTime start_date_time = ZonedDateTime.of(start_time.atDate(LocalDate.now()), est_zone_id);
+        ZonedDateTime end_date_time = ZonedDateTime.of(end_time.atDate(LocalDate.now()), est_zone_id);
+
+        ZonedDateTime current_date_time = start_date_time;
+        while (!current_date_time.isAfter(end_date_time)) {
+            LocalTime local_time = current_date_time.withZoneSameInstant(ZoneId.systemDefault()).toLocalTime();
+            time_list.add(local_time);
+            current_date_time = current_date_time.plusMinutes(15);
         }
 
         return time_list;

@@ -77,6 +77,13 @@ public class Alerts implements Initializable {
             // Start date after end date
             case 9:
                 alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("InvalidDate"));
+                alert.showAndWait();
+                break;
+
+            // Start date after end date
+            case 10:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
                 alert.setContentText(Main.lang_bundle.getString("InvalidTime"));
                 alert.showAndWait();
                 break;

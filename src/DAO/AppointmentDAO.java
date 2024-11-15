@@ -13,10 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -140,5 +137,28 @@ public class AppointmentDAO {
             id++;
         }
         return id;
+    }
+
+    /**
+     * Checks if another appointment exists at the times for the current user.
+     * @param start the start time to check.
+     * @param end the end time to check.
+     * @return true an appointment exists, false otherwise.
+     * @throws SQLException
+     */
+
+    public static boolean appointmentExistsAtTime(LocalDateTime start, LocalDateTime end) throws SQLException {
+        ObservableList<Appointment> appointment_list = getUserAppointments(UserDAO.getCurrentUser());
+        for (Appointment appointment : appointment_list) {
+            System.out.println("New appointment start: " + start);
+            System.out.println("New appointment end: " + end);
+            System.out.println("Checked appointment start: " + appointment.getStartDateTime());
+            System.out.println("Checked appointment end: " + appointment.getEndDateTime() + "\n");
+            if (appointment.getStartDateTime().isBefore(end) && appointment.getEndDateTime().isAfter(start)) {
+                System.out.println("Overlapping times!\n");
+                return true;
+            }
+        }
+        return false;
     }
 }

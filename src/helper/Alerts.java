@@ -87,6 +87,13 @@ public class Alerts implements Initializable {
                 alert.setContentText(Main.lang_bundle.getString("InvalidTime"));
                 alert.showAndWait();
                 break;
+
+            // Start date after end date
+            case 11:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("AppointmentOverlap"));
+                alert.showAndWait();
+                break;
         }
     }
 

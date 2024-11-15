@@ -76,11 +76,13 @@ public class AddAppointmentController implements Initializable {
      * @return true when meeting is within business hours, start date is before end date and there are no overlapping meetings.
      */
 
-    // TODO: Check for overlapping appointments.
-
-    public boolean checkValidHours() {
+    public boolean checkValidHours() throws SQLException {
         LocalTime start_time = (LocalTime) start_time_combo.getValue();
         LocalTime end_time = (LocalTime) end_time_combo.getValue();
+        ZonedDateTime zoned_start_time = ZonedDateTime.of(LocalDate.now(), (LocalTime) start_time_combo.getValue(), Main.getZoneID());
+        ZonedDateTime zoned_end_time = ZonedDateTime.of(LocalDate.now(), (LocalTime) end_time_combo.getValue(), Main.getZoneID());
+        ZonedDateTime utc_start_time = zoned_start_time.withZoneSameInstant(ZoneId.of("UTC"));
+        ZonedDateTime utc_end_time = zoned_end_time.withZoneSameInstant(ZoneId.of("UTC"));
         if (start_date_combo.getValue().isAfter(end_date_combo.getValue())) {
             // Invalid start & end dates.
             Alerts.getError(9);
@@ -91,6 +93,11 @@ public class AddAppointmentController implements Initializable {
             Alerts.getError(10);
             return false;
         }
+        if (AppointmentDAO.appointmentExistsAtTime(utc_start_time.toLocalDateTime(), utc_end_time.toLocalDateTime())) {
+            // Overlapping appointment error
+            Alerts.getError(11);
+            return false;
+        }
         return true;
     }
 
@@ -99,7 +106,7 @@ public class AddAppointmentController implements Initializable {
      * @param actionEvent on save button press.
      */
 
-    public void onApptSave(ActionEvent actionEvent) {
+    public void onApptSave(ActionEvent actionEvent) throws SQLException {
         String title = appt_title_box.getText();
         String desc = appt_desc_box.getText();
         String location = appt_loc_box.getText();

@@ -4,8 +4,7 @@ import DAO.AppointmentDAO;
 import DAO.CustomerDAO;
 import DAO.UserDAO;
 import helper.Alerts;
-import model.Appointment;
-import model.Customer;
+import model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,23 +21,24 @@ import main.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class GUIController implements Initializable {
 
     // Appointments tab
     @FXML private Tab appts_tab;
-    @FXML private TableView appointment_table;
-    @FXML private TableColumn appt_id_col;
-    @FXML private TableColumn appt_title_col;
-    @FXML private TableColumn appt_desc_col;
-    @FXML private TableColumn appt_loc_col;
-    @FXML private TableColumn appt_contact_col;
-    @FXML private TableColumn appt_type_col;
-    @FXML private TableColumn appt_start_col;
-    @FXML private TableColumn appt_end_col;
-    @FXML private TableColumn appt_cust_id_col;
-    @FXML private TableColumn appt_user_id_col;
+    @FXML private TableView<Appointment> appointment_table;
+    @FXML private TableColumn<Appointment, Integer> appt_id_col;
+    @FXML private TableColumn<Appointment, String> appt_title_col;
+    @FXML private TableColumn<Appointment, String> appt_desc_col;
+    @FXML private TableColumn<Appointment, String> appt_loc_col;
+    @FXML private TableColumn<Appointment, Contact> appt_contact_col;
+    @FXML private TableColumn<Appointment, String> appt_type_col;
+    @FXML private TableColumn<Appointment, LocalDateTime> appt_start_col;
+    @FXML private TableColumn<Appointment, LocalDateTime> appt_end_col;
+    @FXML private TableColumn<Appointment, Integer> appt_cust_id_col;
+    @FXML private TableColumn<Appointment, Integer> appt_user_id_col;
 
     // Appointment buttons
     @FXML private Button add_appt_button;
@@ -47,14 +47,14 @@ public class GUIController implements Initializable {
 
     // Customer tab
     @FXML private Tab customers_tab;
-    @FXML private TableView customer_table;
-    @FXML private TableColumn cust_id_col;
-    @FXML private TableColumn cust_name_col;
-    @FXML private TableColumn cust_phone_col;
-    @FXML private TableColumn cust_address_col;
-    @FXML private TableColumn cust_postal_col;
-    @FXML private TableColumn cust_state_prov_col;
-    @FXML private TableColumn cust_country_col;
+    @FXML private TableView<Customer> customer_table;
+    @FXML private TableColumn<Customer, Integer> cust_id_col;
+    @FXML private TableColumn<Customer, String> cust_name_col;
+    @FXML private TableColumn<Customer, String> cust_phone_col;
+    @FXML private TableColumn<Customer, String> cust_address_col;
+    @FXML private TableColumn<Customer, String> cust_postal_col;
+    @FXML private TableColumn<Customer, FirstLevelDivision> cust_state_prov_col;
+    @FXML private TableColumn<Customer, Country> cust_country_col;
 
     // Customer buttons
     @FXML private Button add_customer_button;
@@ -100,19 +100,31 @@ public class GUIController implements Initializable {
      */
 
     public void onApptModify(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/modify-appt-view.fxml")));
-        stage.setScene(scene);
-        stage.setTitle(Main.lang_bundle.getString("ModifyAppointment"));
-        stage.setResizable(false);
-        stage.setOnHidden(e -> {
-            try {
-                refreshAppointmentTable();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+        try {
+            Appointment selected = appointment_table.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                throw new Exception();
+            } else {
+                appointment_to_modify = selected;
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/modify-appt-view.fxml")));
+                stage.setScene(scene);
+                stage.setTitle(Main.lang_bundle.getString("ModifyAppointment"));
+                stage.setResizable(false);
+                stage.setOnHidden(e -> {
+                    try {
+                        refreshAppointmentTable();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+                stage.show();
             }
-        });
-        stage.show();
+        } catch (Exception e) {
+            // No appointment selected error
+            Alerts.getError(7);
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -122,7 +134,7 @@ public class GUIController implements Initializable {
 
     public void onApptDelete(ActionEvent actionEvent) {
         try {
-            Appointment selected = (Appointment) appointment_table.getSelectionModel().getSelectedItem();
+            Appointment selected = appointment_table.getSelectionModel().getSelectedItem();
             if (selected == null) {
                 throw new Exception();
             } else {
@@ -168,7 +180,7 @@ public class GUIController implements Initializable {
 
     public void onCustomerDelete(ActionEvent actionEvent) {
         try {
-            Customer selected = (Customer) customer_table.getSelectionModel().getSelectedItem();
+            Customer selected = customer_table.getSelectionModel().getSelectedItem();
             if (selected == null) {
                 throw new Exception();
             } else {
@@ -189,7 +201,7 @@ public class GUIController implements Initializable {
 
     public void onCustomerModify(ActionEvent actionEvent) {
         try {
-            Customer selected = (Customer) customer_table.getSelectionModel().getSelectedItem();
+            Customer selected = customer_table.getSelectionModel().getSelectedItem();
             if (selected == null) {
                 throw new Exception();
             } else {

@@ -43,13 +43,13 @@ public class AddAppointmentController implements Initializable {
     @FXML protected TextField appt_desc_box;
     @FXML protected TextField appt_loc_box;
     @FXML protected TextField appt_type_box;
-    @FXML protected ComboBox contact_combo;
+    @FXML protected ComboBox<Contact> contact_combo;
     @FXML protected DatePicker start_date_combo;
     @FXML protected DatePicker end_date_combo;
-    @FXML protected ComboBox start_time_combo;
-    @FXML protected ComboBox end_time_combo;
-    @FXML protected ComboBox user_combo;
-    @FXML protected ComboBox cust_combo;
+    @FXML protected ComboBox<LocalTime> start_time_combo;
+    @FXML protected ComboBox<LocalTime> end_time_combo;
+    @FXML protected ComboBox<User> user_combo;
+    @FXML protected ComboBox<Customer> cust_combo;
 
     // Bottom buttons
     @FXML protected Button close_button;
@@ -77,10 +77,10 @@ public class AddAppointmentController implements Initializable {
      */
 
     public boolean checkValidHours() throws SQLException {
-        LocalTime start_time = (LocalTime) start_time_combo.getValue();
-        LocalTime end_time = (LocalTime) end_time_combo.getValue();
-        ZonedDateTime zoned_start_time = ZonedDateTime.of(LocalDate.now(), (LocalTime) start_time_combo.getValue(), Main.getZoneID());
-        ZonedDateTime zoned_end_time = ZonedDateTime.of(LocalDate.now(), (LocalTime) end_time_combo.getValue(), Main.getZoneID());
+        LocalTime start_time = start_time_combo.getValue();
+        LocalTime end_time = end_time_combo.getValue();
+        ZonedDateTime zoned_start_time = ZonedDateTime.of(LocalDate.now(), start_time_combo.getValue(), Main.getZoneID());
+        ZonedDateTime zoned_end_time = ZonedDateTime.of(LocalDate.now(), end_time_combo.getValue(), Main.getZoneID());
         ZonedDateTime utc_start_time = zoned_start_time.withZoneSameInstant(ZoneId.of("UTC"));
         ZonedDateTime utc_end_time = zoned_end_time.withZoneSameInstant(ZoneId.of("UTC"));
         if (start_date_combo.getValue().isAfter(end_date_combo.getValue())) {
@@ -111,12 +111,12 @@ public class AddAppointmentController implements Initializable {
         String desc = appt_desc_box.getText();
         String location = appt_loc_box.getText();
         String type = appt_type_box.getText();
-        Contact contact = (Contact) contact_combo.getValue();
-        User user = (User) user_combo.getValue();
-        Customer customer = (Customer) cust_combo.getValue();
+        Contact contact = contact_combo.getValue();
+        User user = user_combo.getValue();
+        Customer customer = cust_combo.getValue();
 
-        ZonedDateTime zoned_start_time = ZonedDateTime.of(LocalDate.now(), (LocalTime) start_time_combo.getValue(), Main.getZoneID());
-        ZonedDateTime zoned_end_time = ZonedDateTime.of(LocalDate.now(), (LocalTime) end_time_combo.getValue(), Main.getZoneID());
+        ZonedDateTime zoned_start_time = ZonedDateTime.of(LocalDate.now(), start_time_combo.getValue(), Main.getZoneID());
+        ZonedDateTime zoned_end_time = ZonedDateTime.of(LocalDate.now(), end_time_combo.getValue(), Main.getZoneID());
 
         ZonedDateTime utc_start_time = zoned_start_time.withZoneSameInstant(ZoneId.of("UTC"));
         ZonedDateTime utc_end_time = zoned_end_time.withZoneSameInstant(ZoneId.of("UTC"));
@@ -173,7 +173,7 @@ public class AddAppointmentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
         contact_combo.setItems(ContactDAO.getContactList());
-        contact_combo.setConverter(new StringConverter<Contact>() {
+        contact_combo.setConverter(new StringConverter<>() {
             @Override
             public String toString(Contact contact) {
                 return (contact != null) ? contact.getContactName() : "";
@@ -186,7 +186,7 @@ public class AddAppointmentController implements Initializable {
         });
 
         user_combo.setItems(UserDAO.getUserList());
-        user_combo.setConverter(new StringConverter<User>() {
+        user_combo.setConverter(new StringConverter<>() {
             @Override
             public String toString(User user) {
                 return (user != null) ? user.getUsername() : "";
@@ -199,7 +199,7 @@ public class AddAppointmentController implements Initializable {
         });
 
         cust_combo.setItems(CustomerDAO.getAllCustomers());
-        cust_combo.setConverter(new StringConverter<Customer>() {
+        cust_combo.setConverter(new StringConverter<>() {
             @Override
             public String toString(Customer customer) {
                 return (customer != null) ? customer.getCustomerName() : "";

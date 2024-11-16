@@ -150,12 +150,7 @@ public class AppointmentDAO {
     public static boolean appointmentExistsAtTime(LocalDateTime start, LocalDateTime end) throws SQLException {
         ObservableList<Appointment> appointment_list = getUserAppointments(UserDAO.getCurrentUser());
         for (Appointment appointment : appointment_list) {
-            System.out.println("New appointment start: " + start);
-            System.out.println("New appointment end: " + end);
-            System.out.println("Checked appointment start: " + appointment.getStartDateTime());
-            System.out.println("Checked appointment end: " + appointment.getEndDateTime() + "\n");
             if (appointment.getStartDateTime().isBefore(end) && appointment.getEndDateTime().isAfter(start)) {
-                System.out.println("Overlapping times!\n");
                 return true;
             }
         }

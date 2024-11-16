@@ -77,13 +77,15 @@ public class AddAppointmentController implements Initializable {
      */
 
     public boolean checkValidHours() throws SQLException {
+        LocalDate start_date = start_date_combo.getValue();
+        LocalDate end_date = end_date_combo.getValue();
         LocalTime start_time = start_time_combo.getValue();
         LocalTime end_time = end_time_combo.getValue();
-        ZonedDateTime zoned_start_time = ZonedDateTime.of(LocalDate.now(), start_time_combo.getValue(), Main.getZoneID());
-        ZonedDateTime zoned_end_time = ZonedDateTime.of(LocalDate.now(), end_time_combo.getValue(), Main.getZoneID());
+        ZonedDateTime zoned_start_time = ZonedDateTime.of(start_date, start_time, Main.getZoneID());
+        ZonedDateTime zoned_end_time = ZonedDateTime.of(end_date, end_time, Main.getZoneID());
         ZonedDateTime utc_start_time = zoned_start_time.withZoneSameInstant(ZoneId.of("UTC"));
         ZonedDateTime utc_end_time = zoned_end_time.withZoneSameInstant(ZoneId.of("UTC"));
-        if (start_date_combo.getValue().isAfter(end_date_combo.getValue())) {
+        if (start_date.isAfter(end_date)) {
             // Invalid start & end dates.
             Alerts.getError(9);
             return false;
@@ -115,8 +117,13 @@ public class AddAppointmentController implements Initializable {
         User user = user_combo.getValue();
         Customer customer = cust_combo.getValue();
 
-        ZonedDateTime zoned_start_time = ZonedDateTime.of(LocalDate.now(), start_time_combo.getValue(), Main.getZoneID());
-        ZonedDateTime zoned_end_time = ZonedDateTime.of(LocalDate.now(), end_time_combo.getValue(), Main.getZoneID());
+        LocalDate start_date = start_date_combo.getValue();
+        LocalDate end_date = end_date_combo.getValue();
+        LocalTime start_time = start_time_combo.getValue();
+        LocalTime end_time = end_time_combo.getValue();
+
+        ZonedDateTime zoned_start_time = ZonedDateTime.of(start_date, start_time, Main.getZoneID());
+        ZonedDateTime zoned_end_time = ZonedDateTime.of(end_date, end_time, Main.getZoneID());
 
         ZonedDateTime utc_start_time = zoned_start_time.withZoneSameInstant(ZoneId.of("UTC"));
         ZonedDateTime utc_end_time = zoned_end_time.withZoneSameInstant(ZoneId.of("UTC"));

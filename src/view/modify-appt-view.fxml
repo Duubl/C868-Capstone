@@ -79,8 +79,8 @@
             <ComboBox fx:id="start_time_combo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <ComboBox fx:id="end_time_combo" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <ComboBox fx:id="contact_combo" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox fx:id="user_id_combo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <ComboBox fx:id="cust_id_combo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ComboBox fx:id="user_combo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ComboBox fx:id="cust_combo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField fx:id="appt_title_box" GridPane.columnIndex="1" />
             <TextField fx:id="appt_desc_box" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="appt_loc_box" GridPane.columnIndex="1" GridPane.rowIndex="2" />

@@ -14,6 +14,7 @@ import model.User;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.chrono.Chronology;
 import java.util.ResourceBundle;
 
 public class ModifyAppointmentController extends AddAppointmentController implements Initializable {
@@ -63,5 +64,7 @@ public class ModifyAppointmentController extends AddAppointmentController implem
         contact_combo.getSelectionModel().select(selected.getContactID() - 1);
         user_combo.getSelectionModel().select(selected.getUserID() - 1);
         cust_combo.getSelectionModel().select(selected.getCustomerID() - 1);
+        start_date_combo.setChronology(Chronology.from(selected.getStartDateTime()));
+        end_date_combo.setChronology(Chronology.from(selected.getEndDateTime()));
     }
 }

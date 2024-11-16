@@ -20,6 +20,7 @@ import model.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -47,7 +48,7 @@ public class LoginController implements Initializable {
                 }
             }
             System.out.println(Main.lang_bundle.getString("SignInSuccess"));
-            Parent root = FXMLLoader.load(getClass().getResource("/view/main-view.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/main-view.fxml")));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setTitle(Main.lang_bundle.getString("Scheduler"));

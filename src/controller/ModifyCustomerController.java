@@ -57,7 +57,7 @@ public class ModifyCustomerController extends AddCustomerController implements I
         String phone = phone_box.getText();
         String address = address_box.getText();
         String postal = postal_box.getText();
-        FirstLevelDivision division = (FirstLevelDivision) state_prov_combo.getValue();
+        FirstLevelDivision division = state_prov_combo.getValue();
         if (checkEmpty()) {
             try {
                 CustomerDAO.updateCustomer(selected.getCustomerID(), name, address, postal, phone, division);
@@ -81,7 +81,7 @@ public class ModifyCustomerController extends AddCustomerController implements I
 
         // Converter to show country name rather than object name.
         // Implementation found here: https://stackoverflow.com/questions/73084380/javafx-combobox-show-attribute-of-element
-        country_combo.setConverter(new StringConverter<Country>() {
+        country_combo.setConverter(new StringConverter<>() {
             @Override
             public String toString(Country country) {
                 return country.getCountryName();

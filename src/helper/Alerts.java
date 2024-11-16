@@ -94,20 +94,14 @@ public class Alerts implements Initializable {
                 alert.setContentText(Main.lang_bundle.getString("AppointmentOverlap"));
                 alert.showAndWait();
                 break;
-        }
-    }
 
-    // Change later
-    public static void getConfirm(int c) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        switch (c) {
-            case 1:
+            // Start date after end date
+            case 12:
                 alert.setTitle(Main.lang_bundle.getString("Error"));
-                alert.setContentText(Main.lang_bundle.getString("IncorrectLogin"));
+                alert.setContentText(Main.lang_bundle.getString("ExistingAppointments"));
                 alert.showAndWait();
                 break;
         }
-
     }
 
     @Override

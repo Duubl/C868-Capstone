@@ -4,19 +4,18 @@ import DAO.AppointmentDAO;
 import DAO.CustomerDAO;
 import DAO.UserDAO;
 import helper.Alerts;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
 import model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.Main;
+import java.util.Optional;
 
 import java.io.IOException;
 import java.net.URL;
@@ -139,8 +138,14 @@ public class GUIController implements Initializable {
             if (selected == null) {
                 throw new Exception();
             } else {
-                AppointmentDAO.deleteAppointment(selected);
-                refreshAppointmentTable();
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                confirm.setTitle("You Sure Bud?");
+                confirm.setContentText(Main.lang_bundle.getString("DeleteConfirmAppointment") + " " + selected.getAppointmentTitle() + "?");
+                Optional<ButtonType> result = confirm.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    AppointmentDAO.deleteAppointment(selected);
+                    refreshAppointmentTable();
+                }
             }
         } catch (Exception e) {
             // No appointment selected error
@@ -177,16 +182,25 @@ public class GUIController implements Initializable {
      * @param actionEvent onCustomerDelete button
      **/
 
-    // TODO: Check for appointments assigned to customer. Prevent deleting until other appointments are deleted.
-
     public void onCustomerDelete(ActionEvent actionEvent) {
         try {
             Customer selected = customer_table.getSelectionModel().getSelectedItem();
             if (selected == null) {
                 throw new Exception();
             } else {
-                CustomerDAO.deleteCustomer(selected);
-                refreshCustomerTable();
+                if (checkCustomerAppointments(selected)) {
+                    // Customer has existing appointments error
+                    Alerts.getError(12);
+                    return;
+                }
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                confirm.setTitle("You Sure Bud?");
+                confirm.setContentText(Main.lang_bundle.getString("DeleteConfirmCustomer") + " " + selected.getCustomerName() + "?");
+                Optional<ButtonType> result = confirm.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    CustomerDAO.deleteCustomer(selected);
+                    refreshCustomerTable();
+                }
             }
         } catch (Exception e) {
             // No customer selected error
@@ -226,6 +240,23 @@ public class GUIController implements Initializable {
             Alerts.getError(5);
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Checks for assigned appointments for the given customer.
+     * @param customer the customer to be checked for appointments.
+     * @return true when an appointment is found, false otherwise
+     * @throws SQLException
+     */
+
+    public boolean checkCustomerAppointments(Customer customer) throws SQLException {
+        ObservableList<Appointment> appointment_list = AppointmentDAO.getAppointmentList();
+        for (Appointment appointment : appointment_list) {
+            if (customer.getCustomerID() == appointment.getCustomerID()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Reporting functions

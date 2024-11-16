@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class GUIController implements Initializable {
@@ -79,7 +80,7 @@ public class GUIController implements Initializable {
 
     public void onApptAdd(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/add-appt-view.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-appt-view.fxml"))));
         stage.setScene(scene);
         stage.setTitle(Main.lang_bundle.getString("AddAppointment"));
         stage.setResizable(false);
@@ -107,7 +108,7 @@ public class GUIController implements Initializable {
             } else {
                 appointment_to_modify = selected;
                 Stage stage = new Stage();
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/modify-appt-view.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/modify-appt-view.fxml"))));
                 stage.setScene(scene);
                 stage.setTitle(Main.lang_bundle.getString("ModifyAppointment"));
                 stage.setResizable(false);
@@ -157,7 +158,7 @@ public class GUIController implements Initializable {
 
     public void onCustomerAdd(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/add-customer-view.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-customer-view.fxml"))));
         stage.setScene(scene);
         stage.setTitle(Main.lang_bundle.getString("AddCustomer"));
         stage.setResizable(false);
@@ -207,7 +208,7 @@ public class GUIController implements Initializable {
             } else {
                 customer_to_modify = selected;
                 Stage stage = new Stage();
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/modify-customer-view.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/modify-customer-view.fxml"))));
                 stage.setScene(scene);
                 stage.setTitle(Main.lang_bundle.getString("ModifyCustomer"));
                 stage.setResizable(false);
@@ -277,9 +278,7 @@ public class GUIController implements Initializable {
             cust_postal_col.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
             cust_state_prov_col.setCellValueFactory(new PropertyValueFactory<>("customerDivisionName"));
             cust_country_col.setCellValueFactory(new PropertyValueFactory<>("customerCountryName"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (SQLException e) { throw new RuntimeException(e); }
 
         // Load all appointment data for the user into the appointment table
         try {
@@ -294,8 +293,6 @@ public class GUIController implements Initializable {
             appt_end_col.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
             appt_cust_id_col.setCellValueFactory(new PropertyValueFactory<>("customerID"));
             appt_user_id_col.setCellValueFactory(new PropertyValueFactory<>("userID"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (SQLException e) { throw new RuntimeException(e); }
     }
 }

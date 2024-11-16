@@ -180,10 +180,7 @@ public class AddAppointmentController implements Initializable {
             }
 
             @Override
-            public Contact fromString(String s) {
-                return null;
-            }
-        });
+            public Contact fromString(String s) { return null; }});
 
         user_combo.setItems(UserDAO.getUserList());
         user_combo.setConverter(new StringConverter<>() {
@@ -195,8 +192,7 @@ public class AddAppointmentController implements Initializable {
             @Override
             public User fromString(String s) {
                 return null;
-            }
-        });
+            }});
 
         cust_combo.setItems(CustomerDAO.getAllCustomers());
         cust_combo.setConverter(new StringConverter<>() {
@@ -208,13 +204,10 @@ public class AddAppointmentController implements Initializable {
             @Override
             public Customer fromString(String s) {
                 return null;
-            }
-        });
+            }});
 
         start_time_combo.setItems(generateTimeList());
         end_time_combo.setItems(generateTimeList());
-    } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    } catch (SQLException e) { throw new RuntimeException(e); }
     }
 }

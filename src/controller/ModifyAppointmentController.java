@@ -32,49 +32,33 @@ public class ModifyAppointmentController extends AddAppointmentController implem
 
         try {
             contact_combo.setItems(ContactDAO.getContactList());
-            contact_combo.setConverter(new StringConverter<Contact>() {
+            contact_combo.setConverter(new StringConverter<>() {
                 @Override
-                public String toString(Contact contact) {
-                    return (contact != null) ? contact.getContactName() : "";
-                }
+                public String toString(Contact contact) { return (contact != null) ? contact.getContactName() : ""; }
 
                 @Override
-                public Contact fromString(String s) {
-                    return null;
-                }
-            });
+                public Contact fromString(String s) { return null; }});
 
             user_combo.setItems(UserDAO.getUserList());
             user_combo.setConverter(new StringConverter<>() {
                 @Override
-                public String toString(User user) {
-                    return (user != null) ? user.getUsername() : "";
-                }
+                public String toString(User user) { return (user != null) ? user.getUsername() : ""; }
 
                 @Override
-                public User fromString(String s) {
-                    return null;
-                }
-            });
+                public User fromString(String s) { return null; }});
 
             cust_combo.setItems(CustomerDAO.getAllCustomers());
             cust_combo.setConverter(new StringConverter<>() {
                 @Override
-                public String toString(Customer customer) {
-                    return (customer != null) ? customer.getCustomerName() : "";
-                }
+                public String toString(Customer customer) { return (customer != null) ? customer.getCustomerName() : ""; }
 
                 @Override
-                public Customer fromString(String s) {
-                    return null;
-                }
-            });
+                public Customer fromString(String s) { return null; }});
 
             start_time_combo.setItems(generateTimeList());
             end_time_combo.setItems(generateTimeList());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+        } catch (SQLException e) { throw new RuntimeException(e); }
 
         contact_combo.getSelectionModel().select(selected.getContactID() - 1);
         user_combo.getSelectionModel().select(selected.getUserID() - 1);

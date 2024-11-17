@@ -92,6 +92,43 @@ public class AppointmentDAO {
     }
 
     /**
+     * Updates an appointment with the information provided in the database
+     * @param appointment_id the id for the appointment
+     * @param title the title of the appointment
+     * @param desc the description for the appointment
+     * @param location the location of the appointment
+     * @param type the type of appointment
+     * @param contact the contact assigned to the appointment
+     * @param start the start time & date of the appointment
+     * @param end the end time & date of the appointment
+     * @param customer the customer assigned to the appointment
+     * @throws SQLException
+     */
+
+    public static void updateAppointment(int appointment_id, String title, String desc, String location, String type, Contact contact, LocalDateTime start, LocalDateTime end, User user, Customer customer) throws SQLException {
+        String last_updated_by = UserDAO.getCurrentUser().getUsername();
+        int user_id = user.getUserID();
+        int contact_id = contact.getContactID();
+        int customer_id = customer.getCustomerID();
+
+        String query = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+        PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+        statement.setString(1, title);
+        statement.setString(2, desc);
+        statement.setString(3, location);
+        statement.setString(4, type);
+        statement.setTimestamp(5, Timestamp.valueOf(start));
+        statement.setTimestamp(6, Timestamp.valueOf(end));
+        statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.ofInstant(OffsetDateTime.now().toInstant(), ZoneOffset.UTC)));
+        statement.setString(8, last_updated_by);
+        statement.setInt(9, customer_id);
+        statement.setInt(10, user_id);
+        statement.setInt(11, contact_id);
+        statement.setInt(12, appointment_id);
+        statement.executeUpdate();
+    }
+
+    /**
      * Creates a list of all the appointments assigned to a user.
      * @return user_appointments all the appointments assigned to a user.
      * @param user the user to be searched for.

@@ -1,12 +1,15 @@
 package controller;
 
+import DAO.AppointmentDAO;
 import DAO.ContactDAO;
 import DAO.CustomerDAO;
 import DAO.UserDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import main.Main;
 import model.Appointment;
 import model.Contact;
 import model.Customer;
@@ -14,6 +17,7 @@ import model.User;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.*;
 import java.time.chrono.Chronology;
 import java.util.ResourceBundle;
 
@@ -21,6 +25,38 @@ public class ModifyAppointmentController extends AddAppointmentController implem
 
     @FXML private Label mod_appt_label;
     private static Appointment selected;
+
+    /**
+     * Saves the modifications to the appointment.
+     * @param actionEvent on save button press.
+     */
+
+    @Override
+    public void onApptSave(ActionEvent actionEvent) throws SQLException {
+        String title = appt_title_box.getText();
+        String desc = appt_desc_box.getText();
+        String location = appt_loc_box.getText();
+        String type = appt_type_box.getText();
+        Contact contact = contact_combo.getValue();
+        User user = user_combo.getValue();
+        Customer customer = cust_combo.getValue();
+
+        LocalDate start_date = start_date_combo.getValue();
+        LocalDate end_date = end_date_combo.getValue();
+        LocalTime start_time = start_time_combo.getValue();
+        LocalTime end_time = end_time_combo.getValue();
+
+        if (checkEmpty()) {
+            if (checkValidHours()) {
+                try {
+                    AppointmentDAO.updateAppointment(selected.getAppointmentID(), title, desc, location, type, contact, LocalDateTime.of(start_date, start_time), LocalDateTime.of(end_date, end_time), user, customer);
+                    onClose(actionEvent);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -64,8 +64,9 @@ public class ModifyAppointmentController extends AddAppointmentController implem
         contact_combo.getSelectionModel().select(selected.getContactID() - 1);
         user_combo.getSelectionModel().select(selected.getUserID() - 1);
         cust_combo.getSelectionModel().select(selected.getCustomerID() - 1);
-
-        // TODO: Add modifying appointment date & time combo population
-
+        start_date_combo.setValue(selected.getStartDateTime().toLocalDate());
+        end_date_combo.setValue(selected.getEndDateTime().toLocalDate());
+        start_time_combo.getSelectionModel().select(selected.getStartDateTime().toLocalTime());
+        end_time_combo.getSelectionModel().select(selected.getEndDateTime().toLocalTime());
     }
 }

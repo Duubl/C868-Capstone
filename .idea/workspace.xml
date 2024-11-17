@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8daa695a-37d5-4f1d-b8ed-7dcbb87d5926" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/GUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/GUIController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/ModifyAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ModifyAppointmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helper/Alerts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/Alerts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/language/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/language/lang_en.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

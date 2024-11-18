@@ -4,9 +4,12 @@ import helper.DatabaseDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Contact;
+import model.Customer;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Comparator;
 
 public class ContactDAO {
 
@@ -32,6 +35,7 @@ public class ContactDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        contact_list.sort(Comparator.comparing(Contact::getContactID));
         return contact_list;
     }
 }

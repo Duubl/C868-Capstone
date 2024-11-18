@@ -4,10 +4,13 @@ import helper.DatabaseDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
+import model.Customer;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 public class CountryDAO {
 
@@ -35,6 +38,7 @@ public class CountryDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        country_list.sort(Comparator.comparing(Country::getCountryID));
         return country_list;
     }
 

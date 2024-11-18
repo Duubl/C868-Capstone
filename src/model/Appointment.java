@@ -1,5 +1,8 @@
 package model;
 
+import DAO.AppointmentDAO;
+import DAO.CustomerDAO;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

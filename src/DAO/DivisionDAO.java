@@ -5,12 +5,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
+import model.Customer;
 import model.FirstLevelDivision;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 public class DivisionDAO {
 
@@ -40,6 +42,7 @@ public class DivisionDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        divisions_list.sort(Comparator.comparing(FirstLevelDivision::getDivisionID));
         return divisions_list;
     }
 
@@ -57,6 +60,7 @@ public class DivisionDAO {
                 country_division_list.add(division);
             }
         }
+        country_division_list.sort(Comparator.comparing(FirstLevelDivision::getDivisionID));
         return country_division_list;
     }
 

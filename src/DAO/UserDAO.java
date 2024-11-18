@@ -6,6 +6,7 @@ import helper.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.Main;
+import model.Customer;
 import model.User;
 import java.io.IOException;
 import java.sql.Date;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 public class UserDAO {
 
@@ -62,6 +64,7 @@ public class UserDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        user_list.sort(Comparator.comparing(User::getUserID));
         return user_list;
     }
 

@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,7 @@ public class AppointmentDAO {
             Appointment appointment = new Appointment(appointment_id, title, description, location, type, start, end, created_by, last_update, last_updated_by, customer_id, user_id, contact_id);
             appointment_list.add(appointment);
         }
+        appointment_list.sort(Comparator.comparing(Appointment::getAppointmentID));
         return appointment_list;
     }
 
@@ -143,6 +145,7 @@ public class AppointmentDAO {
                 user_appointments.add(appointment);
             }
         }
+        user_appointments.sort(Comparator.comparing(Appointment::getAppointmentID));
         return user_appointments;
     }
 

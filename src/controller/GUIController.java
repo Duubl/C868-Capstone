@@ -73,6 +73,7 @@ public class GUIController implements Initializable {
     // Appointment functions
     /**
      * Opens the add appointment stage on the add button press.
+     * Lambda expression is used to trigger an event when the appointment addition screen is opened. The event is handled and causes the appointment table to be refreshed automatically, displaying the additions the user made.
      * @param actionEvent on pressing the add button.
      * @throws IOException
      */
@@ -95,6 +96,7 @@ public class GUIController implements Initializable {
 
     /**
      * Modifies the selected appointment on modify button press and appointment is selected.
+     * Lambda expression is used to trigger an event when the appointment modification screen is opened. The event is handled and causes the appointment table to be refreshed automatically, displaying the updates the user made.
      * @param actionEvent on pressing the modify button.
      * @throws IOException
      */
@@ -158,6 +160,7 @@ public class GUIController implements Initializable {
 
     /**
      * Opens the add customer dialog.
+     * Lambda expression is used to trigger an event when the customer addition screen is opened. The event is handled and causes the customer table to be refreshed automatically, displaying the additions the user made.
      * @param actionEvent on pressing the add customer button.
      */
 
@@ -211,6 +214,7 @@ public class GUIController implements Initializable {
 
     /**
      * Loads the modify customer screen
+     * Lambda expression is used to trigger an event when the customer modification screen is opened. The event is handled and causes the customer table to be refreshed automatically, displaying the updates the user made.
      * @param actionEvent onCustomerModify button
      **/
 

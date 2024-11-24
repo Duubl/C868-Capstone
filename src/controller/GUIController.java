@@ -338,6 +338,7 @@ public class GUIController implements Initializable {
             if (appointment != null) {
                 Alerts.customMessage("ID: " + appointment.getAppointmentID() + "\nTitle: " + appointment.getAppointmentTitle() + "\nStarts at: " + appointment.getLocalStartDateTime().format(DateTimeFormatter.ofPattern("h:mm a")));
             } else {
+                // No appointments within 15 minutes
                 Alerts.getError(13);
             }
         } catch (SQLException e) { throw new RuntimeException(e); }

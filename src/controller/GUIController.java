@@ -15,6 +15,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.Main;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import java.io.IOException;
@@ -328,6 +331,15 @@ public class GUIController implements Initializable {
             appt_end_col.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
             appt_cust_id_col.setCellValueFactory(new PropertyValueFactory<>("customerID"));
             appt_user_id_col.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        } catch (SQLException e) { throw new RuntimeException(e); }
+
+        try {
+            Appointment appointment = AppointmentDAO.appointmentSoon();
+            if (appointment != null) {
+                Alerts.customMessage("ID: " + appointment.getAppointmentID() + "\nTitle: " + appointment.getAppointmentTitle() + "\nStarts at: " + appointment.getLocalStartDateTime().format(DateTimeFormatter.ofPattern("h:mm a")));
+            } else {
+                Alerts.getError(13);
+            }
         } catch (SQLException e) { throw new RuntimeException(e); }
     }
 }

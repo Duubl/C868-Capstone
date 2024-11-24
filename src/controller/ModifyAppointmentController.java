@@ -46,10 +46,16 @@ public class ModifyAppointmentController extends AddAppointmentController implem
         LocalTime start_time = start_time_combo.getValue();
         LocalTime end_time = end_time_combo.getValue();
 
+        ZonedDateTime zoned_start_time = ZonedDateTime.of(start_date, start_time, Main.getZoneID());
+        ZonedDateTime zoned_end_time = ZonedDateTime.of(end_date, end_time, Main.getZoneID());
+
+        ZonedDateTime utc_start_time = zoned_start_time.withZoneSameInstant(ZoneId.of("UTC"));
+        ZonedDateTime utc_end_time = zoned_end_time.withZoneSameInstant(ZoneId.of("UTC"));
+
         if (checkEmpty()) {
             if (checkValidHours()) {
                 try {
-                    AppointmentDAO.updateAppointment(selected.getAppointmentID(), title, desc, location, type, contact, LocalDateTime.of(start_date, start_time), LocalDateTime.of(end_date, end_time), user, customer);
+                    AppointmentDAO.updateAppointment(selected.getAppointmentID(), title, desc, location, type, contact, utc_start_time.toLocalDateTime(), utc_end_time.toLocalDateTime(), user, customer);
                     onClose(actionEvent);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -100,9 +106,9 @@ public class ModifyAppointmentController extends AddAppointmentController implem
         contact_combo.getSelectionModel().select(selected.getContactID() - 1);
         user_combo.getSelectionModel().select(selected.getUserID() - 1);
         cust_combo.getSelectionModel().select(selected.getCustomerID() - 1);
-        start_date_combo.setValue(selected.getStartDateTime().toLocalDate());
-        end_date_combo.setValue(selected.getEndDateTime().toLocalDate());
-        start_time_combo.getSelectionModel().select(selected.getStartDateTime().toLocalTime());
-        end_time_combo.getSelectionModel().select(selected.getEndDateTime().toLocalTime());
+        start_date_combo.setValue(selected.getLocalStartDateTime().toLocalDate());
+        end_date_combo.setValue(selected.getLocalEndDateTime().toLocalDate());
+        start_time_combo.getSelectionModel().select(selected.getLocalStartDateTime().toLocalTime());
+        end_time_combo.getSelectionModel().select(selected.getLocalEndDateTime().toLocalTime());
     }
 }

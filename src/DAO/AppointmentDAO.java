@@ -1,5 +1,6 @@
 package DAO;
 
+import helper.Alerts;
 import helper.DatabaseDriver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -195,5 +196,25 @@ public class AppointmentDAO {
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if an appointment is within 15 minutes of the user's local time.
+     * @return true if an appointment is found 15 or fewer minutes after the user's current local time.
+     * @throws SQLException
+     */
+
+    public static Appointment appointmentSoon() throws SQLException {
+        ObservableList<Appointment> appointments = getUserAppointments(UserDAO.getCurrentUser());
+        LocalDateTime local = ZonedDateTime.now(ZoneId.systemDefault()).toLocalDateTime();
+        for (Appointment appointment : appointments) {
+            LocalDateTime appointment_local_time = appointment.getLocalStartDateTime();
+            Duration duration = Duration.between(local, appointment_local_time);
+            long minutes_to_appointment = duration.toMinutes();
+            if (minutes_to_appointment >= 0 && minutes_to_appointment <= 15) {
+                return appointment;
+            }
+        }
+        return null;
     }
 }

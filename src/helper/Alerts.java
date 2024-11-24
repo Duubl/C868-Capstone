@@ -101,7 +101,21 @@ public class Alerts implements Initializable {
                 alert.setContentText(Main.lang_bundle.getString("ExistingAppointments"));
                 alert.showAndWait();
                 break;
+
+            // No appointments found within 15 minutes
+            case 13:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("NoAppointments"));
+                alert.showAndWait();
+                break;
         }
+    }
+
+    public static void customMessage(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(Main.lang_bundle.getString("Error"));
+        alert.setContentText(Main.lang_bundle.getString("AppointmentSoon") + message);
+        alert.showAndWait();
     }
 
     @Override

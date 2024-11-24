@@ -5,6 +5,7 @@ import DAO.CustomerDAO;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class Appointment {
     private int appointment_id;
@@ -137,6 +138,15 @@ public class Appointment {
     }
 
     /**
+     * Gets the local appointment start date & time
+     * @return local_start_date_time the appointment local start date & time
+     */
+
+    public LocalDateTime getLocalStartDateTime() {
+        return this.getStartDateTime().atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
+    /**
      * Sets the appointment start date & time
      * @param start_date_time the appointment start date & time
      */
@@ -152,6 +162,15 @@ public class Appointment {
 
     public LocalDateTime getEndDateTime() {
         return end_date_time;
+    }
+
+    /**
+     * Gets the local appointment end date & time
+     * @return local_end_date_time the appointment local end date & time
+     */
+
+    public LocalDateTime getLocalEndDateTime() {
+        return this.getEndDateTime().atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
     }
 
     /**

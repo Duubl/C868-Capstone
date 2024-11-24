@@ -6,6 +6,7 @@ import DAO.UserDAO;
 import helper.Alerts;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.util.Callback;
 import model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -327,10 +330,47 @@ public class GUIController implements Initializable {
             appt_loc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
             appt_contact_col.setCellValueFactory(new PropertyValueFactory<>("ContactID"));
             appt_type_col.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
-            appt_start_col.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
-            appt_end_col.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
             appt_cust_id_col.setCellValueFactory(new PropertyValueFactory<>("customerID"));
             appt_user_id_col.setCellValueFactory(new PropertyValueFactory<>("userID"));
+
+            // Formats the start & end date & times to clearly display the date, time and time zone.
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a z");
+            appt_start_col.setCellValueFactory(new PropertyValueFactory<>("localStartDateTime"));
+            appt_end_col.setCellValueFactory(new PropertyValueFactory<>("localEndDateTime"));
+            appt_start_col.setCellFactory(new Callback<>() {
+                @Override
+                public TableCell<Appointment, LocalDateTime> call(TableColumn<Appointment, LocalDateTime> param) {
+                    return new TableCell<>() {
+                        @Override
+                        protected void updateItem(LocalDateTime item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty || item == null) {
+                                setText(null);
+                            } else {
+                                ZonedDateTime local = item.atZone(ZoneId.systemDefault());
+                                setText(local.format(formatter));
+                            }
+                        }
+                    };
+                }
+            });
+            appt_end_col.setCellFactory(new Callback<>() {
+                @Override
+                public TableCell<Appointment, LocalDateTime> call(TableColumn<Appointment, LocalDateTime> param) {
+                    return new TableCell<>() {
+                        @Override
+                        protected void updateItem(LocalDateTime item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty || item == null) {
+                                setText(null);
+                            } else {
+                                ZonedDateTime local = item.atZone(ZoneId.systemDefault());
+                                setText(local.format(formatter));
+                            }
+                        }
+                    };
+                }
+            });
         } catch (SQLException e) { throw new RuntimeException(e); }
 
         try {

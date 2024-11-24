@@ -11,18 +11,18 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="appointment_table" layoutX="140.0" layoutY="14.0" prefHeight="500.0" prefWidth="1000.0">
+                        <TableView fx:id="appointment_table" layoutX="140.0" layoutY="14.0" prefHeight="500.0" prefWidth="1120.0">
                           <columns>
-                            <TableColumn fx:id="appt_id_col" minWidth="100.0" prefWidth="-1.0" text="Appointment ID" />
-                            <TableColumn fx:id="appt_title_col" minWidth="100.0" prefWidth="75.0" text="Title" />
-                              <TableColumn fx:id="appt_desc_col" minWidth="100.0" prefWidth="-1.0" text="Description" />
-                              <TableColumn fx:id="appt_loc_col" minWidth="100.0" prefWidth="-1.0" text="Location" />
+                            <TableColumn fx:id="appt_id_col" minWidth="-Infinity" prefWidth="100.0" text="Appointment ID" />
+                            <TableColumn fx:id="appt_title_col" minWidth="90.0" prefWidth="90.0" text="Title" />
+                              <TableColumn fx:id="appt_desc_col" minWidth="-Infinity" prefWidth="175.0" text="Description" />
+                              <TableColumn fx:id="appt_loc_col" minWidth="100.0" prefWidth="100.0" text="Location" />
                               <TableColumn fx:id="appt_contact_col" minWidth="100.0" prefWidth="-1.0" text="Contact" />
-                              <TableColumn fx:id="appt_type_col" minWidth="100.0" prefWidth="-1.0" text="Type" />
-                              <TableColumn fx:id="appt_start_col" minWidth="100.0" prefWidth="-1.0" text="Start Date/Time" />
-                              <TableColumn fx:id="appt_end_col" minWidth="100.0" prefWidth="-1.0" text="End Date/Time" />
-                              <TableColumn fx:id="appt_cust_id_col" minWidth="100.0" prefWidth="-1.0" text="Customer ID" />
-                              <TableColumn fx:id="appt_user_id_col" minWidth="100.0" prefWidth="-1.0" text="User ID" />
+                              <TableColumn fx:id="appt_type_col" minWidth="-Infinity" prefWidth="100.0" text="Type" />
+                              <TableColumn fx:id="appt_start_col" minWidth="-Infinity" prefWidth="150.0" text="Start Date/Time" />
+                              <TableColumn fx:id="appt_end_col" minWidth="-Infinity" prefWidth="150.0" text="End Date/Time" />
+                              <TableColumn fx:id="appt_cust_id_col" minWidth="-Infinity" prefWidth="85.0" text="Customer ID" />
+                              <TableColumn fx:id="appt_user_id_col" minWidth="-Infinity" prefWidth="72.0" text="User ID" />
                           </columns>
                         </TableView>
                         <GridPane layoutX="14.0" layoutY="14.0" prefHeight="185.0" prefWidth="111.0">
@@ -48,15 +48,15 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="customer_table" layoutX="140.0" layoutY="14.0" prefHeight="500.0" prefWidth="1000.0">
+                        <TableView fx:id="customer_table" layoutX="140.0" layoutY="14.0" prefHeight="500.0" prefWidth="1120.0">
                            <columns>
-                              <TableColumn fx:id="cust_id_col" minWidth="143.0" prefWidth="-1.0" text="Customer ID" />
-                              <TableColumn fx:id="cust_name_col" minWidth="143.0" prefWidth="75.0" text="Customer Name" />
-                              <TableColumn fx:id="cust_phone_col" minWidth="143.0" prefWidth="-1.0" text="Phone #" />
-                              <TableColumn fx:id="cust_address_col" minWidth="143.0" prefWidth="-1.0" text="Address" />
-                              <TableColumn fx:id="cust_postal_col" minWidth="143.0" prefWidth="-1.0" text="Postal Code" />
-                              <TableColumn fx:id="cust_state_prov_col" minWidth="143.0" prefWidth="-1.0" text="State/Province" />
-                              <TableColumn fx:id="cust_country_col" minWidth="142.0" prefWidth="-1.0" text="Country" />
+                              <TableColumn fx:id="cust_id_col" minWidth="-Infinity" prefWidth="160.0" text="Customer ID" />
+                              <TableColumn fx:id="cust_name_col" minWidth="-Infinity" prefWidth="160.0" text="Customer Name" />
+                              <TableColumn fx:id="cust_phone_col" minWidth="-Infinity" prefWidth="160.0" text="Phone #" />
+                              <TableColumn fx:id="cust_address_col" minWidth="-Infinity" prefWidth="160.0" text="Address" />
+                              <TableColumn fx:id="cust_postal_col" minWidth="-Infinity" prefWidth="160.0" text="Postal Code" />
+                              <TableColumn fx:id="cust_state_prov_col" minWidth="-Infinity" prefWidth="160.0" text="State/Province" />
+                              <TableColumn fx:id="cust_country_col" minWidth="-Infinity" prefWidth="160.0" text="Country" />
                            </columns>
                         </TableView>
                         <GridPane layoutX="14.0" layoutY="14.0" prefHeight="185.0" prefWidth="111.0">

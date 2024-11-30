@@ -2,6 +2,7 @@ package DAO;
 
 import helper.Alerts;
 import helper.DatabaseDriver;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.Main;
@@ -216,5 +217,37 @@ public class AppointmentDAO {
             }
         }
         return null;
+    }
+
+    /**
+     * Iterates through all the appointments for a given user and returns the ones in the current week.
+     * @return an ObservableList containing all the weekly appointments.
+     * @throws SQLException
+     */
+
+    public static ObservableList<Appointment> getWeeklyAppointments() throws SQLException {
+        ObservableList<Appointment> all_appointments = getUserAppointments(UserDAO.getCurrentUser());
+        LocalDate today = LocalDate.now();
+        LocalDate week_start = today.with(DayOfWeek.MONDAY);
+        LocalDate week_end = today.with(DayOfWeek.SUNDAY);
+        return FXCollections.observableArrayList(all_appointments.stream()
+                .filter(appointment -> !appointment.getStartDateTime().toLocalDate().isBefore(week_start) &&
+                        !appointment.getStartDateTime().toLocalDate().isAfter(week_end)).collect(Collectors.toList()));
+    }
+
+    /**
+     * Iterates through all the appointments for a given user and returns the ones in the current month.
+     * @return an ObservableList containing all the monthly appointments.
+     * @throws SQLException
+     */
+    
+    public static ObservableList<Appointment> getMonthlyAppointments() throws SQLException {
+        ObservableList<Appointment> all_appointments = getUserAppointments(UserDAO.getCurrentUser());
+        LocalDate today = LocalDate.now();
+        int current_month = today.getMonthValue();
+        int current_year = today.getYear();
+        return FXCollections.observableArrayList(all_appointments.stream()
+                .filter(appointment -> appointment.getStartDateTime().toLocalDate().getMonthValue() == current_month &&
+                        appointment.getStartDateTime().toLocalDate().getYear() == current_year).toList());
     }
 }

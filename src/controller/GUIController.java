@@ -46,6 +46,11 @@ public class GUIController implements Initializable {
     @FXML private TableColumn<Appointment, Integer> appt_cust_id_col;
     @FXML private TableColumn<Appointment, Integer> appt_user_id_col;
 
+    // Appointment radio buttons
+    @FXML private RadioButton all_appt_rad;
+    @FXML private RadioButton week_rad;
+    @FXML private RadioButton month_rad;
+
     // Appointment buttons
     @FXML private Button add_appt_button;
     @FXML private Button delete_appt_button;
@@ -286,7 +291,13 @@ public class GUIController implements Initializable {
      */
 
     public void refreshAppointmentTable() throws SQLException {
-        appointment_table.setItems(AppointmentDAO.getUserAppointments(UserDAO.getCurrentUser()));
+        if (all_appt_rad.isSelected()) {
+            appointment_table.setItems(AppointmentDAO.getUserAppointments(UserDAO.getCurrentUser()));
+        } else if (week_rad.isSelected()) {
+        appointment_table.setItems(AppointmentDAO.getWeeklyAppointments());
+        } else if (month_rad.isSelected()) {
+            appointment_table.setItems(AppointmentDAO.getMonthlyAppointments());
+        }
     }
 
     /**

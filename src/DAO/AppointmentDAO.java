@@ -24,6 +24,7 @@ public class AppointmentDAO {
 
     /**
      * Gets all the appointment data from the local database and adds it to an ObservableList.
+     *
      * @return appointment_list a list of all the appointments in the database
      * @throws SQLException
      */
@@ -58,15 +59,16 @@ public class AppointmentDAO {
 
     /**
      * Creates an appointment with the information provided in the database
+     *
      * @param appointment_id the id for the appointment
-     * @param title the title of the appointment
-     * @param desc the description for the appointment
-     * @param location the location of the appointment
-     * @param type the type of appointment
-     * @param contact the contact assigned to the appointment
-     * @param start the start time & date of the appointment
-     * @param end the end time & date of the appointment
-     * @param customer the customer assigned to the appointment
+     * @param title          the title of the appointment
+     * @param desc           the description for the appointment
+     * @param location       the location of the appointment
+     * @param type           the type of appointment
+     * @param contact        the contact assigned to the appointment
+     * @param start          the start time & date of the appointment
+     * @param end            the end time & date of the appointment
+     * @param customer       the customer assigned to the appointment
      * @throws SQLException
      */
 
@@ -97,15 +99,16 @@ public class AppointmentDAO {
 
     /**
      * Updates an appointment with the information provided in the database
+     *
      * @param appointment_id the id for the appointment
-     * @param title the title of the appointment
-     * @param desc the description for the appointment
-     * @param location the location of the appointment
-     * @param type the type of appointment
-     * @param contact the contact assigned to the appointment
-     * @param start the start time & date of the appointment
-     * @param end the end time & date of the appointment
-     * @param customer the customer assigned to the appointment
+     * @param title          the title of the appointment
+     * @param desc           the description for the appointment
+     * @param location       the location of the appointment
+     * @param type           the type of appointment
+     * @param contact        the contact assigned to the appointment
+     * @param start          the start time & date of the appointment
+     * @param end            the end time & date of the appointment
+     * @param customer       the customer assigned to the appointment
      * @throws SQLException
      */
 
@@ -134,8 +137,9 @@ public class AppointmentDAO {
 
     /**
      * Creates a list of all the appointments assigned to a user.
-     * @return user_appointments all the appointments assigned to a user.
+     *
      * @param user the user to be searched for.
+     * @return user_appointments all the appointments assigned to a user.
      * @throws SQLException
      */
 
@@ -153,6 +157,7 @@ public class AppointmentDAO {
 
     /**
      * Deletes the given appointment.
+     *
      * @param appointment the appointment to be deleted.
      * @throws SQLException
      */
@@ -167,6 +172,7 @@ public class AppointmentDAO {
 
     /**
      * Gets a unique appointment ID based on the appointments in the database.
+     *
      * @return id the new unqiue ID.
      * @throws SQLException
      */
@@ -183,8 +189,9 @@ public class AppointmentDAO {
 
     /**
      * Checks if another appointment exists at the times for the current user.
+     *
      * @param start the start time to check.
-     * @param end the end time to check.
+     * @param end   the end time to check.
      * @return true an appointment exists, false otherwise.
      * @throws SQLException
      */
@@ -201,6 +208,7 @@ public class AppointmentDAO {
 
     /**
      * Checks if an appointment is within 15 minutes of the user's local time.
+     *
      * @return true if an appointment is found 15 or fewer minutes after the user's current local time.
      * @throws SQLException
      */
@@ -221,6 +229,7 @@ public class AppointmentDAO {
 
     /**
      * Iterates through all the appointments for a given user and returns the ones in the current week.
+     *
      * @return an ObservableList containing all the weekly appointments.
      * @throws SQLException
      */
@@ -237,6 +246,7 @@ public class AppointmentDAO {
 
     /**
      * Iterates through all the appointments for a given user and returns the ones in the current month.
+     *
      * @return an ObservableList containing all the monthly appointments.
      * @throws SQLException
      */
@@ -250,6 +260,13 @@ public class AppointmentDAO {
                 .filter(appointment -> appointment.getStartDateTime().toLocalDate().getMonthValue() == current_month &&
                         appointment.getStartDateTime().toLocalDate().getYear() == current_year).toList());
     }
+
+    /**
+     * Gets all the types of appointments.
+     *
+     * @return ObservableArrayList containing all the appointment types.
+     * @throws SQLException
+     */
 
     public static ObservableList<String> getAppointmentTypes() throws SQLException {
         ObservableList<Appointment> appointment_list = getAppointmentList();

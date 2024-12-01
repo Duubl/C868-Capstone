@@ -5,6 +5,8 @@ import DAO.ContactDAO;
 import DAO.CustomerDAO;
 import DAO.UserDAO;
 import helper.Alerts;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -20,18 +22,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.Main;
 
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
+import java.util.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class GUIController implements Initializable {
 
@@ -79,24 +79,24 @@ public class GUIController implements Initializable {
     @FXML private Tab reporting_tab;
 
     // Contact schedules
-    @FXML private TableView<Contact> contact_schedule_table;
-    @FXML private TableColumn<Contact, Contact> sched_contact_col;
-    @FXML private TableColumn<Contact, Integer> sched_appt_col;
-    @FXML private TableColumn<Contact, String> sched_title_col;
-    @FXML private TableColumn<Contact, String> sched_desc_col;
-    @FXML private TableColumn<Contact, String> sched_loc_col;
-    @FXML private TableColumn<Contact, String> sched_type_col;
-    @FXML private TableColumn<Contact, LocalDateTime> sched_start_col;
-    @FXML private TableColumn<Contact, LocalDateTime> sched_end_col;
-    @FXML private TableColumn<Contact, Customer> sched_cust_col;
+    @FXML private TableView<Appointment> contact_schedule_table;
+    @FXML private TableColumn<Appointment, Contact> sched_contact_col;
+    @FXML private TableColumn<Appointment, Integer> sched_appt_col;
+    @FXML private TableColumn<Appointment, String> sched_title_col;
+    @FXML private TableColumn<Appointment, String> sched_desc_col;
+    @FXML private TableColumn<Appointment, String> sched_loc_col;
+    @FXML private TableColumn<Appointment, String> sched_type_col;
+    @FXML private TableColumn<Appointment, LocalDateTime> sched_start_col;
+    @FXML private TableColumn<Appointment, LocalDateTime> sched_end_col;
+    @FXML private TableColumn<Appointment, Customer> sched_cust_col;
     @FXML private ComboBox<Contact> contact_combo;
 
     // Appointment totals
 
     // Type
-    @FXML private TableView<String> appt_by_type_table;
-    @FXML private TableColumn<String, String> appt_by_type_col;
-    @FXML private TableColumn<String, Integer> appt_by_type_total_col;
+    @FXML private TableView<Map.Entry<String, Integer>> appt_by_type_table;
+    @FXML private TableColumn<Map.Entry<String, Integer>, String> appt_by_type_col;
+    @FXML private TableColumn<Map.Entry<String, Integer>, Integer> appt_by_type_total_col;
 
     // Month
     @FXML private TableView<String> appt_by_month_table;
@@ -130,7 +130,7 @@ public class GUIController implements Initializable {
         stage.setResizable(false);
         stage.setOnHidden(e -> {
             try {
-                refreshAppointmentTable();
+                refreshTables();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -159,7 +159,7 @@ public class GUIController implements Initializable {
                 stage.setResizable(false);
                 stage.setOnHidden(e -> {
                     try {
-                        refreshAppointmentTable();
+                        refreshTables();
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -190,7 +190,7 @@ public class GUIController implements Initializable {
                 Optional<ButtonType> result = confirm.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     AppointmentDAO.deleteAppointment(selected);
-                    refreshAppointmentTable();
+                    refreshTables();
                 }
             }
         } catch (Exception e) {
@@ -216,7 +216,7 @@ public class GUIController implements Initializable {
         stage.setResizable(false);
         stage.setOnHidden(e -> {
             try {
-                refreshCustomerTable();
+                refreshTables();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -246,7 +246,7 @@ public class GUIController implements Initializable {
                 Optional<ButtonType> result = confirm.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     CustomerDAO.deleteCustomer(selected);
-                    refreshCustomerTable();
+                    refreshTables();
                 }
             }
         } catch (Exception e) {
@@ -276,7 +276,7 @@ public class GUIController implements Initializable {
                 stage.setResizable(false);
                 stage.setOnHidden(e -> {
                     try {
-                        refreshCustomerTable();
+                        refreshTables();
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -313,14 +313,99 @@ public class GUIController implements Initializable {
      * Refreshes the contact schedule table once a new contact is selected using the combo box
      */
 
-    public void refreshScheduleTable() {
+    public void refreshScheduleTable() throws SQLException {
+        try {
+        Contact selected = contact_combo.getSelectionModel().getSelectedItem();
+        contact_schedule_table.setItems(ContactDAO.getContactAppointments(selected));
+        sched_contact_col.setCellValueFactory(new PropertyValueFactory<>("ContactID"));
+        sched_appt_col.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        sched_title_col.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        sched_desc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));
+        sched_loc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
+        sched_type_col.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
+        sched_cust_col.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
+        // Formats the start & end date & times to clearly display the date, time and time zone.
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a z");
+        sched_start_col.setCellValueFactory(new PropertyValueFactory<>("localStartDateTime"));
+        sched_end_col.setCellValueFactory(new PropertyValueFactory<>("localEndDateTime"));
+        sched_start_col.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<Appointment, LocalDateTime> call(TableColumn<Appointment, LocalDateTime> param) {
+                return new TableCell<>() {
+                    @Override
+                    protected void updateItem(LocalDateTime item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setText(null);
+                        } else {
+                            ZonedDateTime local = item.atZone(ZoneId.systemDefault());
+                            setText(local.format(formatter));
+                        }
+                    }
+                };
+            }
+        });
+        sched_end_col.setCellFactory(new Callback<>() {
+            @Override
+            public TableCell<Appointment, LocalDateTime> call(TableColumn<Appointment, LocalDateTime> param) {
+                return new TableCell<>() {
+                    @Override
+                    protected void updateItem(LocalDateTime item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setText(null);
+                        } else {
+                            ZonedDateTime local = item.atZone(ZoneId.systemDefault());
+                            setText(local.format(formatter));
+                        }
+                    }
+                };
+            }
+        });
+    } catch (SQLException e) { throw new RuntimeException(e); }
+    }
+
+    /**
+     * Refreshes the meetings per contact custom report table
+     */
+
+    public void refreshMeetingsPerContactTable() {
+        try {
+            meet_count_table.setItems(ContactDAO.getContactList());
+            meet_count_contact_col.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+            meet_count_col.setCellValueFactory(data -> {
+                Contact contact = data.getValue();
+                try {
+                    int count = ContactDAO.getAppointmentCount(contact);
+                    return new SimpleIntegerProperty(count).asObject();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return new SimpleIntegerProperty(0).asObject();
+                }
+            });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Other miscellaneous functions
 
     /**
+     * Refreshes all the tables
+     * @throws SQLException
+     */
+
+    public void refreshTables() throws SQLException {
+        refreshAppointmentTable();
+        refreshCustomerTable();
+        refreshScheduleTable();
+        refreshMeetingsPerContactTable();
+    }
+
+    /**
      * Refreshes the table customer table
+     * @throws SQLException
      */
 
     public void refreshCustomerTable() throws SQLException {
@@ -454,10 +539,24 @@ public class GUIController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        // Appointment totals
+        // Appointment type totals
         try {
-            appt_by_type_table.setItems(AppointmentDAO.getAppointmentTypes());
-            // TODO: Populate tables
+            ObservableList<String> appointment_types = AppointmentDAO.getAppointmentTypes();
+            Map<String, Integer> type_counts = appointment_types.stream().collect(Collectors.groupingBy(type -> type, Collectors.summingInt(type -> 1)));
+            ObservableList<Map.Entry<String, Integer>> appointment_type_data = FXCollections.observableArrayList(type_counts.entrySet());
+            appt_by_type_table.setItems(appointment_type_data);
+            appt_by_type_col.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getKey()));
+            appt_by_type_total_col.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getValue()).asObject());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        // Appointment month totals
+        try {
+            ObservableList<String> months = FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+            appt_by_month_table.setItems(months);
+            appt_by_month_col.setCellValueFactory(month -> new SimpleStringProperty(month.getValue()));
+            // TODO: Populate total appointments for a given month
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -466,7 +565,16 @@ public class GUIController implements Initializable {
         try {
             meet_count_table.setItems(ContactDAO.getContactList());
             meet_count_contact_col.setCellValueFactory(new PropertyValueFactory<>("contactName"));
-            // TODO: Populate tables
+            meet_count_col.setCellValueFactory(data -> {
+                Contact contact = data.getValue();
+                try {
+                    int count = ContactDAO.getAppointmentCount(contact);
+                    return new SimpleIntegerProperty(count).asObject();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return new SimpleIntegerProperty(0).asObject();
+                }
+            });
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

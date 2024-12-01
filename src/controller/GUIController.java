@@ -1,12 +1,15 @@
 package controller;
 
 import DAO.AppointmentDAO;
+import DAO.ContactDAO;
 import DAO.CustomerDAO;
 import DAO.UserDAO;
 import helper.Alerts;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,6 +77,36 @@ public class GUIController implements Initializable {
 
     // Reporting tab
     @FXML private Tab reporting_tab;
+
+    // Contact schedules
+    @FXML private TableView<Contact> contact_schedule_table;
+    @FXML private TableColumn<Contact, Contact> sched_contact_col;
+    @FXML private TableColumn<Contact, Integer> sched_appt_col;
+    @FXML private TableColumn<Contact, String> sched_title_col;
+    @FXML private TableColumn<Contact, String> sched_desc_col;
+    @FXML private TableColumn<Contact, String> sched_loc_col;
+    @FXML private TableColumn<Contact, String> sched_type_col;
+    @FXML private TableColumn<Contact, LocalDateTime> sched_start_col;
+    @FXML private TableColumn<Contact, LocalDateTime> sched_end_col;
+    @FXML private TableColumn<Contact, Customer> sched_cust_col;
+    @FXML private ComboBox<Contact> contact_combo;
+
+    // Appointment totals
+
+    // Type
+    @FXML private TableView<String> appt_by_type_table;
+    @FXML private TableColumn<String, String> appt_by_type_col;
+    @FXML private TableColumn<String, Integer> appt_by_type_total_col;
+
+    // Month
+    @FXML private TableView<String> appt_by_month_table;
+    @FXML private TableColumn<String, String> appt_by_month_col;
+    @FXML private TableColumn<String, Integer> appt_by_month_total_col;
+
+    // Meetings per contact
+    @FXML private TableView<Contact> meet_count_table;
+    @FXML private TableColumn<Contact, Contact> meet_count_contact_col;
+    @FXML private TableColumn<Contact, Integer> meet_count_col;
 
     // Customer and appointment to modify
     private static Customer customer_to_modify;
@@ -276,6 +309,14 @@ public class GUIController implements Initializable {
 
     // Reporting functions
 
+    /**
+     * Refreshes the contact schedule table once a new contact is selected using the combo box
+     */
+
+    public void refreshScheduleTable() {
+
+    }
+
     // Other miscellaneous functions
 
     /**
@@ -384,6 +425,7 @@ public class GUIController implements Initializable {
             });
         } catch (SQLException e) { throw new RuntimeException(e); }
 
+        // Checks for appointments coming up soon
         try {
             Appointment appointment = AppointmentDAO.appointmentSoon();
             if (appointment != null) {
@@ -393,5 +435,40 @@ public class GUIController implements Initializable {
                 Alerts.getError(13);
             }
         } catch (SQLException e) { throw new RuntimeException(e); }
+
+        // Contact Schedules
+        try {
+            contact_combo.setItems(ContactDAO.getContactList());
+            contact_combo.setConverter(new StringConverter<>() {
+                @Override
+                public String toString(Contact contact) {
+                    return contact.getContactName();
+                }
+
+                @Override
+                public Contact fromString(String s) {
+                    return null;
+                }
+            });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        // Appointment totals
+        try {
+            appt_by_type_table.setItems(AppointmentDAO.getAppointmentTypes());
+            // TODO: Populate tables
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        // Meetings per contact
+        try {
+            meet_count_table.setItems(ContactDAO.getContactList());
+            meet_count_contact_col.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+            // TODO: Populate tables
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

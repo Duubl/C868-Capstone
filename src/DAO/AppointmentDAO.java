@@ -240,7 +240,7 @@ public class AppointmentDAO {
      * @return an ObservableList containing all the monthly appointments.
      * @throws SQLException
      */
-    
+
     public static ObservableList<Appointment> getMonthlyAppointments() throws SQLException {
         ObservableList<Appointment> all_appointments = getUserAppointments(UserDAO.getCurrentUser());
         LocalDate today = LocalDate.now();
@@ -249,5 +249,10 @@ public class AppointmentDAO {
         return FXCollections.observableArrayList(all_appointments.stream()
                 .filter(appointment -> appointment.getStartDateTime().toLocalDate().getMonthValue() == current_month &&
                         appointment.getStartDateTime().toLocalDate().getYear() == current_year).toList());
+    }
+
+    public static ObservableList<String> getAppointmentTypes() throws SQLException {
+        ObservableList<Appointment> appointment_list = getAppointmentList();
+        return FXCollections.observableArrayList(appointment_list.stream().map(Appointment::getAppointmentType).collect(Collectors.toList()));
     }
 }

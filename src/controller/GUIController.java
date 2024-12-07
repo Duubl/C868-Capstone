@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.Main;
 
+import java.time.Month;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +33,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class GUIController implements Initializable {
 
@@ -99,9 +101,9 @@ public class GUIController implements Initializable {
     @FXML private TableColumn<Map.Entry<String, Integer>, Integer> appt_by_type_total_col;
 
     // Month
-    @FXML private TableView<String> appt_by_month_table;
-    @FXML private TableColumn<String, String> appt_by_month_col;
-    @FXML private TableColumn<String, Integer> appt_by_month_total_col;
+    @FXML private TableView<Map.Entry<Integer, Integer>> appt_by_month_table;
+    @FXML private TableColumn<Map.Entry<Integer, Integer>, String> appt_by_month_col;
+    @FXML private TableColumn<Map.Entry<Integer, Integer>, Integer> appt_by_month_total_col;
 
     // Meetings per contact
     @FXML private TableView<Contact> meet_count_table;
@@ -553,13 +555,28 @@ public class GUIController implements Initializable {
 
         // Appointment month totals
         try {
-            ObservableList<String> months = FXCollections.observableArrayList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-            appt_by_month_table.setItems(months);
-            appt_by_month_col.setCellValueFactory(month -> new SimpleStringProperty(month.getValue()));
-            // TODO: Populate total appointments for a given month
+            // Creates an ObservableList of months and the total appointments for each month
+            ObservableList<Integer> months = FXCollections.observableArrayList(Arrays.stream(Month.values()).map(Month::getValue).toList());
+            ObservableList<Integer> appointment_month_totals = AppointmentDAO.getMonthlyAppointmentTotals();
+
+            // Maps the total appointments to the month value
+            Map<Integer, Integer> month_counts = IntStream.range(0, months.size()).boxed().collect(Collectors.toMap(months::get, appointment_month_totals::get));
+
+            // Makes an ObservableList to use in the table
+            ObservableList<Map.Entry<Integer, Integer>> table_values = FXCollections.observableArrayList(month_counts.entrySet());
+            appt_by_month_table.setItems(table_values);
+
+            // Replaces the number value of the month with the name of the month for readability
+            appt_by_month_col.setCellValueFactory(cellData -> {
+                String month_name = Month.of(cellData.getValue().getKey()).name();
+                month_name = month_name.substring(0, 1).toUpperCase() + month_name.substring(1).toLowerCase();
+                return new SimpleStringProperty(month_name);
+            });
+            appt_by_month_total_col.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getValue()).asObject());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
 
         // Meetings per contact
         try {

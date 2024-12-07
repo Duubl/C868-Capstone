@@ -261,6 +261,21 @@ public class AppointmentDAO {
                         appointment.getStartDateTime().toLocalDate().getYear() == current_year).toList());
     }
 
+    public static ObservableList<Integer> getMonthlyAppointmentTotals() throws SQLException {
+        ObservableList<Appointment> appointment_list = getAppointmentList();
+        ObservableList<Integer> month_totals = FXCollections.observableArrayList();
+        for (Month month : Month.values()) {
+            int month_total = 0;
+            for (Appointment appointment : appointment_list) {
+                if (appointment.getStartDateTime().getMonth().equals(month)) {
+                    month_total++;
+                }
+            }
+            month_totals.add(month_total);
+        }
+        return month_totals;
+    }
+
     /**
      * Gets all the types of appointments.
      *

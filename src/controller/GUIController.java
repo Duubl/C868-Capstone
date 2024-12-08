@@ -317,55 +317,59 @@ public class GUIController implements Initializable {
 
     public void refreshScheduleTable() throws SQLException {
         try {
-        Contact selected = contact_combo.getSelectionModel().getSelectedItem();
-        contact_schedule_table.setItems(ContactDAO.getContactAppointments(selected));
-        sched_contact_col.setCellValueFactory(new PropertyValueFactory<>("ContactID"));
-        sched_appt_col.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
-        sched_title_col.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
-        sched_desc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));
-        sched_loc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
-        sched_type_col.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
-        sched_cust_col.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+            Contact selected = contact_combo.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                contact_schedule_table.setItems(null);
+            } else {
+                contact_schedule_table.setItems(ContactDAO.getContactAppointments(selected));
+            }
+            sched_contact_col.setCellValueFactory(new PropertyValueFactory<>("ContactID"));
+            sched_appt_col.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+            sched_title_col.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+            sched_desc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));
+            sched_loc_col.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
+            sched_type_col.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
+            sched_cust_col.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
-        // Formats the start & end date & times to clearly display the date, time and time zone.
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a z");
-        sched_start_col.setCellValueFactory(new PropertyValueFactory<>("localStartDateTime"));
-        sched_end_col.setCellValueFactory(new PropertyValueFactory<>("localEndDateTime"));
-        sched_start_col.setCellFactory(new Callback<>() {
-            @Override
-            public TableCell<Appointment, LocalDateTime> call(TableColumn<Appointment, LocalDateTime> param) {
-                return new TableCell<>() {
-                    @Override
-                    protected void updateItem(LocalDateTime item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            ZonedDateTime local = item.atZone(ZoneId.systemDefault());
-                            setText(local.format(formatter));
+            // Formats the start & end date & times to clearly display the date, time and time zone.
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a z");
+            sched_start_col.setCellValueFactory(new PropertyValueFactory<>("localStartDateTime"));
+            sched_end_col.setCellValueFactory(new PropertyValueFactory<>("localEndDateTime"));
+            sched_start_col.setCellFactory(new Callback<>() {
+                @Override
+                public TableCell<Appointment, LocalDateTime> call(TableColumn<Appointment, LocalDateTime> param) {
+                    return new TableCell<>() {
+                        @Override
+                        protected void updateItem(LocalDateTime item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty || item == null) {
+                                setText(null);
+                            } else {
+                                ZonedDateTime local = item.atZone(ZoneId.systemDefault());
+                                setText(local.format(formatter));
+                            }
                         }
-                    }
-                };
-            }
-        });
-        sched_end_col.setCellFactory(new Callback<>() {
-            @Override
-            public TableCell<Appointment, LocalDateTime> call(TableColumn<Appointment, LocalDateTime> param) {
-                return new TableCell<>() {
-                    @Override
-                    protected void updateItem(LocalDateTime item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            ZonedDateTime local = item.atZone(ZoneId.systemDefault());
-                            setText(local.format(formatter));
+                    };
+                }
+            });
+            sched_end_col.setCellFactory(new Callback<>() {
+                @Override
+                public TableCell<Appointment, LocalDateTime> call(TableColumn<Appointment, LocalDateTime> param) {
+                    return new TableCell<>() {
+                        @Override
+                        protected void updateItem(LocalDateTime item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty || item == null) {
+                                setText(null);
+                            } else {
+                                ZonedDateTime local = item.atZone(ZoneId.systemDefault());
+                                setText(local.format(formatter));
+                            }
                         }
-                    }
-                };
-            }
-        });
-    } catch (SQLException e) { throw new RuntimeException(e); }
+                    };
+                }
+            });
+        } catch (SQLException e) { throw new RuntimeException(e); }
     }
 
     /**
@@ -626,7 +630,6 @@ public class GUIController implements Initializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
 
         // Meetings per contact
         try {

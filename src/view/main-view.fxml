@@ -109,15 +109,15 @@
                                        <children>
                                           <TableView fx:id="contact_schedule_table" layoutX="80.0" layoutY="14.0" prefHeight="500.0" prefWidth="1120.0">
                                              <columns>
-                                                <TableColumn fx:id="sched_contact_col" minWidth="100.0" prefWidth="108.0" text="Contact ID" />
-                                                <TableColumn fx:id="sched_appt_col" minWidth="-Infinity" prefWidth="108.0" text="Appointment ID" />
-                                                <TableColumn fx:id="sched_title_col" minWidth="90.0" prefWidth="98.0" text="Title" />
-                                                <TableColumn fx:id="sched_desc_col" minWidth="-Infinity" prefWidth="183.0" text="Description" />
-                                                <TableColumn fx:id="sched_loc_col" minWidth="100.0" prefWidth="108.0" text="Location" />
-                                                <TableColumn fx:id="sched_type_col" minWidth="-Infinity" prefWidth="108.0" text="Type" />
+                                                <TableColumn fx:id="sched_contact_col" minWidth="100.0" prefWidth="108.0" sortable="false" text="Contact ID" />
+                                                <TableColumn fx:id="sched_appt_col" minWidth="-Infinity" prefWidth="108.0" sortable="false" text="Appointment ID" />
+                                                <TableColumn fx:id="sched_title_col" minWidth="90.0" prefWidth="98.0" sortable="false" text="Title" />
+                                                <TableColumn fx:id="sched_desc_col" minWidth="-Infinity" prefWidth="183.0" sortable="false" text="Description" />
+                                                <TableColumn fx:id="sched_loc_col" minWidth="100.0" prefWidth="108.0" sortable="false" text="Location" />
+                                                <TableColumn fx:id="sched_type_col" minWidth="-Infinity" prefWidth="108.0" sortable="false" text="Type" />
                                                 <TableColumn fx:id="sched_start_col" minWidth="-Infinity" prefWidth="158.0" text="Start Date/Time" />
-                                                <TableColumn fx:id="sched_end_col" minWidth="-Infinity" prefWidth="158.0" text="End Date/Time" />
-                                                <TableColumn fx:id="sched_cust_col" minWidth="-Infinity" prefWidth="93.0" text="Customer ID" />
+                                                <TableColumn fx:id="sched_end_col" minWidth="-Infinity" prefWidth="158.0" sortable="false" text="End Date/Time" />
+                                                <TableColumn fx:id="sched_cust_col" minWidth="-Infinity" prefWidth="93.0" sortable="false" text="Customer ID" />
                                              </columns>
                                           </TableView>
                                           <ComboBox fx:id="contact_combo" layoutX="80.0" layoutY="524.0" onAction="#refreshScheduleTable" prefHeight="25.0" prefWidth="134.0" promptText="Select Contact" />

@@ -352,6 +352,7 @@ public class GUIController implements Initializable {
                     };
                 }
             });
+
             sched_end_col.setCellFactory(new Callback<>() {
                 @Override
                 public TableCell<Appointment, LocalDateTime> call(TableColumn<Appointment, LocalDateTime> param) {
@@ -369,6 +370,7 @@ public class GUIController implements Initializable {
                     };
                 }
             });
+            contact_schedule_table.getSortOrder().add(sched_start_col);
         } catch (SQLException e) { throw new RuntimeException(e); }
     }
 

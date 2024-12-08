@@ -66,5 +66,15 @@
       </GridPane>
       <Button fx:id="close_button" layoutX="331.0" layoutY="432.0" mnemonicParsing="false" onAction="#onClose" prefHeight="25.0" prefWidth="53.0" text="Close" />
       <Button fx:id="save_button" layoutX="268.0" layoutY="432.0" mnemonicParsing="false" onAction="#onCustSave" prefHeight="25.0" prefWidth="53.0" text="Save" />
+      <Label layoutX="340.0" layoutY="11.0" text="ID: ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="modify_customer_id" layoutX="365.0" layoutY="7.0" text="4">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

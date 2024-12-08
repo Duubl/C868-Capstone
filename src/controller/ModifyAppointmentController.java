@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 public class ModifyAppointmentController extends AddAppointmentController implements Initializable {
 
+    @FXML private Label modify_appt_id;
     @FXML private Label mod_appt_label;
     private static Appointment selected;
 
@@ -68,6 +69,7 @@ public class ModifyAppointmentController extends AddAppointmentController implem
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selected = GUIController.getAppointmentToModify();
 
+        modify_appt_id.setText(Integer.toString(selected.getAppointmentID()));
         appt_title_box.setText(selected.getAppointmentTitle());
         appt_desc_box.setText(selected.getAppointmentDescription());
         appt_loc_box.setText(selected.getAppointmentLocation());

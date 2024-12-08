@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 public class ModifyCustomerController extends AddCustomerController implements Initializable {
 
+    @FXML private Label modify_customer_id;
     // Labels
     @FXML protected Label modify_cust_label;
     private static Customer selected;
@@ -73,6 +74,7 @@ public class ModifyCustomerController extends AddCustomerController implements I
         // Customer to be modified
         selected = GUIController.getCustomerToModify();
 
+        modify_customer_id.setText(Integer.toString(selected.getCustomerID()));
         cust_name_box.setText(selected.getCustomerName());
         phone_box.setText(selected.getCustomerPhone());
         address_box.setText(selected.getCustomerAddress());

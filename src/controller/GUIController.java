@@ -403,6 +403,8 @@ public class GUIController implements Initializable {
         refreshCustomerTable();
         refreshScheduleTable();
         refreshMeetingsPerContactTable();
+        refreshAppointmentByMonthTable();
+        refreshAppointmentByTypeTable();
     }
 
     /**
@@ -425,6 +427,54 @@ public class GUIController implements Initializable {
         appointment_table.setItems(AppointmentDAO.getWeeklyAppointments());
         } else if (month_rad.isSelected()) {
             appointment_table.setItems(AppointmentDAO.getMonthlyAppointments());
+        }
+    }
+
+    /**
+     * Refreshes the appointment by type table
+     */
+
+    public void refreshAppointmentByTypeTable() {
+        // Appointment type totals
+        try {
+            ObservableList<String> appointment_types = AppointmentDAO.getAppointmentTypes();
+            Map<String, Integer> type_counts = appointment_types.stream().collect(Collectors.groupingBy(type -> type, Collectors.summingInt(type -> 1)));
+            ObservableList<Map.Entry<String, Integer>> appointment_type_data = FXCollections.observableArrayList(type_counts.entrySet());
+            appt_by_type_table.setItems(appointment_type_data);
+            appt_by_type_col.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getKey()));
+            appt_by_type_total_col.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getValue()).asObject());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Refreshes the appointment by month table
+     */
+
+    public void refreshAppointmentByMonthTable() {
+        // Appointment month totals
+        try {
+            // Creates an ObservableList of months and the total appointments for each month
+            ObservableList<Integer> months = FXCollections.observableArrayList(Arrays.stream(Month.values()).map(Month::getValue).toList());
+            ObservableList<Integer> appointment_month_totals = AppointmentDAO.getMonthlyAppointmentTotals();
+
+            // Maps the total appointments to the month value
+            Map<Integer, Integer> month_counts = IntStream.range(0, months.size()).boxed().collect(Collectors.toMap(months::get, appointment_month_totals::get));
+
+            // Makes an ObservableList to use in the table
+            ObservableList<Map.Entry<Integer, Integer>> table_values = FXCollections.observableArrayList(month_counts.entrySet());
+            appt_by_month_table.setItems(table_values);
+
+            // Replaces the number value of the month with the name of the month for readability
+            appt_by_month_col.setCellValueFactory(cellData -> {
+                String month_name = Month.of(cellData.getValue().getKey()).name();
+                month_name = month_name.substring(0, 1).toUpperCase() + month_name.substring(1).toLowerCase();
+                return new SimpleStringProperty(month_name);
+            });
+            appt_by_month_total_col.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getValue()).asObject());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

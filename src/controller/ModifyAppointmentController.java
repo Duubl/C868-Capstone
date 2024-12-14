@@ -41,6 +41,7 @@ public class ModifyAppointmentController extends AddAppointmentController implem
         Contact contact = contact_combo.getValue();
         User user = user_combo.getValue();
         Customer customer = cust_combo.getValue();
+        int id = selected.getAppointmentID();
 
         LocalDate start_date = start_date_combo.getValue();
         LocalDate end_date = end_date_combo.getValue();
@@ -54,9 +55,9 @@ public class ModifyAppointmentController extends AddAppointmentController implem
         ZonedDateTime utc_end_time = zoned_end_time.withZoneSameInstant(ZoneId.of("UTC"));
 
         if (checkEmpty()) {
-            if (checkValidHours()) {
+            if (checkValidHours(id)) {
                 try {
-                    AppointmentDAO.updateAppointment(selected.getAppointmentID(), title, desc, location, type, contact, utc_start_time.toLocalDateTime(), utc_end_time.toLocalDateTime(), user, customer);
+                    AppointmentDAO.updateAppointment(id, title, desc, location, type, contact, utc_start_time.toLocalDateTime(), utc_end_time.toLocalDateTime(), user, customer);
                     onClose(actionEvent);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);

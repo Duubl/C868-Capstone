@@ -188,7 +188,7 @@ public class GUIController implements Initializable {
             } else {
                 Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
                 confirm.setTitle("You Sure Bud?");
-                confirm.setContentText(Main.lang_bundle.getString("DeleteConfirmAppointment") + " " + selected.getAppointmentTitle() + "?");
+                confirm.setContentText(Main.lang_bundle.getString("DeleteConfirmAppointment") + " " + selected.getAppointmentTitle() + "?\n" + "ID: " + selected.getAppointmentID() + "\n" + "Type" + ": " + selected.getAppointmentType());
                 Optional<ButtonType> result = confirm.showAndWait();
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     AppointmentDAO.deleteAppointment(selected);

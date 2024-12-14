@@ -196,9 +196,12 @@ public class AppointmentDAO {
      * @throws SQLException
      */
 
-    public static boolean appointmentExistsAtTime(LocalDateTime start, LocalDateTime end) throws SQLException {
+    public static boolean appointmentExistsAtTime(int id, LocalDateTime start, LocalDateTime end) throws SQLException {
         ObservableList<Appointment> appointment_list = getUserAppointments(UserDAO.getCurrentUser());
         for (Appointment appointment : appointment_list) {
+            if (appointment.getAppointmentID() == id) {
+                continue;
+            }
             if (appointment.getStartDateTime().isBefore(end) && appointment.getEndDateTime().isAfter(start)) {
                 return true;
             }

@@ -4,6 +4,7 @@ import helper.DatabaseDriver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -35,7 +36,7 @@ public class Main extends Application {
      */
 
     public static ZoneId getZoneID() {
-        zone = ZonedDateTime.now().getZone();
+        zone = ZoneId.systemDefault();
         return zone;
     }
 
@@ -50,6 +51,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         DatabaseDriver.openConnection();
+        System.out.println("\u001B[31m" + "RESTART MYSQL SERVICE WHEN CHANGING TIME ZONES" + "\u001B[0m");
         launch();
         DatabaseDriver.closeConnection();
     }

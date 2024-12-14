@@ -76,7 +76,7 @@ public class AddAppointmentController implements Initializable {
      * @return true when meeting is within business hours, start date is before end date and there are no overlapping meetings.
      */
 
-    public boolean checkValidHours() throws SQLException {
+    public boolean checkValidHours(int id) throws SQLException {
         LocalDate start_date = start_date_combo.getValue();
         LocalDate end_date = end_date_combo.getValue();
         LocalTime start_time = start_time_combo.getValue();
@@ -85,6 +85,7 @@ public class AddAppointmentController implements Initializable {
         ZonedDateTime zoned_end_time = ZonedDateTime.of(end_date, end_time, Main.getZoneID());
         ZonedDateTime utc_start_time = zoned_start_time.withZoneSameInstant(ZoneId.of("UTC"));
         ZonedDateTime utc_end_time = zoned_end_time.withZoneSameInstant(ZoneId.of("UTC"));
+
         if (start_date.isAfter(end_date)) {
             // Invalid start & end dates.
             Alerts.getError(9);
@@ -95,7 +96,7 @@ public class AddAppointmentController implements Initializable {
             Alerts.getError(10);
             return false;
         }
-        if (AppointmentDAO.appointmentExistsAtTime(utc_start_time.toLocalDateTime(), utc_end_time.toLocalDateTime())) {
+        if (AppointmentDAO.appointmentExistsAtTime(id, utc_start_time.toLocalDateTime(), utc_end_time.toLocalDateTime())) {
             // Overlapping appointment error
             Alerts.getError(11);
             return false;
@@ -116,6 +117,7 @@ public class AddAppointmentController implements Initializable {
         Contact contact = contact_combo.getValue();
         User user = user_combo.getValue();
         Customer customer = cust_combo.getValue();
+        int id = AppointmentDAO.getUniqueAppointmentID();
 
         LocalDate start_date = start_date_combo.getValue();
         LocalDate end_date = end_date_combo.getValue();
@@ -129,9 +131,9 @@ public class AddAppointmentController implements Initializable {
         ZonedDateTime utc_end_time = zoned_end_time.withZoneSameInstant(ZoneId.of("UTC"));
 
         if (checkEmpty()) {
-            if (checkValidHours()) {
+            if (checkValidHours(id)) {
                 try {
-                    AppointmentDAO.createAppointment(AppointmentDAO.getUniqueAppointmentID(), title, desc, location, type, contact, utc_start_time.toLocalDateTime(), utc_end_time.toLocalDateTime(), user, customer);
+                    AppointmentDAO.createAppointment(id, title, desc, location, type, contact, utc_start_time.toLocalDateTime(), utc_end_time.toLocalDateTime(), user, customer);
                     onClose(actionEvent);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);

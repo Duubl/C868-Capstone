@@ -1,5 +1,6 @@
 package helper;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -21,7 +22,9 @@ public class DatabaseDriver {
     // If you can't connect, make sure the database is running.
     // Run in services.msc look for MySQL80 and start the process.
 
-    /**
+    // RESTART MySQL80 when changing time zones!
+
+     /**
      * Opens a connection to the local client_schedule database.
      */
 
@@ -49,5 +52,4 @@ public class DatabaseDriver {
             System.out.println("Failure closing connection to " + database_name);
         }
     }
-
 }

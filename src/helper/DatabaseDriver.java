@@ -11,7 +11,7 @@ public class DatabaseDriver {
     private static final String vendor = ":mysql:";
     private static final String location = "//localhost/";
     private static final String database_name = "client_schedule";
-    private static final String jdbc_url = protocol + vendor + location + database_name + "?serverTimezone=UTC"; // LOCAL
+    private static final String jdbc_url = protocol + vendor + location + database_name; // LOCAL
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     public static Connection connection; // Connection interface
 

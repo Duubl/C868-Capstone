@@ -51,7 +51,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         DatabaseDriver.openConnection();
-        System.out.println("\u001B[31m" + "RESTART MYSQL SERVICE WHEN CHANGING TIME ZONES" + "\u001B[0m");
         launch();
         DatabaseDriver.closeConnection();
     }

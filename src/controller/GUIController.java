@@ -51,6 +51,9 @@ public class GUIController implements Initializable {
     @FXML private TableColumn<Appointment, Integer> appt_cust_id_col;
     @FXML private TableColumn<Appointment, Integer> appt_user_id_col;
 
+    // Appointment search field
+    @FXML private TextField appointment_search;
+
     // Appointment radio buttons
     @FXML private RadioButton all_appt_rad;
     @FXML private RadioButton week_rad;
@@ -199,6 +202,27 @@ public class GUIController implements Initializable {
             // No appointment selected error
             Alerts.getError(7);
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Searches for appointments by name or ID.
+     * @param inputMethodEvent on searching.
+     * @throws SQLException
+     */
+    
+    public void onApptSearch(ActionEvent inputMethodEvent) throws SQLException {
+        String searchText = appointment_search.getText().trim();
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        for (Appointment appointment : AppointmentDAO.getUserAppointments(UserDAO.getCurrentUser())) {
+            if (appointment.getAppointmentTitle().toLowerCase().contains(searchText.toLowerCase()) || String.valueOf(appointment.getAppointmentID()).equals(searchText)) {
+                appointments.add(appointment);
+            }
+        }
+        if (appointments.isEmpty()) {
+            Alerts.getError(14);
+        } else {
+            appointment_table.setItems(appointments);
         }
     }
 

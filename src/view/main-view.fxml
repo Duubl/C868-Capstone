@@ -12,7 +12,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="appointment_table" layoutX="140.0" layoutY="14.0" prefHeight="500.0" prefWidth="1120.0">
+                        <TableView fx:id="appointment_table" layoutX="140.0" layoutY="51.0" prefHeight="500.0" prefWidth="1120.0">
                           <columns>
                             <TableColumn fx:id="appt_id_col" minWidth="-Infinity" prefWidth="100.0" text="Appointment ID" />
                             <TableColumn fx:id="appt_title_col" minWidth="90.0" prefWidth="90.0" text="Title" />
@@ -26,7 +26,7 @@
                               <TableColumn fx:id="appt_user_id_col" minWidth="-Infinity" prefWidth="72.0" text="User ID" />
                           </columns>
                         </TableView>
-                        <GridPane layoutX="14.0" layoutY="14.0" prefHeight="185.0" prefWidth="111.0">
+                        <GridPane layoutX="14.0" layoutY="51.0" prefHeight="185.0" prefWidth="111.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
@@ -41,7 +41,7 @@
                               <Button fx:id="update_appt_button" layoutX="10.0" layoutY="43.0" mnemonicParsing="false" onAction="#onApptModify" prefHeight="25.0" prefWidth="110.0" text="Update" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
-                        <GridPane layoutX="140.0" layoutY="514.0" prefHeight="30.0" prefWidth="415.0">
+                        <GridPane layoutX="140.0" layoutY="551.0" prefHeight="30.0" prefWidth="415.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -59,6 +59,7 @@
                               <RadioButton fx:id="month_rad" mnemonicParsing="false" onAction="#refreshAppointmentTable" prefWidth="185.0" text="Current Month" toggleGroup="$schedule" GridPane.columnIndex="2" />
                            </children>
                         </GridPane>
+                        <TextField id="appointment_search" fx:id="appointment_search" layoutX="1065.0" layoutY="14.0" onAction="#onApptSearch" prefHeight="25.0" prefWidth="195.0" promptText="Search" />
                      </children>
                   </AnchorPane>
             </content>

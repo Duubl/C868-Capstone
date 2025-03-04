@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8daa695a-37d5-4f1d-b8ed-7dcbb87d5926" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ControllerClassDiagram.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EntityClassDiagram.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +56,7 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/LeftE/Desktop/ProgrammingProjects/Minecraft Modding/MDK-1.21-NeoGradle",
+    "last_opened_file_path": "C:/Users/LeftE/Downloads/mysql-connector-j-9.0.0",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3798995",

@@ -68,7 +68,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="customer_table" layoutX="140.0" layoutY="14.0" prefHeight="500.0" prefWidth="1120.0">
+                        <TableView fx:id="customer_table" layoutX="140.0" layoutY="51.0" prefHeight="500.0" prefWidth="1120.0">
                            <columns>
                               <TableColumn fx:id="cust_id_col" minWidth="-Infinity" prefWidth="160.0" text="Customer ID" />
                               <TableColumn fx:id="cust_name_col" minWidth="-Infinity" prefWidth="160.0" text="Customer Name" />
@@ -79,7 +79,7 @@
                               <TableColumn fx:id="cust_country_col" minWidth="-Infinity" prefWidth="160.0" text="Country" />
                            </columns>
                         </TableView>
-                        <GridPane layoutX="14.0" layoutY="14.0" prefHeight="185.0" prefWidth="111.0">
+                        <GridPane layoutX="14.0" layoutY="51.0" prefHeight="185.0" prefWidth="111.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                            </columnConstraints>
@@ -94,6 +94,7 @@
                               <Button fx:id="update_customer_button" layoutX="10.0" layoutY="43.0" mnemonicParsing="false" onAction="#onCustomerModify" prefHeight="25.0" prefWidth="110.0" text="Update" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
+                        <TextField fx:id="customer_search" layoutX="1065.0" layoutY="14.0" onAction="#onCustomerSearch" prefHeight="25.0" prefWidth="195.0" promptText="Search" />
                      </children>
                   </AnchorPane>
             </content>

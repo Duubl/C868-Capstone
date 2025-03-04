@@ -75,6 +75,9 @@ public class GUIController implements Initializable {
     @FXML private TableColumn<Customer, FirstLevelDivision> cust_state_prov_col;
     @FXML private TableColumn<Customer, Country> cust_country_col;
 
+    // Customer search field
+    @FXML private TextField customer_search;
+
     // Customer buttons
     @FXML private Button add_customer_button;
     @FXML private Button delete_customer_button;
@@ -313,6 +316,27 @@ public class GUIController implements Initializable {
             // No customer selected error
             Alerts.getError(5);
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Searches for customers by name or ID.
+     * @param inputMethodEvent on searching.
+     * @throws SQLException
+     */
+
+    public void onCustomerSearch(ActionEvent inputMethodEvent) throws SQLException {
+        String searchText = customer_search.getText().trim();
+        ObservableList<Customer> customers = FXCollections.observableArrayList();
+        for (Customer customer : CustomerDAO.getAllCustomers()) {
+            if (customer.getCustomerName().toLowerCase().contains(searchText.toLowerCase()) || String.valueOf(customer.getCustomerID()).equals(searchText)) {
+                customers.add(customer);
+            }
+        }
+        if (customers.isEmpty()) {
+            Alerts.getError(14);
+        } else {
+            customer_table.setItems(customers);
         }
     }
 

@@ -1,0 +1,180 @@
+@startuml
+class User {
+    -user_id: int
+    -username: String
+    -password: String
+    -create_date: Date
+    -created_by: Date
+    -last_update: LocalDateTime
+    -last_updated_by: String
+
+    +int getUserID()
+    +void setUserID(int id)
+    +String getUsername()
+    +void setUsername(String username)
+    +String getPassword()
+    +void setPassword(String password)
+    +Date getCreateDate()
+    +void setCreateDate(Date create_date)
+    +String getCreatedBy()
+    +void setCreatedBy(String created_by)
+    +LocalDateTime getLastUpdate()
+    +void setLastUpdate(LocalDateTime last_update)
+    +String getLastUpdatedBy()
+    +void setLastUpdatedBy(String last_updated_by)
+    }
+
+class Appointment {
+    -appointment_id: int
+    -appointment_title: String
+    -appointment_description: String
+    -appointment_location: String
+    -appointment_type: String
+    -start_date_time: LocalDateTime
+    -end_date_time: LocalDateTime
+    -created_by: String
+    -last_update: LocalDateTime
+    -last_updated_by: String
+    -customer_id: int
+    -user_id: int
+    -contact_id: int
+
+    +int getAppointmentID()
+    +void setAppointmentID(int appointment_id)
+    +String getAppointmentTitle()
+    +void setAppointmentTitle(String appointment_title)
+    +String getAppointmentDescription()
+    +void setAppointmentDescription(String appointment_description)
+    +String getAppointmentLocation()
+    +void setAppointmentLocation(String appointment_location)
+    +String getAppointmentType()
+    +void setAppointmentType(String appointment_type)
+    +LocalDateTime getStartDateTime()
+    +void setStartDateTime(LocalDateTime start_date_time)
+    +LocalDateTime getLocalStartDateTime()
+    +LocalDateTime getEndDateTime()
+    +void setEndDateTime(LocalDateTime end_date_time)
+    +LocalDateTime getLocalEndDateTime()
+    +int getCustomerID()
+    +void setCustomerID(int customer_id)
+    +int getUserID()
+    +void setUserID(int user_id)
+    +int getContactID()
+    +void setContactID(int contact_id)
+    +String getCreatedBy()
+    +void setCreatedBy(String created_by)
+    +LocalDateTime getLastUpdate()
+    +void setLastUpdate(LocalDateTime last_update)
+    +String getLastUpdatedBy()
+    +void setLastUpdatedBy(String last_updated_by)
+    }
+
+class FirstLevelDivision {
+    -int: division_id
+    -String: division_name
+    -LocalDateTime: created_date
+    -String: created_by
+    -LocalDateTime: last_updated
+    -String: last_updated_by
+    -int: country_id
+
+    +int getDivisionID()
+    +void setDivisionID(int division_id)
+    +String getDivisionName()
+    +void setDivisionName(String division_name)
+    +int getCountryID()
+    +void setCountryID(int country_id)
+    +Date getCreateDate()
+    +void setCreateDate(Date create_date)
+    +String getCreatedBy()
+    +void setCreatedBy(String created_by)
+    +LocalDateTime getLastUpdate()
+    +void setLastUpdate(LocalDateTime last_update)
+    +String getLastUpdatedBy()
+    +void setLastUpdatedBy(String last_updated_by)
+}
+
+class Contact {
+    -int: contact_id
+    -String: contact_name
+    -String: contact_email
+
+    +int getContactID()
+    +void setContactID(int contact_id)
+    +String getContactName()
+    +void setContactName(String contact_name)
+    +String getContactEmail()
+    +void setContactEmail(String contact_email)
+}
+
+class Country {
+    -int: country_id
+    -String: country_name
+    -LocalDateTime: create_date
+    -String: created_by
+    -LocalDateTime: last_updated
+    -String: last_updated_by
+
+    +int getCountryID()
+    +void setCountryID(int country_id)
+    +String getCountryName()
+    +void setCountryName()
+    +void setCreateDate(Date create_date)
+    +String getCreatedBy()
+    +void setCreatedBy(String created_by)
+    +LocalDateTime getLastUpdate()
+    +void setLastUpdate(LocalDateTime last_update)
+    +String getLastUpdatedBy()
+    +void setLastUpdatedBy(String last_updated_by)
+}
+
+class Customer {
+    -int: customer_id
+    -String: customer_name
+    -String: customer_address
+    -String: customer_postal_code
+    -String: customer_phone
+    -LocalDateTime: created_at
+    -String: created_by
+    -LocalDateTime: last_updated
+    -String: last_updated_by
+    -int: customer_division_id
+    -FirstLevelDivision: division
+    -Country: country
+
+    +int getCustomerID()
+    +void setCustomerID(int customer_id)
+    +String getCustomerName()
+    +void setCustomerName(String customer_name)
+    +String getCustomerAddress()
+    +void setCustomerAddress(String customer_address)
+    +String getCustomerPostalCode()
+    +void setCustomerPostalCode(String customer_postal_code)
+    +String getCustomerPhone()
+    +void setCustomerPhone(String customer_phone)
+    +LocalDateTime getCreatedAt()
+    +void setCreatedAt(LocalDateTime created_at)
+    +String getCreatedBy()
+    +void setCreatedBy(String created_by)
+    +LocalDateTime getLastUpdate()
+    +void setLastUpdate(LocalDateTime last_update)
+    +String getLastUpdatedBy()
+    +void setLastUpdatedBy(String last_updated_by)
+    +int getCustomerDivisionID()
+    +void setCustomerDivisionID(int customer_division_id)
+    +FirstLevelDivision getDivision()
+    +void setDivision(FirstLevelDivision division)
+    +Country getCountry()
+    +void setCountry(Country country)
+    +String getCustomerCountryName()
+    +String getCustomerDivisionName()
+}
+
+Appointment <-- Customer
+Appointment <-- User
+Appointment <-- Contact
+FirstLevelDivision <-- Country
+Customer <-- FirstLevelDivision
+Customer <-- Country
+
+@enduml

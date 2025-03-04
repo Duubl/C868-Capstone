@@ -210,7 +210,7 @@ public class GUIController implements Initializable {
      * @param inputMethodEvent on searching.
      * @throws SQLException
      */
-    
+
     public void onApptSearch(ActionEvent inputMethodEvent) throws SQLException {
         String searchText = appointment_search.getText().trim();
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();

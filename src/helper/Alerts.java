@@ -109,10 +109,10 @@ public class Alerts implements Initializable {
                 alert.showAndWait();
                 break;
 
-            // Search found no appointments
+            // Search found nothing
             case 14:
                 alert.setTitle(Main.lang_bundle.getString("Error"));
-                alert.setContentText(Main.lang_bundle.getString("NoAppointmentsFound"));
+                alert.setContentText(Main.lang_bundle.getString("NoFound"));
                 alert.showAndWait();
                 break;
         }

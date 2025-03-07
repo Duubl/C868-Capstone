@@ -1,3 +1,3 @@
-Simple scheduler program designed intially for WGU C196.
+Simple scheduler program designed intially for WGU C195.
 
-This capstone project will expand upon the C196 scheduler program.
+This capstone project will expand upon the C195 scheduler program.

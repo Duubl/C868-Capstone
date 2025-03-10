@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 public class User {
     private int user_id;
+    private final boolean administrator;
     private String username;
     private String password;
     private Date create_date;
@@ -20,6 +21,16 @@ public class User {
         this.created_by = created_by;
         this.last_update = last_update;
         this.last_updated_by = last_updated_by;
+        this.administrator = user_id == 2;
+    }
+
+    /**
+     * Checks if the given user is an administrator
+     * @return true when user is an administrator, false otherwise
+     */
+
+    public boolean isAdministrator() {
+        return this.administrator;
     }
 
     /**

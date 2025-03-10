@@ -126,7 +126,7 @@
                                        </children></AnchorPane>
                               </content>
                             </Tab>
-                            <Tab text="Appointment Totals">
+                            <Tab id="appt_totals_tab" fx:id="appt_totals_tab" text="Appointment Totals">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -159,7 +159,7 @@
                                        </children></AnchorPane>
                               </content>
                             </Tab>
-                              <Tab text="Meetings Per Contact">
+                              <Tab fx:id="meetings_per_contact_tab" text="Meetings Per Contact">
                                   <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>

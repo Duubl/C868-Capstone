@@ -86,6 +86,9 @@ public class GUIController implements Initializable {
     // Reporting tab
     @FXML private Tab reporting_tab;
 
+    @FXML private Tab appt_totals_tab;
+    @FXML private Tab meetings_per_contact_tab;
+
     // Contact schedules
     @FXML private TableView<Appointment> contact_schedule_table;
     @FXML private TableColumn<Appointment, Contact> sched_contact_col;
@@ -552,6 +555,12 @@ public class GUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (!UserDAO.getCurrentUser().isAdministrator()) {
+            delete_customer_button.setVisible(false);
+            appt_totals_tab.setDisable(true);
+            meetings_per_contact_tab.setDisable(true);
+        }
+
         // Load customer data into customer table
         try {
             customer_table.setItems(CustomerDAO.getAllCustomers());

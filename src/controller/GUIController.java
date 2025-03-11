@@ -412,6 +412,7 @@ public class GUIController implements Initializable {
                 throw new Exception();
             } else {
                 if (selected.getUserID() == UserDAO.getCurrentUser().getUserID()) {
+                    // User signed on error
                     Alerts.getError(15);
                     return;
                 }

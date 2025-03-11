@@ -12,7 +12,11 @@ import model.User;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Comparator;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserDAO {
 
@@ -63,6 +67,70 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Creates a new user with the information provided in the database
+     * @param id the id for the new user
+     * @param username the username for the new user
+     * @param password the password for the new user
+     * @param admin whether the user is an administrator or not
+     * @throws SQLException
+     */
+
+    public static void createUser(int id, String username, String password, boolean admin) throws SQLException {
+        String last_updated_by = UserDAO.getCurrentUser().getUsername();
+        int int_value = admin ? 1 : 0;
+
+        String query = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+        statement.setInt(1, id);
+        statement.setString(2, username);
+        statement.setString(3, password);
+        statement.setTimestamp(4, Timestamp.valueOf(LocalDateTime.ofInstant(OffsetDateTime.now().toInstant(), ZoneOffset.UTC)));
+        statement.setString(5, last_updated_by);
+        statement.setTimestamp(6, Timestamp.valueOf(LocalDateTime.ofInstant(OffsetDateTime.now().toInstant(), ZoneOffset.UTC)));
+        statement.setString(7, last_updated_by);
+        statement.setInt(8, int_value);
+        statement.executeUpdate();
+    }
+
+    /**
+     * Updates the user with the information provided in the database.
+     * @param id the id of the user to be updated
+     * @param username the new username for the user
+     * @param password the new password for the user
+     * @param admin whether the user will be an administrator or not
+     * @throws SQLException
+     */
+
+    public static void updateUser(int id, String username, String password, boolean admin) throws SQLException {
+        String last_updated_by = UserDAO.getCurrentUser().getUsername();
+        int int_value = admin ? 1 : 0;
+
+        String query = "UPDATE users SET User_Name = ?, Password = ?, Last_Update = ?, Last_Updated_by = ?, admin = ? WHERE User_ID = ?";
+        PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+        statement.setString(1, username);
+        statement.setString(2, password);
+        statement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.ofInstant(OffsetDateTime.now().toInstant(), ZoneOffset.UTC)));
+        statement.setString(4, last_updated_by);
+        statement.setInt(5, int_value);
+        statement.setInt(6, id);
+        statement.executeUpdate();
+    }
+
+    /**
+     * Deletes the given user.
+     * @param user the user to be deleted.
+     * @throws SQLException
+     */
+
+    public static void deleteUser(User user) throws SQLException {
+        int user_id = user.getUserID();
+        String query = "DELETE FROM users WHERE User_ID = ?";
+        PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+        statement.setInt(1, user_id);
+        statement.executeUpdate();
     }
 
     /**
@@ -135,5 +203,21 @@ public class UserDAO {
         // Blank password error
         Alerts.getError(2);
         return -1;
+    }
+
+    /**
+     * Gets a unique customer ID based on the customers in the database.
+     * @return id the new unqiue ID.
+     * @throws SQLException
+     */
+
+    public static int getUniqueUserID() throws SQLException {
+        ObservableList<User> user_list = getUserList();
+        Set<Integer> existing_ids = user_list.stream().map(User::getUserID).collect(Collectors.toSet());
+        int id = 1;
+        while (existing_ids.contains(id)) {
+            id++;
+        }
+        return id;
     }
 }

@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="470.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerController">
+<AnchorPane prefHeight="470.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddUserController">
    <children>
-      <Label fx:id="add_cust_label" layoutX="139.0" layoutY="14.0" text="Add User">
+      <Label fx:id="add_user_label" layoutX="139.0" layoutY="14.0" text="Add User">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -23,27 +23,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="cust_name_label" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Username:">
+            <Label fx:id="username_label" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Username:">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="phone_label" layoutX="10.0" layoutY="31.0" text="Password:" GridPane.rowIndex="1">
+            <Label fx:id="password_label" layoutX="10.0" layoutY="31.0" text="Password:" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="address_label" layoutX="10.0" layoutY="92.0" GridPane.rowIndex="2">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="cust_name_box" GridPane.columnIndex="1" />
-            <TextField fx:id="phone_box" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" text="Adminstrator" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="username_box" GridPane.columnIndex="1" />
+            <TextField fx:id="password_box" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <CheckBox fx:id="admin_check" mnemonicParsing="false" text="Adminstrator" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Button fx:id="close_button" layoutX="331.0" layoutY="432.0" mnemonicParsing="false" onAction="#onClose" prefHeight="25.0" prefWidth="53.0" text="Close" />
-      <Button fx:id="save_button" layoutX="268.0" layoutY="432.0" mnemonicParsing="false" onAction="#onCustSave" prefHeight="25.0" prefWidth="53.0" text="Save" />
+      <Button fx:id="save_button" layoutX="268.0" layoutY="432.0" mnemonicParsing="false" onAction="#onUserSave" prefHeight="25.0" prefWidth="53.0" text="Save" />
    </children>
 </AnchorPane>

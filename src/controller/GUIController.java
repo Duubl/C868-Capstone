@@ -377,6 +377,11 @@ public class GUIController implements Initializable {
 
     // User functions
 
+    /**
+     * Opens the add user dialog
+     * @param actionEvent on add button press
+     * @throws IOException
+     */
 
     public void onUserAdd(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
@@ -394,8 +399,36 @@ public class GUIController implements Initializable {
         stage.show();
     }
 
-    public void onUserDelete(ActionEvent actionEvent) {
+    /**
+     * Deleted the selected user
+     * @param actionEvent on delete button press
+     * @throws IOException
+     */
 
+    public void onUserDelete(ActionEvent actionEvent) {
+        try {
+            User selected = user_table.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                throw new Exception();
+            } else {
+                if (selected.getUserID() == UserDAO.getCurrentUser().getUserID()) {
+                    Alerts.getError(15);
+                    return;
+                }
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                confirm.setTitle("You Sure Bud?");
+                confirm.setContentText(Main.lang_bundle.getString("DeleteConfirmUser") + " " + selected.getUsername() + "?\n" + "ID: " + selected.getUserID());
+                Optional<ButtonType> result = confirm.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    UserDAO.deleteUser(selected);
+                    refreshTables();
+                }
+            }
+        } catch (Exception e) {
+            // No appointment selected error
+            Alerts.getError(7);
+            throw new RuntimeException(e);
+        }
     }
 
     public void onUserModify(ActionEvent actionEvent) {

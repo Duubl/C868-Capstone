@@ -115,6 +115,13 @@ public class Alerts implements Initializable {
                 alert.setContentText(Main.lang_bundle.getString("NoFound"));
                 alert.showAndWait();
                 break;
+
+            // User is signed on
+            case 15:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("UserSignedOn"));
+                alert.showAndWait();
+                break;
         }
     }
 

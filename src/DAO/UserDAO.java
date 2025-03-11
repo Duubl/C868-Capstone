@@ -10,10 +10,7 @@ import main.Main;
 import model.Customer;
 import model.User;
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 
@@ -43,24 +40,28 @@ public class UserDAO {
      * Adds an admin column
      */
 
-    public static void addAdminColumn() {
-        try {
-            String query = "SELECT COUNT(*) " +
-                    "FROM information_schema.columns " +
-                    "WHERE table_name = 'users' " +
-                    "AND column_name = 'admin'";
-            PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
-            ResultSet result = statement.executeQuery();
-            // checks if column exists, if it doesn't, create it
+    public static void addAdminColumn() throws SQLException {
+        String checkColumnQuery = "SELECT column_name FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'admin'";
+        String alterTableQuery = "ALTER TABLE users ADD COLUMN admin BOOLEAN DEFAULT FALSE";
+        String updateAdmin = "UPDATE users SET admin = 1 WHERE User_Name = 'admin'";
+
+        try (Statement statement = DatabaseDriver.connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(checkColumnQuery)) {
+
+            if (!resultSet.next()) { // Column doesn't exist
+                try (Statement alterStatement = DatabaseDriver.connection.createStatement()) {
+                    alterStatement.executeUpdate(alterTableQuery);
+                    System.out.println("Column admin added to users table.");
+                    try (Statement updateStatement = DatabaseDriver.connection.createStatement()) {
+                        updateStatement.executeUpdate(updateAdmin);
+                        System.out.println("Updated admin value for admin");
+                    }
+                }
+            } else {
+                System.out.println("Column admin already exists in users table.");
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            String query = "ALTER TABLE users ADD admin BIT";
-            PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

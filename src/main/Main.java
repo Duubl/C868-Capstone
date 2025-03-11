@@ -1,5 +1,6 @@
 package main;
 
+import DAO.UserDAO;
 import helper.DatabaseDriver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -49,8 +51,9 @@ public class Main extends Application {
         return locale;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DatabaseDriver.openConnection();
+        UserDAO.addAdminColumn();
         launch();
         DatabaseDriver.closeConnection();
     }

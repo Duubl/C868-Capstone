@@ -40,7 +40,7 @@ public class UserDAO {
      * Adds an admin column
      */
 
-    public static void addAdminColumn() throws SQLException {
+    public static void addAdminColumn() {
         String checkColumnQuery = "SELECT column_name FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'admin'";
         String alterTableQuery = "ALTER TABLE users ADD COLUMN admin BOOLEAN DEFAULT FALSE";
         String updateAdmin = "UPDATE users SET admin = 1 WHERE User_Name = 'admin'";
@@ -84,8 +84,9 @@ public class UserDAO {
                 String created_by = result.getString("Created_By");
                 LocalDateTime last_update = result.getTimestamp("Last_Update").toLocalDateTime();
                 String last_updated_by = result.getString("Last_Updated_By");
+                boolean admin = result.getBoolean("admin");
 
-                User user = new User(user_id, username, password, create_date, created_by, last_update, last_updated_by);
+                User user = new User(user_id, username, password, create_date, created_by, last_update, last_updated_by, admin);
                 user_list.add(user);
             }
         } catch (SQLException e) {

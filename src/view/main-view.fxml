@@ -106,8 +106,9 @@
                             <TableView fx:id="user_table" layoutX="140.0" layoutY="51.0" prefHeight="500.0" prefWidth="1120.0">
                                 <columns>
                                     <TableColumn fx:id="user_id_col" minWidth="-Infinity" prefWidth="160.0" text="User ID" />
-                                    <TableColumn fx:id="username_col" minWidth="-Infinity" prefWidth="484.0" text="Username" />
-                                    <TableColumn fx:id="user_password_col" minWidth="-Infinity" prefWidth="474.0" text="User Password" />
+                                    <TableColumn fx:id="username_col" minWidth="-Infinity" prefWidth="430.0" text="Username" />
+                                    <TableColumn fx:id="user_password_col" minWidth="-Infinity" prefWidth="430.0" text="User Password" />
+                                    <TableColumn fx:id="user_admin_col" minWidth="-Infinity" prefWidth="99.0" text="Admin" />
                                 </columns>
                             </TableView>
                             <GridPane layoutX="14.0" layoutY="51.0" prefHeight="185.0" prefWidth="111.0">

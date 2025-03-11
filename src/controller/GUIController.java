@@ -89,6 +89,7 @@ public class GUIController implements Initializable {
     @FXML private TableColumn<User, Integer> user_id_col;
     @FXML private TableColumn<User, String> username_col;
     @FXML private TableColumn<User, String> user_password_col;
+    @FXML private TableColumn<User, Integer> user_admin_col;
 
     // User Buttons
     @FXML private Button add_user_button;
@@ -520,6 +521,7 @@ public class GUIController implements Initializable {
     public void refreshTables() throws SQLException {
         refreshAppointmentTable();
         refreshCustomerTable();
+        refreshUserTable();
         refreshScheduleTable();
         refreshMeetingsPerContactTable();
         refreshAppointmentByMonthTable();
@@ -632,7 +634,7 @@ public class GUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (!UserDAO.getCurrentUser().isAdministrator()) {
+        if (!UserDAO.getCurrentUser().getAdmin()) {
             delete_customer_button.setVisible(false);
             appt_totals_tab.setDisable(true);
             meetings_per_contact_tab.setDisable(true);
@@ -657,6 +659,7 @@ public class GUIController implements Initializable {
             user_id_col.setCellValueFactory(new PropertyValueFactory<>("userID"));
             username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
             user_password_col.setCellValueFactory(new PropertyValueFactory<>("password"));
+            user_admin_col.setCellValueFactory(new PropertyValueFactory<>("admin"));
         } catch (Exception e) { throw new RuntimeException(e); }
 
         // Load all appointment data for the user into the appointment table

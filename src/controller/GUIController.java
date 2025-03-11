@@ -433,7 +433,31 @@ public class GUIController implements Initializable {
     }
 
     public void onUserModify(ActionEvent actionEvent) {
-
+        try {
+            User selected = user_table.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                throw new Exception();
+            } else {
+                user_to_modify = selected;
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/modify-user-view.fxml"))));
+                stage.setScene(scene);
+                stage.setTitle(Main.lang_bundle.getString("ModifyUser"));
+                stage.setResizable(false);
+                stage.setOnHidden(e -> {
+                    try {
+                        refreshTables();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+                stage.show();
+            }
+        } catch (Exception e) {
+            // No customer selected error
+            Alerts.getError(5);
+            throw new RuntimeException(e);
+        }
     }
 
     /**

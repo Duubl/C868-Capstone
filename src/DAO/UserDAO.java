@@ -5,6 +5,7 @@ import helper.DatabaseDriver;
 import helper.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 import main.Main;
 import model.Customer;
 import model.User;
@@ -36,6 +37,31 @@ public class UserDAO {
 
     public static void setCurrentUser(User user) {
         current_user = user;
+    }
+
+    /**
+     * Adds an admin column
+     */
+
+    public static void addAdminColumn() {
+        try {
+            String query = "SELECT COUNT(*) " +
+                    "FROM information_schema.columns " +
+                    "WHERE table_name = 'users' " +
+                    "AND column_name = 'admin'";
+            PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            // checks if column exists, if it doesn't, create it
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            String query = "ALTER TABLE users ADD admin BIT";
+            PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

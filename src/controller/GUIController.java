@@ -83,6 +83,21 @@ public class GUIController implements Initializable {
     @FXML private Button delete_customer_button;
     @FXML private Button update_customer_button;
 
+    // Users tab
+    @FXML private Tab users_tab;
+    @FXML private TableView<User> user_table;
+    @FXML private TableColumn<User, Integer> user_id_col;
+    @FXML private TableColumn<User, String> username_col;
+    @FXML private TableColumn<User, String> user_password_col;
+
+    // User Buttons
+    @FXML private Button add_user_button;
+    @FXML private Button delete_user_button;
+    @FXML private Button update_user_button;
+
+    // User search field
+    @FXML private TextField user_search;
+
     // Reporting tab
     @FXML private Tab reporting_tab;
 
@@ -102,8 +117,6 @@ public class GUIController implements Initializable {
     @FXML private TableColumn<Appointment, Customer> sched_cust_col;
     @FXML private ComboBox<Contact> contact_combo;
 
-    // Appointment totals
-
     // Type
     @FXML private TableView<Map.Entry<String, Integer>> appt_by_type_table;
     @FXML private TableColumn<Map.Entry<String, Integer>, String> appt_by_type_col;
@@ -119,9 +132,10 @@ public class GUIController implements Initializable {
     @FXML private TableColumn<Contact, Contact> meet_count_contact_col;
     @FXML private TableColumn<Contact, Integer> meet_count_col;
 
-    // Customer and appointment to modify
+    // Customer, user and appointment to modify
     private static Customer customer_to_modify;
     private static Appointment appointment_to_modify;
+    private static User user_to_modify;
 
     // Reporting buttons
 
@@ -360,6 +374,54 @@ public class GUIController implements Initializable {
         return false;
     }
 
+    // User functions
+
+
+    public void onUserAdd(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-user-view.fxml"))));
+        stage.setScene(scene);
+        stage.setTitle(Main.lang_bundle.getString("AddUser"));
+        stage.setResizable(false);
+        stage.setOnHidden(e -> {
+            try {
+                refreshTables();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        stage.show();
+    }
+
+    public void onUserDelete(ActionEvent actionEvent) {
+
+    }
+
+    public void onUserModify(ActionEvent actionEvent) {
+
+    }
+
+    /**
+     * Searches for users by name or ID.
+     * @param inputMethodEvent on searching.
+     * @throws SQLException
+     */
+
+    public void onUserSearch(ActionEvent inputMethodEvent) {
+        String searchText = user_search.getText().trim();
+        ObservableList<User> users = FXCollections.observableArrayList();
+        for (User user : UserDAO.getUserList()) {
+            if (user.getUsername().toLowerCase().contains(searchText.toLowerCase()) || String.valueOf(user.getUserID()).equals(searchText)) {
+                users.add(user);
+            }
+        }
+        if (users.isEmpty()) {
+            Alerts.getError(14);
+        } else {
+            user_table.setItems(users);
+        }
+    }
+
     // Reporting functions
 
     /**
@@ -488,6 +550,14 @@ public class GUIController implements Initializable {
     }
 
     /**
+     * Refreshes the user table
+     */
+
+    public void refreshUserTable() {
+        user_table.setItems(UserDAO.getUserList());
+    }
+
+    /**
      * Refreshes the appointment by type table
      */
 
@@ -536,6 +606,13 @@ public class GUIController implements Initializable {
     }
 
     /**
+     * Gets a user to be modified
+     * @return user_to_modify the user being modified
+     */
+
+    public static User getUserToModify() { return user_to_modify; }
+
+    /**
      * Gets a customer to be modified
      * @return customer_to_modify the customer being modified
      */
@@ -559,6 +636,7 @@ public class GUIController implements Initializable {
             delete_customer_button.setVisible(false);
             appt_totals_tab.setDisable(true);
             meetings_per_contact_tab.setDisable(true);
+            users_tab.setDisable(true);
         }
 
         // Load customer data into customer table
@@ -572,6 +650,14 @@ public class GUIController implements Initializable {
             cust_state_prov_col.setCellValueFactory(new PropertyValueFactory<>("customerDivisionName"));
             cust_country_col.setCellValueFactory(new PropertyValueFactory<>("customerCountryName"));
         } catch (SQLException e) { throw new RuntimeException(e); }
+
+        // Load user data into user table
+        try {
+            user_table.setItems(UserDAO.getUserList());
+            user_id_col.setCellValueFactory(new PropertyValueFactory<>("userID"));
+            username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
+            user_password_col.setCellValueFactory(new PropertyValueFactory<>("password"));
+        } catch (Exception e) { throw new RuntimeException(e); }
 
         // Load all appointment data for the user into the appointment table
         try {

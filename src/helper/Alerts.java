@@ -136,6 +136,13 @@ public class Alerts implements Initializable {
                 alert.setContentText(Main.lang_bundle.getString("NoMatch"));
                 alert.showAndWait();
                 break;
+
+            // No contact selected
+            case 18:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("NoContactSelected"));
+                alert.showAndWait();
+                break;
         }
     }
 

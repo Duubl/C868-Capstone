@@ -152,6 +152,7 @@ public class GUIController implements Initializable {
     private static Customer customer_to_modify;
     private static Appointment appointment_to_modify;
     private static User user_to_modify;
+    private static Contact contact_to_modify;
 
     // Reporting buttons
 
@@ -447,6 +448,11 @@ public class GUIController implements Initializable {
         }
     }
 
+    /**
+     * Opens the modify user dialog
+     * @param actionEvent
+     */
+
     public void onUserModify(ActionEvent actionEvent) {
         try {
             User selected = user_table.getSelectionModel().getSelectedItem();
@@ -498,6 +504,12 @@ public class GUIController implements Initializable {
 
     // Contacts functions
 
+    /**
+     * Opens the add contact dialog
+     * @param actionEvent
+     * @throws IOException
+     */
+
     public void onContactAdd(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
         Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-contact-view.fxml"))));
@@ -514,9 +526,43 @@ public class GUIController implements Initializable {
         stage.show();
     }
 
-    public void onContactModify(ActionEvent actionEvent) {
+    /**
+     * Opens the modify contact dialog
+     * @param actionEvent
+     */
 
+    public void onContactModify(ActionEvent actionEvent) {
+        try {
+            Contact selected = contact_table.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                throw new Exception();
+            } else {
+                contact_to_modify = selected;
+                Stage stage = new Stage();
+                Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/modify-contact-view.fxml"))));
+                stage.setScene(scene);
+                stage.setTitle(Main.lang_bundle.getString("ModifyContact"));
+                stage.setResizable(false);
+                stage.setOnHidden(e -> {
+                    try {
+                        refreshTables();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+                stage.show();
+            }
+        } catch (Exception e) {
+            // No contact selected error
+            Alerts.getError(18);
+            throw new RuntimeException(e);
+        }
     }
+
+    /**
+     * Deletes the selected contact after a confirmation
+     * @param actionEvent
+     */
 
     public void onContactDelete(ActionEvent actionEvent) {
         try {
@@ -770,12 +816,19 @@ public class GUIController implements Initializable {
 
     /**
      * Gets an appointment to be modified
-     * @return appointment_to_modify the customer being modified
+     * @return appointment_to_modify the appointment being modified
      */
 
     public static Appointment getAppointmentToModify() {
         return appointment_to_modify;
     }
+
+    /**
+     * Gets a contact to be modified
+     * @return contact_to_modify the contact being modified
+     */
+
+    public static Contact getContactToModify() { return contact_to_modify; }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -129,6 +129,13 @@ public class Alerts implements Initializable {
                 alert.setContentText(Main.lang_bundle.getString("NoUserSelected"));
                 alert.showAndWait();
                 break;
+
+            // Passwords don't match
+            case 17:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("NoMatch"));
+                alert.showAndWait();
+                break;
         }
     }
 

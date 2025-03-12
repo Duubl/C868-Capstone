@@ -498,8 +498,20 @@ public class GUIController implements Initializable {
 
     // Contacts functions
 
-    public void onContactAdd(ActionEvent actionEvent) {
-
+    public void onContactAdd(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/add-contact-view.fxml"))));
+        stage.setScene(scene);
+        stage.setTitle(Main.lang_bundle.getString("AddContact"));
+        stage.setResizable(false);
+        stage.setOnHidden(e -> {
+            try {
+                refreshTables();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        stage.show();
     }
 
     public void onContactModify(ActionEvent actionEvent) {

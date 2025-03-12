@@ -11,7 +11,13 @@ import model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Comparator;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ContactDAO {
 
@@ -39,6 +45,40 @@ public class ContactDAO {
         }
         contact_list.sort(Comparator.comparing(Contact::getContactID));
         return contact_list;
+    }
+
+    /**
+     * Creates a new contact with the information provided in the database
+     * @param id the id for the new contact
+     * @param name the name for the new contact
+     * @param email the email for the new contact
+     * @throws SQLException
+     */
+
+    public static void createContact(int id, String name, String email) throws SQLException {
+        String query = "INSERT INTO contacts VALUES (?, ?, ?)";
+        PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+        statement.setInt(1, id);
+        statement.setString(2, name);
+        statement.setString(3, email);
+        statement.executeUpdate();
+    }
+
+    /**
+     * Updates the contact with the information provided in the database.
+     * @param id the id for the contact
+     * @param name the name for the contact
+     * @param email the email for the contact
+     * @throws SQLException
+     */
+
+    public static void updateContact(int id, String name, String email) throws SQLException {
+        String query = "UPDATE contacts SET Contact_Name = ?, Email = ? WHERE Contact_ID = ?";
+        PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+        statement.setString(1, name);
+        statement.setString(2, email);
+        statement.setInt(3, id);
+        statement.executeUpdate();
     }
 
     /**
@@ -77,5 +117,21 @@ public class ContactDAO {
     public static int getAppointmentCount(Contact contact) throws SQLException {
         ObservableList<Appointment> all_appointments = getContactAppointments(contact);
         return all_appointments.size();
+    }
+
+    /**
+     * Gets a unique contact ID based on the contacts in the database.
+     * @return id the new unqiue ID.
+     * @throws SQLException
+     */
+
+    public static int getUniqueContactID() {
+        ObservableList<Contact> contact_list = getContactList();
+        Set<Integer> existing_ids = contact_list.stream().map(Contact::getContactID).collect(Collectors.toSet());
+        int id = 1;
+        while (existing_ids.contains(id)) {
+            id++;
+        }
+        return id;
     }
 }

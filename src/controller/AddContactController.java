@@ -10,6 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.FirstLevelDivision;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class AddContactController {
 
     @FXML private Label add_contact_label;
@@ -20,6 +23,9 @@ public class AddContactController {
     @FXML protected Button close_button;
     @FXML protected Button save_button;
 
+    // Email regex
+    protected static final String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
     /**
      * Creates a new contact based on the information provided.
      * @param actionEvent
@@ -28,13 +34,22 @@ public class AddContactController {
     public void onContactSave(ActionEvent actionEvent) {
         String name = contact_name_box.getText();
         String email = contact_email_box.getText();
-        if (checkEmpty()) {
-            try {
-                ContactDAO.createContact(ContactDAO.getUniqueContactID(), name, email);
-                onClose(actionEvent);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+
+        if (matcher.matches()) {
+            if (checkEmpty()) {
+                try {
+                    ContactDAO.createContact(ContactDAO.getUniqueContactID(), name, email);
+                    onClose(actionEvent);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
+        } else {
+            // Incorrect email formatting!
+            Alerts.getError(19);
         }
     }
 

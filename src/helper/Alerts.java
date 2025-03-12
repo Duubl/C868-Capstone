@@ -143,6 +143,13 @@ public class Alerts implements Initializable {
                 alert.setContentText(Main.lang_bundle.getString("NoContactSelected"));
                 alert.showAndWait();
                 break;
+
+            // Incorrect email formatting
+            case 19:
+                alert.setTitle(Main.lang_bundle.getString("Error"));
+                alert.setContentText(Main.lang_bundle.getString("EmailFormatting"));
+                alert.showAndWait();
+                break;
         }
     }
 

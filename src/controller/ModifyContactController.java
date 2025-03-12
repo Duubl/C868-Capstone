@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.ContactDAO;
+import helper.Alerts;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +10,8 @@ import model.Contact;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ModifyContactController extends AddContactController implements Initializable {
 
@@ -24,13 +27,22 @@ public class ModifyContactController extends AddContactController implements Ini
     public void onContactSave(ActionEvent actionEvent) {
         String name = contact_name_box.getText();
         String email = contact_email_box.getText();
-        if (checkEmpty()) {
-            try {
-                ContactDAO.updateContact(selected.getContactID(), name, email);
-                onClose(actionEvent);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+
+        if (matcher.matches()) {
+            if (checkEmpty()) {
+                try {
+                    ContactDAO.updateContact(selected.getContactID(), name, email);
+                    onClose(actionEvent);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
+        } else {
+            // Incorrect email formatting!
+            Alerts.getError(19);
         }
     }
 

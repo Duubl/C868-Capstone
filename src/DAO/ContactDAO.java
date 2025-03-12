@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import model.Appointment;
 import model.Contact;
 import model.Customer;
+import model.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +39,20 @@ public class ContactDAO {
         }
         contact_list.sort(Comparator.comparing(Contact::getContactID));
         return contact_list;
+    }
+
+    /**
+     * Deletes the given contact.
+     * @param contact the contact to be deleted.
+     * @throws SQLException
+     */
+
+    public static void deleteContact(Contact contact) throws SQLException {
+        int contact_id = contact.getContactID();
+        String query = "DELETE FROM contacts WHERE Contact_ID = ?";
+        PreparedStatement statement = DatabaseDriver.connection.prepareStatement(query);
+        statement.setInt(1, contact_id);
+        statement.executeUpdate();
     }
 
     /**

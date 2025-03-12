@@ -507,7 +507,25 @@ public class GUIController implements Initializable {
     }
 
     public void onContactDelete(ActionEvent actionEvent) {
-
+        try {
+            Contact selected = contact_table.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                throw new Exception();
+            } else {
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                confirm.setTitle("You Sure Bud?");
+                confirm.setContentText(Main.lang_bundle.getString("DeleteConfirmContact") + " " + selected.getContactName() + "?\n" + "ID: " + selected.getContactID());
+                Optional<ButtonType> result = confirm.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    ContactDAO.deleteContact(selected);
+                    refreshTables();
+                }
+            }
+        } catch (Exception e) {
+            // No appointment selected error
+            Alerts.getError(7);
+            throw new RuntimeException(e);
+        }
     }
 
     /**

@@ -23,6 +23,8 @@ public class ModifyUserController extends AddUserController implements Initializ
      * @param actionEvent
      */
 
+    // TODO: Add password requirements to meet industry appropriate security features
+
     @Override
     public void onUserSave(ActionEvent actionEvent) {
         String username = username_box.getText();

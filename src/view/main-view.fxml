@@ -137,9 +137,9 @@
                         <children>
                             <TableView fx:id="contact_table" layoutX="140.0" layoutY="51.0" prefHeight="500.0" prefWidth="1120.0">
                                 <columns>
-                                    <TableColumn fx:id="contact_id_col" minWidth="-Infinity" prefWidth="160.0" text="User ID" />
-                                    <TableColumn fx:id="contact_name_col" minWidth="-Infinity" prefWidth="430.0" text="Username" />
-                                    <TableColumn fx:id="contact_email_col" minWidth="-Infinity" prefWidth="430.0" text="User Password" />
+                                    <TableColumn fx:id="contact_id_col" minWidth="-Infinity" prefWidth="160.0" text="Contact ID" />
+                                    <TableColumn fx:id="contact_name_col" minWidth="-Infinity" prefWidth="430.0" text="Name" />
+                                    <TableColumn fx:id="contact_email_col" minWidth="-Infinity" prefWidth="529.0" text="Email" />
                                 </columns>
                             </TableView>
                             <GridPane layoutX="14.0" layoutY="51.0" prefHeight="185.0" prefWidth="111.0">
@@ -152,12 +152,12 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                 <children>
-                                    <Button fx:id="add_contact_button" mnemonicParsing="false" onAction="#onUserAdd" prefHeight="25.0" prefWidth="112.0" text="Add" />
-                                    <Button fx:id="delete_contact_button" mnemonicParsing="false" onAction="#onUserDelete" prefHeight="25.0" prefWidth="112.0" text="Delete" GridPane.rowIndex="1" />
-                                    <Button fx:id="update_contact_button" layoutX="10.0" layoutY="43.0" mnemonicParsing="false" onAction="#onUserModify" prefHeight="25.0" prefWidth="110.0" text="Update" GridPane.rowIndex="2" />
+                                    <Button fx:id="add_contact_button" mnemonicParsing="false" onAction="#onContactAdd" prefHeight="25.0" prefWidth="112.0" text="Add" />
+                                    <Button fx:id="delete_contact_button" mnemonicParsing="false" onAction="#onContactDelete" prefHeight="25.0" prefWidth="112.0" text="Delete" GridPane.rowIndex="1" />
+                                    <Button fx:id="update_contact_button" layoutX="10.0" layoutY="43.0" mnemonicParsing="false" onAction="#onContactModify" prefHeight="25.0" prefWidth="110.0" text="Update" GridPane.rowIndex="2" />
                                 </children>
                             </GridPane>
-                            <TextField fx:id="contact_search" layoutX="1065.0" layoutY="14.0" onAction="#onUserSearch" prefHeight="25.0" prefWidth="195.0" promptText="Search" />
+                            <TextField fx:id="contact_search" layoutX="1065.0" layoutY="14.0" onAction="#onContactSearch" prefHeight="25.0" prefWidth="195.0" promptText="Search" />
                         </children>
                     </AnchorPane>
                 </content>

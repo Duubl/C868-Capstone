@@ -496,6 +496,41 @@ public class GUIController implements Initializable {
         }
     }
 
+    // Contacts functions
+
+    public void onContactAdd(ActionEvent actionEvent) {
+
+    }
+
+    public void onContactModify(ActionEvent actionEvent) {
+
+    }
+
+    public void onContactDelete(ActionEvent actionEvent) {
+
+    }
+
+    /**
+     * Searches for users by name or ID.
+     * @param inputMethodEvent on searching.
+     * @throws SQLException
+     */
+
+    public void onContactSearch(ActionEvent inputMethodEvent) {
+        String searchText = contact_search.getText().trim();
+        ObservableList<Contact> contacts = FXCollections.observableArrayList();
+        for (Contact contact : ContactDAO.getContactList()) {
+            if (contact.getContactName().toLowerCase().contains(searchText.toLowerCase()) || String.valueOf(contact.getContactID()).equals(searchText)) {
+                contacts.add(contact);
+            }
+        }
+        if (contacts.isEmpty()) {
+            Alerts.getError(14);
+        } else {
+            contact_table.setItems(contacts);
+        }
+    }
+
     // Reporting functions
 
     /**
@@ -595,6 +630,7 @@ public class GUIController implements Initializable {
         refreshAppointmentTable();
         refreshCustomerTable();
         refreshUserTable();
+        refreshContactTable();
         refreshScheduleTable();
         refreshMeetingsPerContactTable();
         refreshAppointmentByMonthTable();
@@ -631,6 +667,12 @@ public class GUIController implements Initializable {
     public void refreshUserTable() {
         user_table.setItems(UserDAO.getUserList());
     }
+
+    /**
+     * Refreshes the contact table
+     */
+
+    public void refreshContactTable() { contact_table.setItems(ContactDAO.getContactList()); }
 
     /**
      * Refreshes the appointment by type table
@@ -734,6 +776,14 @@ public class GUIController implements Initializable {
             username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
             user_password_col.setCellValueFactory(new PropertyValueFactory<>("password"));
             user_admin_col.setCellValueFactory(new PropertyValueFactory<>("admin"));
+        } catch (Exception e) { throw new RuntimeException(e); }
+
+        // Load user data into contact table
+        try {
+            contact_table.setItems(ContactDAO.getContactList());
+            contact_id_col.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+            contact_name_col.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+            contact_email_col.setCellValueFactory(new PropertyValueFactory<>("contactEmail"));
         } catch (Exception e) { throw new RuntimeException(e); }
 
         // Load all appointment data for the user into the appointment table

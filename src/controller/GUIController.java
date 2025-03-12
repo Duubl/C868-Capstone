@@ -99,6 +99,21 @@ public class GUIController implements Initializable {
     // User search field
     @FXML private TextField user_search;
 
+    // Contacts tab
+    @FXML private Tab contacts_tab;
+
+    // Contact buttons
+    @FXML private TableView<Contact> contact_table;
+    @FXML private TableColumn<Contact, Integer> contact_id_col;
+    @FXML private TableColumn<Contact, String> contact_name_col;
+    @FXML private TableColumn<Contact, String> contact_email_col;
+    @FXML private Button add_contact_button;
+    @FXML private Button delete_contact_button;
+    @FXML private Button update_contact_button;
+
+    // Contact search field
+    @FXML private TextField contact_search;
+
     // Reporting tab
     @FXML private Tab reporting_tab;
 
@@ -697,6 +712,7 @@ public class GUIController implements Initializable {
             appt_totals_tab.setDisable(true);
             meetings_per_contact_tab.setDisable(true);
             users_tab.setDisable(true);
+            contacts_tab.setDisable(true);
         }
 
         // Load customer data into customer table

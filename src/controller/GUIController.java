@@ -443,7 +443,7 @@ public class GUIController implements Initializable {
             }
         } catch (Exception e) {
             // No appointment selected error
-            Alerts.getError(7);
+            Alerts.getError(16);
             throw new RuntimeException(e);
         }
     }
@@ -476,7 +476,7 @@ public class GUIController implements Initializable {
             }
         } catch (Exception e) {
             // No customer selected error
-            Alerts.getError(5);
+            Alerts.getError(16);
             throw new RuntimeException(e);
         }
     }
@@ -580,8 +580,8 @@ public class GUIController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            // No appointment selected error
-            Alerts.getError(7);
+            // No contact selected error
+            Alerts.getError(18);
             throw new RuntimeException(e);
         }
     }

@@ -19,7 +19,7 @@ public class ModifyUserController extends AddUserController implements Initializ
     private Label modify_user_label;
 
     /**
-     * Creates a new user based on the input provided.
+     * Modifies the selected user.
      * @param actionEvent
      */
 

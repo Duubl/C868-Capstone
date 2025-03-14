@@ -194,7 +194,7 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <GridPane layoutX="10.0" layoutY="11.0" prefHeight="500.0" prefWidth="1261.0">
+                                          <GridPane layoutX="80.0" layoutY="14.0" prefHeight="500.0" prefWidth="1120.0">
                                             <columnConstraints>
                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -203,10 +203,10 @@
                                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <TableView fx:id="appt_by_type_table" prefHeight="500.0" prefWidth="631.0">
+                                                <TableView fx:id="appt_by_type_table" prefHeight="500.0" prefWidth="613.0">
                                                   <columns>
-                                                    <TableColumn fx:id="appt_by_type_col" prefWidth="500.0" text="Appointment by Type" />
-                                                    <TableColumn fx:id="appt_by_type_total_col" prefWidth="130.0" text="Total" />
+                                                    <TableColumn fx:id="appt_by_type_col" prefWidth="467.0" text="Appointment by Type" />
+                                                    <TableColumn fx:id="appt_by_type_total_col" prefWidth="91.0" text="Total" />
                                                   </columns>
                                                    <GridPane.margin>
                                                       <Insets />
@@ -214,8 +214,8 @@
                                                 </TableView>
                                                 <TableView fx:id="appt_by_month_table" prefHeight="500.0" prefWidth="622.0" GridPane.columnIndex="1">
                                                   <columns>
-                                                    <TableColumn fx:id="appt_by_month_col" prefWidth="500.0" text="Appointment by Month" />
-                                                    <TableColumn fx:id="appt_by_month_total_col" prefWidth="130.0" text="Total" />
+                                                    <TableColumn fx:id="appt_by_month_col" prefWidth="469.0" text="Appointment by Month" />
+                                                    <TableColumn fx:id="appt_by_month_total_col" prefWidth="89.0" text="Total" />
                                                   </columns>
                                                 </TableView>
                                              </children>

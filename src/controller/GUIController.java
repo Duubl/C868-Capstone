@@ -22,16 +22,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import main.Main;
 
-import java.time.Month;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -148,11 +146,19 @@ public class GUIController implements Initializable {
     @FXML private TableColumn<Contact, Contact> meet_count_contact_col;
     @FXML private TableColumn<Contact, Integer> meet_count_col;
 
+    // Report timestamp labels
+    @FXML private Label schedule_update_label;
+    @FXML private Label appt_total_update_label;
+    @FXML private Label meetings_per_contact_update_label;
+
     // Customer, user and appointment to modify
     private static Customer customer_to_modify;
     private static Appointment appointment_to_modify;
     private static User user_to_modify;
     private static Contact contact_to_modify;
+
+    // Date formatting
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Reporting buttons
 
@@ -711,6 +717,10 @@ public class GUIController implements Initializable {
         refreshMeetingsPerContactTable();
         refreshAppointmentByMonthTable();
         refreshAppointmentByTypeTable();
+
+        schedule_update_label.setText("Last updated: " + LocalDateTime.now().format(formatter));
+        appt_total_update_label.setText("Last updated: " + LocalDateTime.now().format(formatter));
+        meetings_per_contact_update_label.setText("Last updated: " + LocalDateTime.now().format(formatter));
     }
 
     /**
@@ -832,6 +842,10 @@ public class GUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        schedule_update_label.setText("Last updated: " + LocalDateTime.now().format(formatter));
+        appt_total_update_label.setText("Last updated: " + LocalDateTime.now().format(formatter));
+        meetings_per_contact_update_label.setText("Last updated: " + LocalDateTime.now().format(formatter));
+
         if (!UserDAO.getCurrentUser().getAdmin()) {
             delete_customer_button.setVisible(false);
             appt_totals_tab.setDisable(true);

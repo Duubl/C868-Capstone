@@ -1,6 +1,8 @@
 @startuml
+
 class User {
     -user_id: int
+    -admin: boolean
     -username: String
     -password: String
     -create_date: Date
@@ -8,6 +10,7 @@ class User {
     -last_update: LocalDateTime
     -last_updated_by: String
 
+    +boolean getAdmin()
     +int getUserID()
     +void setUserID(int id)
     +String getUsername()
@@ -171,10 +174,10 @@ class Customer {
 }
 
 Appointment <-- Customer
-Appointment <-- User
-Appointment <-- Contact
-FirstLevelDivision <-- Country
-Customer <-- FirstLevelDivision
-Customer <-- Country
+Appointment <- User
+Appointment <- Contact
+FirstLevelDivision <- Country
+Customer <- FirstLevelDivision
+Customer <- Country
 
 @enduml

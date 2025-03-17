@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class ModifyContactController extends AddContactController implements Initializable {
 
-    private static Contact selected;
+    static Contact selected;
 
     @FXML private Label modify_contact_label;
 
@@ -28,10 +28,7 @@ public class ModifyContactController extends AddContactController implements Ini
         String name = contact_name_box.getText();
         String email = contact_email_box.getText();
 
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-
-        if (matcher.matches()) {
+        if (isEmailValid(email)) {
             if (checkEmpty()) {
                 try {
                     ContactDAO.updateContact(selected.getContactID(), name, email);
@@ -44,6 +41,18 @@ public class ModifyContactController extends AddContactController implements Ini
             // Incorrect email formatting!
             Alerts.getError(19);
         }
+    }
+
+    /**
+     * Checks for a valid email address.
+     * @param email the email to be checked.
+     * @return true when valid, false otherwise.
+     */
+
+    public boolean isEmailValid(String email) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     @Override

@@ -27,5 +27,6 @@ class ModifyContactControllerTest {
         assertFalse(controller.isEmailValid("user@com"));
         assertFalse(controller.isEmailValid("user@domain,com"));
         assertFalse(controller.isEmailValid("user@domain..com"));
+        assertFalse(controller.isEmailValid("user domain@gmail.com"));
     }
 }

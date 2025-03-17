@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8daa695a-37d5-4f1d-b8ed-7dcbb87d5926" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/test/controller/ModifyContactControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ModifyContactController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ModifyContactController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/controller/ModifyContactControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/controller/ModifyContactControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +36,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -55,6 +57,7 @@
     "DefaultPlantUmlFileTemplate": "UML Class",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.ModifyContactControllerTest.executor": "Run",
+    "JUnit.ModifyContactControllerTest.testIsEmailValid_InvalidEmails.executor": "Run",
     "JUnit.ModifyContactControllerTest.testIsEmailValid_ValidEmails.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
@@ -93,7 +96,7 @@
       <recent name="controller" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ModifyContactControllerTest.testIsEmailValid_ValidEmails">
+  <component name="RunManager" selected="JUnit.ModifyContactControllerTest.testIsEmailValid_InvalidEmails">
     <configuration name="Run" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="main.Main" />
       <module name="C195" />
@@ -116,6 +119,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ModifyContactControllerTest.testIsEmailValid_InvalidEmails" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="C195" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="controller" />
+      <option name="MAIN_CLASS_NAME" value="controller.ModifyContactControllerTest" />
+      <option name="METHOD_NAME" value="testIsEmailValid_InvalidEmails" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ModifyContactControllerTest.testIsEmailValid_ValidEmails" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="C195" />
       <extension name="coverage">
@@ -134,8 +153,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ModifyContactControllerTest.testIsEmailValid_ValidEmails" />
+        <item itemvalue="JUnit.ModifyContactControllerTest.testIsEmailValid_InvalidEmails" />
         <item itemvalue="JUnit.ModifyContactControllerTest" />
+        <item itemvalue="JUnit.ModifyContactControllerTest.testIsEmailValid_ValidEmails" />
       </list>
     </recent_temporary>
   </component>

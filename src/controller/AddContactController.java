@@ -24,7 +24,7 @@ public class AddContactController {
     @FXML protected Button save_button;
 
     // Email regex
-    protected static final String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    protected static final String regex = "^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$";
 
     /**
      * Creates a new contact based on the information provided.

@@ -127,7 +127,7 @@ public class AddAppointmentControllerTest extends ApplicationTest {
     }
 
     @Test
-    void testcheckValidHoursInvalid() {
+    void testCheckValidHoursInvalid() {
         Platform.runLater(() -> {
             DatePicker start_date = new DatePicker();
             DatePicker end_date = new DatePicker();

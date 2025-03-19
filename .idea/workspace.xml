@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8daa695a-37d5-4f1d-b8ed-7dcbb87d5926" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/helper/JavaFXInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/controller/AddAppointmentControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/controller/AddAppointmentControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/controller/AddAppointmentControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +57,7 @@
     "DefaultPlantUmlFileTemplate": "UML Class",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.AddAppointmentControllerTest.executor": "Run",
+    "JUnit.AddAppointmentControllerTest.testCheckValidHoursValid.executor": "Run",
     "JUnit.ModifyContactControllerTest.executor": "Run",
     "JUnit.ModifyContactControllerTest.testIsEmailValid_InvalidEmails.executor": "Run",
     "JUnit.ModifyContactControllerTest.testIsEmailValid_ValidEmails.executor": "Run",
@@ -121,6 +121,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AddAppointmentControllerTest.testCheckValidHoursValid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="C195" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="controller" />
+      <option name="MAIN_CLASS_NAME" value="controller.AddAppointmentControllerTest" />
+      <option name="METHOD_NAME" value="testCheckValidHoursValid" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ModifyContactControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="C195" />
       <extension name="coverage">
@@ -171,6 +187,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.AddAppointmentControllerTest" />
+        <item itemvalue="JUnit.AddAppointmentControllerTest.testCheckValidHoursValid" />
         <item itemvalue="JUnit.ModifyContactControllerTest" />
         <item itemvalue="JUnit.ModifyContactControllerTest.testIsEmailValid_InvalidEmails" />
         <item itemvalue="JUnit.ModifyContactControllerTest.testIsEmailValid_ValidEmails" />
